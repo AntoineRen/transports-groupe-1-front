@@ -10,13 +10,19 @@ import {StatutConnecteService} from './auth/statut-connecte.service';
 import {AuthInterceptorService} from './auth/auth-interceptor.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
+import { ChauffeurComponent } from './chauffeur/chauffeur.component';
+import { CollaborateurComponent } from './collaborateur/collaborateur.component';
+import { AdministrateurComponent } from './administrateur/administrateur.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthComponent,
-    TechComponent
+    TechComponent,
+    ChauffeurComponent,
+    CollaborateurComponent,
+    AdministrateurComponent
   ],
   imports: [
     BrowserModule,
