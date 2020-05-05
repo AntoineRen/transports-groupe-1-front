@@ -13,8 +13,8 @@
     </thead>
     <tbody>
       <tr *ngFor="let reservation of reservationsCourantes">
-        <th scope="row">{{reservation.dateDepart}}</th>
-        <td>{{reservation.dateArrivee}}</td>
+        <td scope="row">{{reservation.dateDepart.toDateString()}}<br/>{{reservation.dateDepart.toLocaleTimeString()}}</td>
+        <td>{{reservation.dateArrivee.toDateString()}}<br/>{{reservation.dateArrivee.toLocaleTimeString()}}</td>
         <td>{{reservation.immatriculation}}</td>
         <td>{{reservation.marque}}</td>
         <td>{{reservation.modele}}</td>
@@ -36,8 +36,8 @@
     </thead>
     <tbody>
       <tr *ngFor="let reservation of reservationsHistorique">
-        <th scope="row">{{reservation.dateDepart}}</th>
-        <td>{{reservation.dateArrivee}}</td>
+        <td scope="row">{{reservation.dateDepart.toDateString()}}<br/>{{reservation.dateDepart.toLocaleTimeString()}}</td>
+        <td>{{reservation.dateArrivee.toDateString()}}<br/>{{reservation.dateArrivee.toLocaleTimeString()}}</td>
         <td>{{reservation.immatriculation}}</td>
         <td>{{reservation.marque}}</td>
         <td>{{reservation.modele}}</td>

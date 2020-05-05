@@ -11,18 +11,39 @@ import { ReservationsService } from './reservations.service';
 export class RecapResaVehiculeSocieteComponent implements OnInit {
 
   @Input() col: Collegue;
-  listeReservations: Reservation[];
   reservationsCourantes: Reservation[];
   reservationsHistorique: Reservation[];
+  start = 0;
+  size = 3;
 
   constructor(private reservationsService: ReservationsService) { }
 
-  ngOnInit(): void {
-    // recuperation de la liste des reservations du collegue courant
-    this.reservationsService.requestGetReservations(this.col.email).subscribe(
-      listeResaServeur => this.listeReservations = listeResaServeur.map(resaServeur => new Reservation(resaServeur)),
+  refreshReservationsCourantes(): void {
+    this.reservationsService.requestGetReservationsEnCours(this.col.email).subscribe(
+
+      listeResaServeur =>
+      this.reservationsCourantes = listeResaServeur
+      .map(reservationServeur => new Reservation(reservationServeur)),
+
       error => console.log('Oups'),
     );
+  }
+
+  refreshReservationsHistorique(start: number, size: number){
+    this.reservationsService.requestGetReservationsHisto(this.col.email, start, size).subscribe(
+
+      listeResaServeur =>
+      this.reservationsHistorique = listeResaServeur
+      .map(reservationServeur => new Reservation(reservationServeur)),
+
+      error => console.log('Oups'),
+    );
+  }
+
+  ngOnInit(): void {
+    // recuperation des listes de reservations du collegue courant
+    this.refreshReservationsCourantes();
+    this.refreshReservationsHistorique(this.start, this.size);
   }
 
 }

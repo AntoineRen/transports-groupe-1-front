@@ -4,6 +4,7 @@ import { Subject, Observable } from 'rxjs';
 import { Reservation } from './reservation.domains';
 import { environment } from 'src/environments/environment';
 import { tap, map } from 'rxjs/operators';
+import { ReservationServeur } from './reservationServeur.domains';
 
 const URL_BACKEND = environment.baseUrl + 'reservation/';
 
@@ -17,11 +18,18 @@ export class ReservationsService {
 
   constructor(private http: HttpClient) { }
 
-  /** Effectue une requete pour obtenir la liste des réservations de véhicule de société
-   * d'un collegue en fonction de son email et push le résultat dans le subjectReservation
+  /** Effectue une requete pour obtenir la liste des réservations (en cours) de véhicule de société
+   * d'un collegue en fonction de son email
    */
-  requestGetReservations(email: string): Observable<Reservation[]>{
-    return this.http.get<Reservation[]>(URL_BACKEND + '?email=' + email);
+  requestGetReservationsEnCours(email: string): Observable<ReservationServeur[]>{
+    return this.http.get<ReservationServeur[]>(`${URL_BACKEND}current?email=${email}`);
+  }
+
+  /** Effectue une requete pour obtenir la liste des réservations (passées) de véhicule de société
+   * d'un collegue en fonction de son email
+   */
+  requestGetReservationsHisto(email: string, start: number, size: number): Observable<ReservationServeur[]>{
+    return this.http.get<ReservationServeur[]>(`${URL_BACKEND}histo?email=${email}`);
   }
 
 }
