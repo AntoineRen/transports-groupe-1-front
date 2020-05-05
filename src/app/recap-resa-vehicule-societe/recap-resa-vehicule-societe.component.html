@@ -1,0 +1,47 @@
+<div class="row border bg-dark text-light">
+  <h3>Réservations en cours</h3>
+
+  <table class="table table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Date / heure début</th>
+        <th scope="col">Date / heure fin</th>
+        <th scope="col">Immatriculation</th>
+        <th scope="col">Marque</th>
+        <th scope="col">Modèle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let reservation of reservationsCourantes">
+        <th scope="row">{{reservation.dateDepart}}</th>
+        <td>{{reservation.dateArrivee}}</td>
+        <td>{{reservation.immatriculation}}</td>
+        <td>{{reservation.marque}}</td>
+        <td>{{reservation.modele}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Historique</h3>
+
+  <table class="table table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Date / heure début</th>
+        <th scope="col">Date / heure fin</th>
+        <th scope="col">Immatriculation</th>
+        <th scope="col">Marque</th>
+        <th scope="col">Modèle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let reservation of reservationsHistorique">
+        <th scope="row">{{reservation.dateDepart}}</th>
+        <td>{{reservation.dateArrivee}}</td>
+        <td>{{reservation.immatriculation}}</td>
+        <td>{{reservation.marque}}</td>
+        <td>{{reservation.modele}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
