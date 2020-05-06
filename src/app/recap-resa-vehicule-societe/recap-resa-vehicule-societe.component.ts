@@ -16,24 +16,36 @@ export class RecapResaVehiculeSocieteComponent implements OnInit {
   reservationsCourantes: Reservation[];
   reservationsHistorique: Reservation[];
   reservationsHistoriqueAffiche: Reservation[];
+
+  // pagination
   nbReservationsParPages = 3;
   start = 0;
   end = this.nbReservationsParPages;
   pageActuelle = 1;
   nombrePagemax: number;
+
+  // font awesome
   faChevronRight = faChevronRight;
   faChevronLeft = faChevronLeft;
+
+  // erreur
+  erreurReservationEnCours = false;
+  erreurReservationHisto = false;
+  reservationEnCoursVide = false;
+  reservationHistoVide = false;
 
   constructor(private reservationsService: ReservationsService) { }
 
   refreshReservationsCourantes(): void {
     this.reservationsService.requestGetReservationsEnCours(this.col.email)
     .subscribe(
-      listeResaServeur =>
+      listeResaServeur => {
       this.reservationsCourantes = listeResaServeur
-        .map(reservationServeur => new Reservation(reservationServeur)),
+        .map(reservationServeur => new Reservation(reservationServeur));
 
-      error => console.log('Oups'),
+      this.reservationEnCoursVide = this.reservationsCourantes.length === 0;
+      },
+      error => this.erreurReservationEnCours = true,
     );
   }
 
@@ -47,9 +59,11 @@ export class RecapResaVehiculeSocieteComponent implements OnInit {
       this.nombrePagemax = Math.ceil(this.reservationsHistorique.length / this.nbReservationsParPages);
 
       this.reservationsHistoriqueAffiche = this.reservationsHistorique.slice(this.start, this.end);
+
+      this.reservationHistoVide = this.reservationsHistorique.length === 0;
       },
 
-      error => console.log('Oups'),
+      error => this.erreurReservationHisto = true,
     );
   }
 
