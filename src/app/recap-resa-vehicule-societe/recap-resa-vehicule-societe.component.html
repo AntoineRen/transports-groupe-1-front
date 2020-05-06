@@ -1,7 +1,7 @@
-<div class="row border bg-dark text-light">
+<div class="row">
   <h3>Réservations en cours</h3>
 
-  <table class="table table-dark">
+  <table class="table">
     <thead>
       <tr>
         <th scope="col">Date / heure début</th>
@@ -24,7 +24,7 @@
 
   <h3>Historique</h3>
 
-  <table class="table table-dark">
+  <table class="table">
     <thead>
       <tr>
         <th scope="col">Date / heure début</th>
@@ -35,7 +35,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let reservation of reservationsHistorique">
+      <tr *ngFor="let reservation of reservationsHistoriqueAffiche">
         <td scope="row">{{reservation.dateDepart.toDateString()}}<br/>{{reservation.dateDepart.toLocaleTimeString()}}</td>
         <td>{{reservation.dateArrivee.toDateString()}}<br/>{{reservation.dateArrivee.toLocaleTimeString()}}</td>
         <td>{{reservation.immatriculation}}</td>
@@ -44,4 +44,13 @@
       </tr>
     </tbody>
   </table>
+
+  <div class="col-12">
+    <div class="float-right d-flex align-items-center">
+      <button class="btn"><fa-icon [icon]="faChevronLeft"></fa-icon></button>
+      <span>1 / 5</span>
+      <button class="btn" (click)="pageSuivante()"><fa-icon [icon]="faChevronRight"></fa-icon></button>
+    </div>
+  </div>
+
 </div>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Subject, Observable } from 'rxjs';
 import { Reservation } from './reservation.domains';
 import { environment } from 'src/environments/environment';
@@ -28,7 +28,7 @@ export class ReservationsService {
   /** Effectue une requete pour obtenir la liste des réservations (passées) de véhicule de société
    * d'un collegue en fonction de son email
    */
-  requestGetReservationsHisto(email: string, start: number, size: number): Observable<ReservationServeur[]>{
+  requestGetReservationsHisto(email: string): Observable<ReservationServeur[]> {
     return this.http.get<ReservationServeur[]>(`${URL_BACKEND}histo?email=${email}`);
   }
 
