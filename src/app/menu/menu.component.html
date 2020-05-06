@@ -8,7 +8,7 @@
   </button>
   <ng-container *ngIf="collegueConnecte | async as col">
     <ng-container *ngIf="!col.estAnonyme()">
-      
+
       <button  class="btn" (click)="seDeconnecter()" style="background-color:#004F2F;color:#F8FFB9"><fa-icon [icon]="iconeDisconnected"></fa-icon> Se déconnecter</button>
 
       <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -21,7 +21,7 @@
             <a class="nav-link" routerLink="/contact-list">Vos annonces</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/contact-create">Statisques</a>
+            <a class="nav-link" routerLink="/contact-create">Statistiques</a>
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
