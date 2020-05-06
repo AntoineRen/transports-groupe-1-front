@@ -11,6 +11,10 @@ import {AuthInterceptorService} from './auth/auth-interceptor.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import { ListReservationCovoituragesComponent } from './list-reservation-covoiturages/list-reservation-covoiturages.component';
+import { ChauffeurComponent } from './chauffeur/chauffeur.component';
+import { CollaborateurComponent } from './collaborateur/collaborateur.component';
+import { AdministrateurComponent } from './administrateur/administrateur.component';
+import { MenuComponent } from './menu/menu.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -19,7 +23,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppComponent,
     AuthComponent,
     TechComponent,
-    ListReservationCovoituragesComponent
+    ListReservationCovoituragesComponent,
+    ChauffeurComponent,
+    CollaborateurComponent,
+    AdministrateurComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
