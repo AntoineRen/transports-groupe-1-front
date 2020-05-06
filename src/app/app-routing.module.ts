@@ -12,7 +12,7 @@ import { StatutChauffeurService } from './auth/status-chauffeur.service';
 const routes: Routes =  [
   { path: 'tech', component: TechComponent, canActivate: [StatutConnecteService]}, // /tech accessible uniquement si connecté
   { path: 'connexion', component: AuthComponent},
-  { path: '', redirectTo: '/tech', pathMatch: 'full'},
+  { path: '', redirectTo: '/collaborateur', pathMatch: 'full'},
   { path: 'collaborateur',component:CollaborateurComponent,canActivate: [StatutConnecteService]}, //route collaborateur seulement si connecté
   { path: 'chauffeur',component:ChauffeurComponent,canActivate: [StatutConnecteService,StatutChauffeurService]}, //chauffeur et admin, seulement si connecté
   { path: 'administrateur',component:AdministrateurComponent,canActivate: [StatutConnecteService,StatutAdminService]} //administrateur collaborateur seulement si connecté

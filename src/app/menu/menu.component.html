@@ -6,29 +6,36 @@
     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarCollapse">
-    <ul class="navbar-nav mr-auto">
+  <ng-container *ngIf="collegueConnecte | async as col">
+    <ng-container *ngIf="!col.estAnonyme()">
+      
+      <button  class="btn" (click)="seDeconnecter()" style="background-color:#004F2F;color:#F8FFB9"><fa-icon [icon]="iconeDisconnected"></fa-icon> Se déconnecter</button>
 
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/home">Vos réservations</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/contact-list">Vos annonces</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/contact-create">Statisques</a>
-      </li>
-    </ul>
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          Bonjour Admin
-        </a>
-        <div class="dropdown-menu " aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Se déconnecter</a>
-        </div>
-      </li>
-    </ul>
-  </div>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/home">Vos réservations</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/contact-list">Vos annonces</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/contact-create">Statisques</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Bonjour {{col.nom}}
+            </a>
+            <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">Se déconnecter</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </ng-container>
+  </ng-container>
 </nav>
