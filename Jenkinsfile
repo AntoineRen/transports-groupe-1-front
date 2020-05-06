@@ -3,7 +3,7 @@ pipeline {
     environment {
         GH_ORG = "2020-D02-java"
         APP_REPO = "transports-groupe-1-front"
-        BACKEND_PROD = "https://transports-back.cleverapps.io"
+        BACKEND_PROD = "https://transports-back.cleverapps.io/"
     }
     stages {
         stage('install') {
