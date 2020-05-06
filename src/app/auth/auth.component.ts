@@ -39,7 +39,7 @@ export class AuthComponent implements OnInit {
               else if( col.roles[roleindex] == 'ROLE_CHAUFFEUR' && redirectionUser == '' || col.roles[roleindex] == 'ROLE_CHAUFFEUR' && redirectionUser == '/collaborateur'){
                 redirectionUser = '/chauffeur';
               }
-              
+
               else if( col.roles[roleindex] == 'ROLE_COLLABORATEUR' && redirectionUser == ''){
                 redirectionUser = '/collaborateur';
               }

@@ -1,17 +1,10 @@
 
 <app-menu></app-menu>
-<div class="jumbotron">
-  <h1 class="display-4">Super Application</h1>
-  <ng-container *ngIf="collegueConnecte | async as col">
-    <div class="lead" *ngIf="!col.estAnonyme()">
-      <p  >Utilisateur connecté : {{col.email}}</p>
-      <p>Les rôles :</p>
-      <ul>
-        <li *ngFor="let r of col.roles">{{r}}</li>
-      </ul>
-    </div>
-  </ng-container>
-</div>
+
 <main class="container">
-  <router-outlet></router-outlet>
+
+      <div class="pt-5">
+        <router-outlet></router-outlet>
+      </div>
+
 </main>
