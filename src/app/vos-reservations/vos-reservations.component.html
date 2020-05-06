@@ -1,0 +1,37 @@
+<div class="row mt-5 mx-5">
+
+  <div class="col-12">
+    <h1>Vos Réservations</h1>
+  </div>
+
+  <ng-container *ngIf="!error; else elseBlock">
+    <div class="col-12">
+      <a class="btn btn-primary float-right" routerLink="/collaborateur/reservations/creer">Réserver un transport</a>
+    </div>
+
+    <div class="col-12 mt-5">
+      <ngb-accordion [closeOthers]="true" activeIds="static-2">
+        <ngb-panel id="static-1" title="Covoiturage">
+          <ng-template ngbPanelContent>
+
+            <h1>LE COMPONENT DE JULES</h1>
+
+          </ng-template>
+        </ngb-panel>
+        <ngb-panel id="static-2" title="Véhicule de société">
+          <ng-template ngbPanelContent>
+
+            <app-recap-resa-vehicule-societe [col]="col"></app-recap-resa-vehicule-societe>
+
+          </ng-template>
+        </ngb-panel>
+      </ngb-accordion>
+    </div>
+  </ng-container>
+
+  <ng-template #elseBlock>
+    <div class="col-12">
+      <div class="alert alert-danger" role="alert">Erreur : Vous n'êtes pas connecté.</div>
+    </div>
+  </ng-template>
+</div>

@@ -1,4 +1,8 @@
+
+<app-menu></app-menu>
+<!--
 <div class="jumbotron">
+
   <h1 class="display-4">Super Application</h1>
   <ng-container *ngIf="collegueConnecte | async as col">
     <div class="lead" *ngIf="!col.estAnonyme()">
@@ -11,13 +15,15 @@
 
     </div>
   </ng-container>
+
 </div>
-<main class="container">
+-->
+<main class="container-fluid">
   <ng-container *ngIf="collegueConnecte | async as col">
     <div *ngIf="!col.estAnonyme()">
-      <app-recap-resa-vehicule-societe [col]="col"></app-recap-resa-vehicule-societe>
+      <div class="pt-5">
+        <router-outlet></router-outlet>
+      </div>
     </div>
   </ng-container>
-
-  <router-outlet></router-outlet>
 </main>
