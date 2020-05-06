@@ -3,7 +3,6 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Subject, Observable } from 'rxjs';
 import { Reservation } from './reservation.domains';
 import { environment } from 'src/environments/environment';
-import { tap, map } from 'rxjs/operators';
 import { ReservationServeur } from './reservationServeur.domains';
 
 const URL_BACKEND = environment.baseUrl + 'reservation/';

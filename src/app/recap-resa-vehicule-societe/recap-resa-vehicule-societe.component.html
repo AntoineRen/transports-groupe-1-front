@@ -47,8 +47,8 @@
 
   <div class="col-12">
     <div class="float-right d-flex align-items-center">
-      <button class="btn"><fa-icon [icon]="faChevronLeft"></fa-icon></button>
-      <span>1 / 5</span>
+      <button class="btn" (click)="pagePrecedente()"><fa-icon [icon]="faChevronLeft"></fa-icon></button>
+      <span>{{pageActuelle}} / {{nombrePagemax}}</span>
       <button class="btn" (click)="pageSuivante()"><fa-icon [icon]="faChevronRight"></fa-icon></button>
     </div>
   </div>

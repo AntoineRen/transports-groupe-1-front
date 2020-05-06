@@ -4,6 +4,7 @@ import { Reservation } from './reservation.domains';
 import { ReservationsService } from './reservations.service';
 import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
+
 @Component({
   selector: 'app-recap-resa-vehicule-societe',
   templateUrl: './recap-resa-vehicule-societe.component.html',
@@ -15,8 +16,11 @@ export class RecapResaVehiculeSocieteComponent implements OnInit {
   reservationsCourantes: Reservation[];
   reservationsHistorique: Reservation[];
   reservationsHistoriqueAffiche: Reservation[];
+  nbReservationsParPages = 3;
   start = 0;
-  end = 3;
+  end = this.nbReservationsParPages;
+  pageActuelle = 1;
+  nombrePagemax: number;
   faChevronRight = faChevronRight;
   faChevronLeft = faChevronLeft;
 
@@ -39,6 +43,9 @@ export class RecapResaVehiculeSocieteComponent implements OnInit {
       listeResaServeur => {
       this.reservationsHistorique = listeResaServeur
         .map(reservationServeur => new Reservation(reservationServeur));
+
+      this.nombrePagemax = Math.ceil(this.reservationsHistorique.length / this.nbReservationsParPages);
+
       this.reservationsHistoriqueAffiche = this.reservationsHistorique.slice(this.start, this.end);
       },
 
@@ -47,14 +54,22 @@ export class RecapResaVehiculeSocieteComponent implements OnInit {
   }
 
   pagePrecedente(){
-    this.start -= 3;
-    this.end -= 3;
+    if (this.pageActuelle - 1 > 0){
+      this.pageActuelle -= 1;
+      this.end = this.pageActuelle * this.nbReservationsParPages;
+      this.start = this.end - this.nbReservationsParPages;
+    }
+
     this.reservationsHistoriqueAffiche = this.reservationsHistorique.slice(this.start, this.end);
   }
 
   pageSuivante(){
-    this.start += 3;
-    this.end += 3;
+    if (this.pageActuelle + 1 <= this.nombrePagemax){
+      this.pageActuelle += 1;
+      this.end = this.pageActuelle * this.nbReservationsParPages;
+      this.start = this.end - this.nbReservationsParPages;
+    }
+
     this.reservationsHistoriqueAffiche = this.reservationsHistorique.slice(this.start, this.end);
   }
 
