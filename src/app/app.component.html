@@ -12,6 +12,12 @@
     </div>
   </ng-container>
 </div>
+
 <main class="container">
+  <ng-container *ngIf="collegueConnecte | async as col">
+    <div *ngIf="!col.estAnonyme()">
+      <app-list-reservation-covoiturages [col]="col"></app-list-reservation-covoiturages>
+    </div>
+  </ng-container>
   <router-outlet></router-outlet>
 </main>
