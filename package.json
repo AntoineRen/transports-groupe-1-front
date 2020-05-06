@@ -4,10 +4,12 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "cross-var ng build --prod --base-href https://$GH_ORG.github.io/$APP_REPO/",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "prepare-prod": "node prepare-prod.js",
+    "deploy": "cross-var ngh --no-silent --dir=dist/front --name=jenkins --email=jenkins@jenkins.io --repo=https://$GH_TOKEN@github.com/$GH_ORG/$APP_REPO.git"
   },
   "private": true,
   "dependencies": {
@@ -45,6 +47,9 @@
     "protractor": "~5.4.3",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
-    "typescript": "~3.8.3"
+    "typescript": "~3.8.3",
+    "replace": "^0.3.0",
+    "cross-var": "^1.1.0",
+    "angular-cli-ghpages": "^0.6.2"
   }
 }
