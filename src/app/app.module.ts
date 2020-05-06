@@ -13,6 +13,8 @@ import {FormsModule} from '@angular/forms';
 import { ChauffeurComponent } from './chauffeur/chauffeur.component';
 import { CollaborateurComponent } from './collaborateur/collaborateur.component';
 import { AdministrateurComponent } from './administrateur/administrateur.component';
+import { MenuComponent } from './menu/menu.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -22,13 +24,15 @@ import { AdministrateurComponent } from './administrateur/administrateur.compone
     TechComponent,
     ChauffeurComponent,
     CollaborateurComponent,
-    AdministrateurComponent
+    AdministrateurComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
