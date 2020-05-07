@@ -23,7 +23,7 @@ pipeline {
          }
          steps {
               sh 'npm run deploy'
-              discordSend link: "${env.BUILD_URL}", result: "${currentBuild.currentResult}", title: "Déploiement Front ! ${env.JOB_NAME} commit ${env.GIT_COMMIT} https://${GH_ORG}.github.io/${APP_REPO}/", webhookURL: "${DISCORD_D2020_D02}"
+              discordSend link: "https://${GH_ORG}.github.io/${APP_REPO}/", result: "${currentBuild.currentResult}", title: "Déploiement Front ! ${env.JOB_NAME} commit ${env.GIT_COMMIT}", webhookURL: "${DISCORD_D2020_D02}"
          }
        }
     }
