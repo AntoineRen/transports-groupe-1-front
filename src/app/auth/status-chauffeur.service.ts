@@ -12,18 +12,26 @@ import {map, tap} from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class StatutConnecteService implements CanActivate{
+export class StatutChauffeurService implements CanActivate{
 
   constructor(private _authSrv: AuthService, private _router: Router) {
   }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     return this._authSrv.verifierAuthentification()
       .pipe(
-        map(col => !col.estAnonyme()),
-        tap(estConnecte => {
-          if (!estConnecte) {
-            this._router.navigate(['/connexion']);
+        map(col => {
+          for(const role of col.roles){
+            if(role.match('ROLE_CHAUFFEUR'))
+            {
+              return true;
+            }
+          }
+          return false;
+        }),
+        tap(estAdmin => {
+          if (!estAdmin) {
+            this._router.navigate(['/collaborateur']);
           }
         })
       );

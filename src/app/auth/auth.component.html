@@ -1,4 +1,9 @@
-<h2 class="text-center">Authentification</h2>
+<div class="container" style="text-align: center;">
+  <img src = "https://cdn.discordapp.com/attachments/705412725098020906/707149807038496778/logo.png" class = "img-fluid" id = "logo_societe" style="width:30%;">
+  <h3>GDT</h3>
+  <h5>Gestion du transport</h5>
+</div>
+
 <form>
   <div class="form-group">
     <label for="exampleInputEmail1">Email</label>
@@ -10,8 +15,8 @@
     <input type="password" name="pass" [(ngModel)]="collegue.motDePasse"  class="form-control" id="exampleInputPassword1"  aria-describedby="passwordHelp">
     <small id="passwordHelp" class="form-text text-muted">superpass</small>
   </div>
-  <button type="submit" class="btn btn-primary" (click)="connecter()">Se connecter</button>
-  <div *ngIf="err" class="alert alert-danger mt-1" role="alert">
-    Oops, les informations saisies ne permettent pas de vous authentifier.
+  <button type="submit" class="btn" (click)="connecter()" style="background-color:#004F2F;color:#F8FFB9"><fa-icon [icon]="iconeConnected"></fa-icon> Se connecter</button>
+  <div *ngIf="err" class="alert mt-1" role="alert" style="background-color:#A80D1D;color:#F8FFB9">
+    Vos informations d'authentification sont invalides.
   </div>
 </form>

@@ -3,7 +3,7 @@ pipeline {
     environment {
         GH_ORG = "2020-D02-java"
         APP_REPO = "transports-groupe-1-front"
-        BACKEND_PROD = "https://transports-back.cleverapps.io"
+        BACKEND_PROD = "https://transports-back.cleverapps.io/"
     }
     stages {
         stage('install') {
@@ -23,15 +23,13 @@ pipeline {
          }
          steps {
               sh 'npm run deploy'
+              discordSend link: "https://${GH_ORG}.github.io/${APP_REPO}/", result: "${currentBuild.currentResult}", title: "Déploiement Front ! ${env.JOB_NAME} commit ${env.GIT_COMMIT}", webhookURL: "${DISCORD_D2020_D02}"
          }
        }
     }
     post {
-        success {
-           slackSend channel: '#jenkins_nantes', color: 'good', message: "Succès ! ${env.JOB_NAME} commit ${env.GIT_COMMIT} https://${GH_ORG}.github.io/${APP_REPO}/"
-        }
-        failure {
-            slackSend channel: '#jenkins_nantes', color: 'danger', message: "Oops ! ${env.JOB_NAME} commit ${env.GIT_COMMIT} (<${env.BUILD_URL}|Open>)"
-        }
-    }
+         failure {
+             discordSend link: "${env.BUILD_URL}",  result: "${currentBuild.currentResult}", title: "oops ! ${env.JOB_NAME} commit ${env.GIT_COMMIT}", webhookURL: "${DISCORD_D2020_D02}"
+         }
+     }
 }
