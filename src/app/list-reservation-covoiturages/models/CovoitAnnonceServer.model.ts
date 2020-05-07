@@ -1,6 +1,6 @@
-import { Collegue } from '../auth/auth.domains';
+import { Collegue } from '../../auth/auth.domains';
 
-export default interface CovoitAnnonce {
+export default interface CovoitAnnonceServer {
   id?: number;
   itineraire?: {
     dateDepart?: string;
@@ -10,7 +10,7 @@ export default interface CovoitAnnonce {
     dureeTrajet?: number;
     distance?: number
   };
-  responceble?: {
+  responsable?: {
     id?: number;
     nom?: string;
     prenom?: string;

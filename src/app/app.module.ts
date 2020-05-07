@@ -16,6 +16,7 @@ import { CollaborateurComponent } from './collaborateur/collaborateur.component'
 import { AdministrateurComponent } from './administrateur/administrateur.component';
 import { MenuComponent } from './menu/menu.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CovoitAnnonceResume } from './list-reservation-covoiturages/modalComponnent/CovoitAnnonceResume.modal-component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ChauffeurComponent,
     CollaborateurComponent,
     AdministrateurComponent,
+    CovoitAnnonceResume,
     MenuComponent
   ],
   imports: [

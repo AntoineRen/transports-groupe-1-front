@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import CovoitAnnonce from '../list-reservation-covoiturages/covoitAnnonce.model';
+import CovoitAnnonceServer from './models/CovoitAnnonceServer.model';
 import { HttpClient } from '@angular/common/http';
 import { observable } from 'rxjs';
 import { Collegue } from '../auth/auth.domains';
@@ -12,15 +12,18 @@ export class ListCovoiturageService {
 
 
   private listCovoit = new Map();
-  private transfertAnnonces = new Subject<CovoitAnnonce[]>();
+  private transfertAnnonces = new Subject<CovoitAnnonceServer[]>();
 
   constructor(private http: HttpClient) { }
 
 
-  recupererListAnnonceCovoit(emailCollegue: string): Observable<CovoitAnnonce[]> {
-    return this.http.get<CovoitAnnonce[]>('http://localhost:8080/annonce/listAnnonce');
+  recupererListAnnonceCovoitEncours(): Observable<CovoitAnnonceServer[]> {
+    return this.http.get<CovoitAnnonceServer[]>('http://localhost:8080/annonce/listAnnonceEnCours');
   }
-  getLalistAnnonce(): Observable<CovoitAnnonce[]> {
-    return this.transfertAnnonces.asObservable();
+  recupererListAnnonceCovoitHistorique(): Observable<CovoitAnnonceServer[]>{
+    return this.http.get<CovoitAnnonceServer[]>('http://localhost:8080/annonce/listAnnonceHistorique');
   }
+  /*  getLalistAnnonce(): Observable<CovoitAnnonceServer[]> {
+      return this.transfertAnnonces.asObservable();
+  }*/
 }

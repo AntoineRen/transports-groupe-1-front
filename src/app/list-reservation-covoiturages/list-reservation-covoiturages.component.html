@@ -1,8 +1,7 @@
 <div class=container>
-  <h1 class="p-3">Vos reservations</h1>
   <div class="card">
     <div class="card-header p-3">
-      Covoiturage
+      {{covoitExemple|json}}
     </div>
     <div>
       <h5 class="p-3">Reservations en cours</h5>
@@ -16,17 +15,17 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let annonce of listAnnonces">
-            <td scope="row">{{annonce.itineraire.dateDepart|date}}</td>
-            <td>{{annonce.itineraire.lieuDepart}}</td>
-            <td>{{annonce.itineraire.lieuDestination}}</td>
-            <td><button type="button" class="btn btn-info">Details</button></td>
+          <tr *ngFor="let annonce of listAnnoncesEncours" >
+            <td scope="row">{{annonce.dateDepart.toDateString()}}<br />{{annonce.dateDepart.toLocaleTimeString()}}</td>
+            <td>{{annonce.lieuDepart}}</td>
+            <td>{{annonce.lieuDestination}}</td>
+            <td><button type="button" class="btn btn-info" (click)="open(annonce)">Details</button></td>
           </tr>
         </tbody>
       </table>
     </div>
     <div>
-      <h5>Historique</h5>
+      <h5 class="p-3">Historique</h5>
       <table class="table">
         <thead>
           <tr>
@@ -37,15 +36,14 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let annonce of listAnnonces">
-            <th scope="row">un depart {{annonce.dateDepart}}</th>
-            <td>un lieu de depart{{annonce.lieuDepart}}</td>
-            <td>destination {{annonce.lieuDestination}}</td>
-            <td><button type="button" class="btn btn-info">Detail</button></td>
+          <tr *ngFor="let annonce of listAnnoncesHistorique">
+            <td scope="row">{{annonce.dateDepart.toDateString()}}<br />{{annonce.dateDepart.toLocaleTimeString()}}</td>
+            <td>{{annonce.lieuDepart}}</td>
+            <td>{{annonce.lieuDestination}}</td>
+            <td><button type="button" class="btn btn-info" (click)="open(annonce)">Details</button></td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
-
 </div>
