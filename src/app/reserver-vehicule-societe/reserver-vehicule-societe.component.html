@@ -1,0 +1,27 @@
+<div class="row">
+
+  <div class="col-12">
+    <form>
+      <div class="form-group row">
+        <label for="id_dateDepart" class="col-12 col-md-3 col-form-label">Date/heure de réservation *</label>
+
+        <!--datepicker-->
+        <div class="input-group col-12 col-md-4">
+          <input class="form-control" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+              <fa-icon [icon]="faCalendarAlt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="col-6 col-md-2">
+          <ngb-timepicker [(ngModel)]="time" [hourStep]="hourStep" [minuteStep]="minuteStep"></ngb-timepicker>
+        </div>
+        <pre>Selected time: {{time | json}}</pre>
+      </div>
+    </form>
+  </div>
+
+
+</div>

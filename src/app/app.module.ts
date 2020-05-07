@@ -16,6 +16,8 @@ import { AdministrateurComponent } from './administrateur/administrateur.compone
 import { MenuComponent } from './menu/menu.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { VosReservationsComponent } from './vos-reservations/vos-reservations.component';
+import { ReserverUnVehiculeComponent } from './reserver-un-vehicule/reserver-un-vehicule.component';
+import { ReserverVehiculeSocieteComponent } from './reserver-vehicule-societe/reserver-vehicule-societe.component';
 
 
 @NgModule({
@@ -28,7 +30,9 @@ import { VosReservationsComponent } from './vos-reservations/vos-reservations.co
     CollaborateurComponent,
     AdministrateurComponent,
     MenuComponent,
-    VosReservationsComponent
+    VosReservationsComponent,
+    ReserverUnVehiculeComponent,
+    ReserverVehiculeSocieteComponent
   ],
   imports: [
     BrowserModule,
