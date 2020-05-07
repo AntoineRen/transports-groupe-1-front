@@ -23,15 +23,13 @@ pipeline {
          }
          steps {
               sh 'npm run deploy'
+              discordSend link: "${env.BUILD_URL}", result: "${currentBuild.currentResult}", title: "Déploiement Front ! ${env.JOB_NAME} commit ${env.GIT_COMMIT} https://${GH_ORG}.github.io/${APP_REPO}/", webhookURL: "${DISCORD_D2020_D02}"
          }
        }
     }
     post {
-        success {
-           slackSend channel: '#jenkins_nantes', color: 'good', message: "Succès ! ${env.JOB_NAME} commit ${env.GIT_COMMIT} https://${GH_ORG}.github.io/${APP_REPO}/"
-        }
-        failure {
-            slackSend channel: '#jenkins_nantes', color: 'danger', message: "Oops ! ${env.JOB_NAME} commit ${env.GIT_COMMIT} (<${env.BUILD_URL}|Open>)"
-        }
-    }
+         failure {
+             discordSend link: "${env.BUILD_URL}",  result: "${currentBuild.currentResult}", title: "oops ! ${env.JOB_NAME} commit ${env.GIT_COMMIT}", webhookURL: "${DISCORD_D2020_D02}"
+         }
+     }
 }
