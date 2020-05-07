@@ -9,16 +9,22 @@ import { ChauffeurComponent } from './chauffeur/chauffeur.component';
 import { AdministrateurComponent } from './administrateur/administrateur.component';
 import {StatutAdminService} from './auth/status-admin.service';
 import { StatutChauffeurService } from './auth/status-chauffeur.service';
+import { VosReservationsComponent } from './vos-reservations/vos-reservations.component';
 
 
 const routes: Routes =  [
-  { path: 'tech', component: TechComponent, canActivate: [StatutConnecteService]}, // /tech accessible uniquement si connecté
+  // /tech accessible uniquement si connecté et admin
+  { path: 'tech', component: TechComponent, canActivate: [StatutConnecteService, StatutAdminService]},
   { path: 'connexion', component: AuthComponent},
-  { path: '', redirectTo: '/tech', pathMatch: 'full'},
-  { path: 'collaborateur',component:CollaborateurComponent,canActivate: [StatutConnecteService]}, //route collaborateur seulement si connecté
-  { path: 'chauffeur',component:ChauffeurComponent,canActivate: [StatutConnecteService,StatutChauffeurService]}, //chauffeur et admin, seulement si connecté
-  { path: 'administrateur',component:AdministrateurComponent,canActivate: [StatutConnecteService,StatutAdminService]}, //administrateur collaborateur seulement si connecté
-  { path: 'listResaCovoit', component: ListReservationCovoituragesComponent},
+  { path: '', redirectTo: 'collaborateur', pathMatch: 'full'},
+  // route collaborateur, seulement si connecté
+  { path: 'collaborateur', component: CollaborateurComponent, canActivate: [StatutConnecteService]},
+  { path: 'collaborateur/reservations', component: VosReservationsComponent, canActivate: [StatutConnecteService]},
+  { path: 'collaborateur/reservations/creer', component: VosReservationsComponent, canActivate: [StatutConnecteService]},
+  // route chauffeur et admin, seulement si connecté
+  { path: 'chauffeur', component: ChauffeurComponent, canActivate: [StatutConnecteService, StatutChauffeurService]},
+  // route administrateur, seulement si connecté
+  { path: 'administrateur', component: AdministrateurComponent, canActivate: [StatutConnecteService, StatutAdminService]}
 ];
 
 

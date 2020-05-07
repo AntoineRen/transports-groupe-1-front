@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Collegue} from './auth.domains';
 import {AuthService} from './auth.service';
 import {Router} from '@angular/router';
+import {faRoad} from '@fortawesome/free-solid-svg-icons';
 
 /**
  * Formulaire d'authentification.
@@ -13,6 +14,7 @@ import {Router} from '@angular/router';
 })
 export class AuthComponent implements OnInit {
 
+  iconeConnected= faRoad;
 
   collegue: Collegue = new Collegue({});
   err: boolean;
@@ -37,7 +39,7 @@ export class AuthComponent implements OnInit {
               else if( col.roles[roleindex] == 'ROLE_CHAUFFEUR' && redirectionUser == '' || col.roles[roleindex] == 'ROLE_CHAUFFEUR' && redirectionUser == '/collaborateur'){
                 redirectionUser = '/chauffeur';
               }
-              
+
               else if( col.roles[roleindex] == 'ROLE_COLLABORATEUR' && redirectionUser == ''){
                 redirectionUser = '/collaborateur';
               }
