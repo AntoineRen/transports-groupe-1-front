@@ -1,9 +1,10 @@
 <div class=container>
   <div class="card">
     <div class="card-header p-3">
-      {{covoitExemple|json}}
     </div>
     <div>
+
+      <!--Rubrique reservation en cours-->
       <h5 class="p-3">Reservations en cours</h5>
       <table class="table">
         <thead>
@@ -15,15 +16,36 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let annonce of listAnnoncesEncours" >
-            <td scope="row">{{annonce.dateDepart.toDateString()}}<br />{{annonce.dateDepart.toLocaleTimeString()}}</td>
-            <td>{{annonce.lieuDepart}}</td>
-            <td>{{annonce.lieuDestination}}</td>
-            <td><button type="button" class="btn btn-info" (click)="open(annonce)">Details</button></td>
-          </tr>
+          <ng-container *ngIf="!erreurAnnonceEnCours && !annonceEnCoursVide; else elseBlockEncours">
+            <tr *ngFor="let annonce of listAnnoncesEncours">
+              <td scope="row">{{annonce.dateDepart.toDateString()}}<br />{{annonce.dateDepart.toLocaleTimeString()}}
+              </td>
+              <td>{{annonce.lieuDepart}}</td>
+              <td>{{annonce.lieuDestination}}</td>
+              <td><button type="button" class="btn btn-info" (click)="open(annonce)">Details</button></td>
+            </tr>
+          </ng-container>
         </tbody>
       </table>
+
+      <!--Block d'erreur si list vide-->
+      <ng-container #elseBlockEncours>
+        <div class="col-12">
+          <ng-container *ngIf="annonceEnCoursVide">
+            <div class="alert alert-warning" role="alert">Vous n'avez pas de réservation de covoiturage en cours.</div>
+          </ng-container>
+
+          <!--Block d'erreur si list non récupperé -->
+          <ng-container *ngIf="erreurAnnonceEnCours">
+            <div class="alert alert-danger" role="alert">Erreur : Impossible de récupérer la liste de vos covoiturrage
+              en
+              cours.</div>
+          </ng-container>
+        </div>
+      </ng-container>
+
     </div>
+    <!--Rubrique Historique des covoiturage-->
     <div>
       <h5 class="p-3">Historique</h5>
       <table class="table">
@@ -36,14 +58,46 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let annonce of listAnnoncesHistorique">
-            <td scope="row">{{annonce.dateDepart.toDateString()}}<br />{{annonce.dateDepart.toLocaleTimeString()}}</td>
-            <td>{{annonce.lieuDepart}}</td>
-            <td>{{annonce.lieuDestination}}</td>
-            <td><button type="button" class="btn btn-info" (click)="open(annonce)">Details</button></td>
-          </tr>
+          <ng-container *ngIf="!erreurAnnonceHisto && !annonceHistoVide; else elseBlockHisto">
+            <tr *ngFor="let annonce of listAnnoncesHistoriqueAffichage">
+              <td scope="row">{{annonce.dateDepart.toDateString()}}<br />{{annonce.dateDepart.toLocaleTimeString()}}
+              </td>
+              <td>{{annonce.lieuDepart}}</td>
+              <td>{{annonce.lieuDestination}}</td>
+              <td><button type="button" class="btn btn-info" (click)="open(annonce)">Details</button></td>
+            </tr>
+          </ng-container>
         </tbody>
       </table>
+
+      <ng-container #elseBlockHisto>
+        <div class="col-12">
+          <ng-container *ngIf="annonceHistoVide">
+            <div class="alert alert-warning" role="alert">
+              Vous n'avez pas de réservation de covoiturage en cours.</div>
+          </ng-container>
+          <ng-container *ngIf="erreurAnnonceHisto">
+            <div class="alert alert-danger" role="alert">
+              Erreur : Impossible de récupérer la liste de vos covoiturrage en cours.
+            </div>
+          </ng-container>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="nombrePagemax > 1">
+        <div class="col-12">
+          <div class="float-right d-flex align-items-center">
+            <button class="btn" (click)="pagePrecedente()">
+              <fa-icon [icon]="faChevronLeft"></fa-icon>
+            </button>
+            <span>{{pageActuelle}} / {{nombrePagemax}}</span>
+            <button class="btn" (click)="pageSuivante()">
+              <fa-icon [icon]="faChevronRight"></fa-icon>
+            </button>
+          </div>
+        </div>
+      </ng-container>
+
+
     </div>
   </div>
 </div>
