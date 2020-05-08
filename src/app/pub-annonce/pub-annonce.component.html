@@ -1,0 +1,190 @@
+<a routerLink="/collaborateur/annonces/">&lt;&lt;Retour à la liste</a>
+<h2 class="my-3">Publier une annonce</h2>
+<form #annonceForm="ngForm">
+  <div class="card mb-2">
+    <div class="card-header">
+      Itinéraire
+    </div>
+    <div class="card-body">
+
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-3 col-form-label">Adesse de départ *</label>
+        <div class="col-sm-9">
+          <input type="datetime" class="form-control" [(ngModel)]="annonce.lieuDepart" name="adresse_depart"
+            #lieuDepart="ngModel"
+            [ngClass]="{ 'is-invalid': lieuDepart.invalid && (lieuDepart.dirty || lieuDepart.touched)}" name="#input1"
+            required />
+          <div *ngIf="lieuDepart.invalid && (lieuDepart.dirty || lieuDepart.touched)" class="invalid-feedback">
+            <div *ngIf="lieuDepart.errors.required">L'adresse de départ est une adresse inconnue</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputPassword" class="col-sm-3 col-form-label">Adresse de destination *</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" [(ngModel)]="annonce.lieuDestination" name="adresse_destination"
+            #lieuDestination="ngModel"
+            [ngClass]="{ 'is-invalid':   lieuDestination.invalid  && (lieuDestination.dirty || lieuDestination.touched)}"
+            name="#input2" required>
+          <div *ngIf="  lieuDestination.invalid  && (lieuDestination.dirty || lieuDestination.touched)"
+            class="invalid-feedback">
+            <div *ngIf="lieuDestination.errors.required">L'adresse de destination est une adresse inconnue</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-3 col-form-label">Durée du trajet</label>
+        <div class="col-sm-9">
+          <input type="text" readonly class="form-control-plaintext" name="duree_trajet" value="2 h 31 mn">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-3 col-form-label">Distance</label>
+        <div class="col-sm-9">
+          <input type="text" readonly class="form-control-plaintext" name="distance" value="250 km">
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="card mb-2">
+    <div class="card-header">
+      Véhicule
+    </div>
+    <div class="card-body">
+
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-3 col-form-label">Immatriculation *</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" [(ngModel)]="annonce.immatriculation" name="immat"
+            #immatriculation="ngModel"
+            [ngClass]="{ 'is-invalid':   immatriculation.invalid  && (immatriculation.dirty || immatriculation.touched)}"
+            name="#input3" required>
+          <div *ngIf="  immatriculation.invalid  && (immatriculation.dirty || immatriculation.touched)"
+            class="invalid-feedback">
+            <div *ngIf="immatriculation.errors.required">Veuillez renseigner l'immatriculation</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputPassword" class="col-sm-3 col-form-label">Marque *</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" [(ngModel)]="annonce.marque" name="marq" #marque="ngModel"
+            [ngClass]="{ 'is-invalid':   marque.invalid  && (marque.dirty || marque.touched)}" name="#input4" required>
+          <div *ngIf="  marque.invalid  && (marque.dirty || marque.touched)" class="invalid-feedback">
+            <div *ngIf="marque.errors.required">Veuillez renseigner la marque</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-3 col-form-label">Modèle *</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" [(ngModel)]="annonce.modele" name="mod" #modele="ngModel"
+            [ngClass]="{ 'is-invalid':   modele.invalid  && (modele.dirty || modele.touched)}" name="#input5" required>
+          <div *ngIf="  modele.invalid  && (modele.dirty || modele.touched)" class="invalid-feedback">
+            <div *ngIf="modele.errors.required">Veuillez renseigner le modèle</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputPassword" class="col-sm-3 col-form-label">Nombre de places disponibles *</label>
+        <div class="col-sm-9">
+          <input type="number" class="form-control" [(ngModel)]="annonce.nbPlace" name="nbrpla" min="1" max="20"  [pattern] = "'^[1-9][0-9]*$'"
+            #nbPlace="ngModel" [ngClass]="{ 'is-invalid':   nbPlace.invalid  && (nbPlace.dirty || nbPlace.touched)}"
+            name="#input6" required>
+          <div *ngIf="  nbPlace.invalid  && (nbPlace.dirty || nbPlace.touched)" class="invalid-feedback">
+            <div *ngIf="nbPlace.errors.max">Le nombre de places doit être compris entre 1 et 20</div>
+            <div *ngIf="nbPlace.errors.required">Veuillez renseigner le nombre de places disponibles</div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="card mb-4">
+    <div class="card-header">
+      Date et horaire
+    </div>
+    <div class="card-body">
+
+      <div class="form-group row">
+        <span class="col-sm-3 col-form-label inputdate">Date / heure *</span>
+        <div class="col-sm-6 input-group inputdate">
+          <input  class="form-control" id="date" ngbDatepicker #d="ngbDatepicker" [(ngModel)]="dateDepart" name="date" #dateAnn="ngModel"
+            [ngClass]="{ 'is-invalid':   dateAnn.invalid  && (dateAnn.dirty || dateAnn.touched)}" name="#input7"
+            required>
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar " (click)="d.toggle()" type="button"></button>
+          </div>
+          <div *ngIf="  dateAnn.invalid  && (dateAnn.dirty || dateAnn.touched)" class="invalid-feedback">
+            <div *ngIf="dateAnn.errors.required">Veuillez renseigner la date de départ</div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <ngb-timepicker [(ngModel)]="time" [hourStep]="hourStep" [minuteStep]="minuteStep" #input8 required
+            #heure="ngModel" class="changeSize"
+            [ngClass]="{ 'is-invalid':   heure.invalid  && (heure.dirty || heure.touched)}" name="input8">
+          </ngb-timepicker>
+          <div *ngIf="  heure.invalid  && (heure.dirty || heure.touched)" class="invalid-feedback">
+            <div *ngIf="heure.errors.required">Veuillez renseigner l'heure de départ</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #content let-modal>
+    <div class="modal-body">
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-6 col-form-label">Départ</label>
+        <div class="col-sm-6">
+          <input type="text" readonly class="form-control-plaintext" name="adresse_depart"
+            [(ngModel)]="annonce.lieuDepart">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-6 col-form-label">Destination</label>
+        <div class="col-sm-6">
+          <input type="text" readonly class="form-control-plaintext" name="adresse_destination"
+            [(ngModel)]="annonce.lieuDestination">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-6 col-form-label">Immatriculation</label>
+        <div class="col-sm-6">
+          <input type="text" readonly class="form-control-plaintext" name="immatriculation"
+            [(ngModel)]="annonce.immatriculation">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-6 col-form-label">Marque</label>
+        <div class="col-sm-6">
+          <input type="text" readonly class="form-control-plaintext" name="marque" [(ngModel)]="annonce.marque">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-6 col-form-label">Modèle</label>
+        <div class="col-sm-6">
+          <input type="text" readonly class="form-control-plaintext" name="mod" [(ngModel)]="annonce.modele">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-6 col-form-label">Nb places disponible</label>
+        <div class="col-sm-6">
+          <input type="text" readonly class="form-control-plaintext" name="nbPlace" [(ngModel)]="annonce.nbPlace">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-6 col-form-label">Date/heure</label>
+        <div class="col-sm-6">
+          <input type="text" readonly class="form-control-plaintext" name="time" value="{{this.dateDepart2}}">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss('Cross click')">Annuler</button>
+      <button type="button" ngbAutofocus class="btn btn-danger" (click)="modal.close('Save click')">Confirmer</button>
+    </div>
+  </ng-template>
+  <button (click)="open(content, annonceForm)" class="btn btn-primary float-right">Publier</button>
+</form>

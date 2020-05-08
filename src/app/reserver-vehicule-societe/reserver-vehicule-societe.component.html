@@ -2,7 +2,8 @@
 
   <div class="col-12">
     <form>
-      <div class="form-group row">
+      <!-- depart -->
+      <div class="form-group row d-flex align-items-center">
         <label for="id_dateDepart" class="col-12 col-md-3 col-form-label">Date/heure de réservation *</label>
 
         <!--datepicker-->
@@ -15,12 +16,65 @@
           </div>
         </div>
 
-        <div class="col-6 col-md-2">
-          <ngb-timepicker [(ngModel)]="time" [hourStep]="hourStep" [minuteStep]="minuteStep"></ngb-timepicker>
+        <!-- timepicker -->
+        <div class="col-12 col-md-5">
+          <ngb-timepicker [(ngModel)]="timeDepart" [hourStep]="hourStep" [minuteStep]="minuteStep"
+            name="timepickerDepart">
+          </ngb-timepicker>
         </div>
-        <pre>Selected time: {{time | json}}</pre>
+      </div>
+
+      <!-- arrivee -->
+      <div class="form-group row d-flex align-items-center">
+        <label for="id_dateDepart" class="col-12 col-md-3 col-form-label">Date/heure retour *</label>
+
+        <!--datepicker-->
+        <div class="input-group col-12 col-md-4">
+          <input class="form-control" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+              <fa-icon [icon]="faCalendarAlt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <!-- timepicker -->
+        <div class="col-12 col-md-5">
+          <ngb-timepicker [(ngModel)]="timeRetour" [hourStep]="hourStep" [minuteStep]="minuteStep"
+            name="timepickerRetour">
+          </ngb-timepicker>
+        </div>
+
       </div>
     </form>
+
+    <div class="row d-flex align-items-center">
+      <div class="col-6 order-2 col-md-1 order-md-1 text-center">
+        <fa-icon [icon]="faChevronLeft"></fa-icon>
+      </div>
+      <div class="col-12 order-1 col-md-10 order-md-2">
+        <img class="img-fluid img-thumbnail"
+          src="https://images.unsplash.com/photo-1515853191710-4db39aa5fe54?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1376&q=80">
+      </div>
+      <div class="col-6 order-3 col-md-1 order-md-3 text-center">
+        <fa-icon [icon]="faChevronRight"></fa-icon>
+      </div>
+    </div>
+
+    <div class="row text-center mt-2">
+      <div class="col-md-12">
+        IMMATRICULATION
+      </div>
+      <div class="col-md-12">
+        marque - modele
+      </div>
+      <div class="col-md-12">
+        catégorie
+      </div>
+      <div class="col-md-12 mt-4">
+        <button class="btn btn-primary">Réserver</button>
+      </div>
+    </div>
   </div>
 
 

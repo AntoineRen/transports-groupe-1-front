@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
-import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+import { NgbDateStruct, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
+import { faCalendarAlt, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-reserver-vehicule-societe',
@@ -13,12 +13,15 @@ export class ReserverVehiculeSocieteComponent implements OnInit {
   model: NgbDateStruct;
 
   // timepicker
-  time = {hour: 12, minute: 10};
+  timeDepart: NgbTimeStruct = {hour: 12, minute: 0, second: 0};
+  timeRetour: NgbTimeStruct = {hour: 12, minute: 0, second: 0};
   hourStep = 1;
   minuteStep = 10;
 
   // fontawesome
   faCalendarAlt = faCalendarAlt;
+  faChevronLeft = faChevronLeft;
+  faChevronRight = faChevronRight;
 
   constructor() { }
 
