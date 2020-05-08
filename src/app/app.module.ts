@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,13 +10,14 @@ import {AuthInterceptorService} from './auth/auth-interceptor.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import { ListReservationCovoituragesComponent } from './list-reservation-covoiturages/list-reservation-covoiturages.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MenuComponent } from './menu/menu.component';
+import { PubAnnonceComponent } from './pub-annonce/pub-annonce.component';
 import { RecapResaVehiculeSocieteComponent } from './recap-resa-vehicule-societe/recap-resa-vehicule-societe.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ChauffeurComponent } from './chauffeur/chauffeur.component';
 import { CollaborateurComponent } from './collaborateur/collaborateur.component';
 import { AdministrateurComponent } from './administrateur/administrateur.component';
-import { MenuComponent } from './menu/menu.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CovoitAnnonceResume } from './list-reservation-covoiturages/modalComponnent/CovoitAnnonceResume.modal-component';
 import { VosReservationsComponent } from './vos-reservations/vos-reservations.component';
 
@@ -28,6 +30,7 @@ import { VosReservationsComponent } from './vos-reservations/vos-reservations.co
     ListReservationCovoituragesComponent,
     CovoitAnnonceResume,
     MenuComponent,
+    PubAnnonceComponent,
     RecapResaVehiculeSocieteComponent,
     ChauffeurComponent,
     CollaborateurComponent,
@@ -39,6 +42,7 @@ import { VosReservationsComponent } from './vos-reservations/vos-reservations.co
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    CommonModule,
     FontAwesomeModule,
     NgbModule
   ],

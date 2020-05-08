@@ -9,16 +9,14 @@
   <ng-container *ngIf="collegueConnecte | async as col">
     <ng-container *ngIf="!col.estAnonyme()">
 
-      <button  class="btn" (click)="seDeconnecter()" style="background-color:#004F2F;color:#F8FFB9"><fa-icon [icon]="iconeDisconnected"></fa-icon> Se déconnecter</button>
-
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
 
           <li class="nav-item">
-            <a class="nav-link" routerLink="/home">Vos réservations</a>
+            <a class="nav-link" routerLink="/collaborateur/reservations">Vos réservations</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/contact-list">Vos annonces</a>
+            <a class="nav-link" routerLink="/collaborateur/annonces/creer">Vos annonces</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="/contact-create">Statistiques</a>
@@ -31,7 +29,7 @@
               Bonjour {{col.nom}}
             </a>
             <div class="dropdown-menu " aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Se déconnecter</a>
+              <button  class="btn" (click)="seDeconnecter()" style="background-color:#004F2F;color:#F8FFB9"><fa-icon [icon]="iconeDisconnected"></fa-icon> Se déconnecter</button>
             </div>
           </li>
         </ul>
