@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {CovoitAnnonce} from '../models/covoitAnnonce.model';
+import {CovoitAnnonce} from '../models/CovoitAnnonce.model';
 
 
 @Component({
