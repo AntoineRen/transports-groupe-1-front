@@ -50,26 +50,35 @@
 
     <div class="row d-flex align-items-center">
       <div class="col-6 order-2 col-md-1 order-md-1 text-center">
-        <fa-icon [icon]="faChevronLeft"></fa-icon>
+        <fa-icon class="btn" (click)="prevVehicule()" [icon]="faChevronLeft"></fa-icon>
       </div>
       <div class="col-12 order-1 col-md-10 order-md-2">
         <img class="img-fluid img-thumbnail"
-          src="https://images.unsplash.com/photo-1515853191710-4db39aa5fe54?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1376&q=80">
+          src={{vehicules[indexVehiculeCourant].photoUrl}}>
       </div>
       <div class="col-6 order-3 col-md-1 order-md-3 text-center">
-        <fa-icon [icon]="faChevronRight"></fa-icon>
+        <fa-icon class="btn" (click)="nextVehicule()" [icon]="faChevronRight"></fa-icon>
       </div>
     </div>
 
     <div class="row text-center mt-2">
       <div class="col-md-12">
-        IMMATRICULATION
+        {{vehicules[indexVehiculeCourant].immatriculation}}
       </div>
       <div class="col-md-12">
-        marque - modele
+        {{vehicules[indexVehiculeCourant].marque}} - {{vehicules[indexVehiculeCourant].modele}}
       </div>
       <div class="col-md-12">
-        catégorie
+        {{vehicules[indexVehiculeCourant].categorie}}
+      </div>
+      <div class="col-md-12">
+        <!-- disponibilité -->
+        <ng-container *ngIf="vehicules[indexVehiculeCourant].statut.match('EN_SERVICE'); else elseBlockDispo">
+          <span class="text-success">DISPONIBLE</span>
+        </ng-container>
+        <ng-template #elseBlockDispo>
+          <span class="text-danger">NON DISPONIBLE</span>
+        </ng-template>
       </div>
       <div class="col-md-12 mt-4">
         <button class="btn btn-primary">Réserver</button>
