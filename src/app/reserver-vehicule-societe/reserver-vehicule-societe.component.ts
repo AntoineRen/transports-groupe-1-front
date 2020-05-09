@@ -3,6 +3,7 @@ import { NgbDateStruct, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { faCalendarAlt, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { GetVehiculeService } from './get-vehicule.service';
 import { Vechicule } from './vehiculeSociete.domains';
+import { timeInterval } from 'rxjs/operators';
 
 @Component({
   selector: 'app-reserver-vehicule-societe',
@@ -11,12 +12,18 @@ import { Vechicule } from './vehiculeSociete.domains';
 })
 export class ReserverVehiculeSocieteComponent implements OnInit {
 
-  // datepicker
-  model: NgbDateStruct;
+  // dateTime TODO
+  dateTimeDepart: {
+    date: NgbDateStruct;
+    time: NgbTimeStruct;
+  };
+
+  dateTimeArivee: {
+    date: NgbDateStruct;
+    time: NgbTimeStruct;
+  };
 
   // timepicker
-  timeDepart: NgbTimeStruct = {hour: 12, minute: 0, second: 0};
-  timeRetour: NgbTimeStruct = {hour: 12, minute: 0, second: 0};
   hourStep = 1;
   minuteStep = 10;
 
@@ -28,6 +35,11 @@ export class ReserverVehiculeSocieteComponent implements OnInit {
   // vehicules
   vehicules: Vechicule[];
   indexVehiculeCourant = 0;
+
+  // verification
+  periodeValide = false;
+  dateDepartValide = false;
+  dateAriveeValide = false;
 
   constructor(private vehiculeService: GetVehiculeService) { }
 
@@ -54,7 +66,24 @@ export class ReserverVehiculeSocieteComponent implements OnInit {
     }
   }
 
+  public validerDateTime(dateTime: {date: NgbDateStruct; time: NgbTimeStruct}){
+
+    return dateTime != null
+    && new Date() < new Date(dateTime.date.year, dateTime.date.month - 1, dateTime.date.day, dateTime.time.hour, dateTime.time.minute);
+  }
+
+  public apresDateTimeDepart(dTDepart: {date: NgbDateStruct; time: NgbTimeStruct}, dTArivee: {date: NgbDateStruct; time: NgbTimeStruct}){
+
+    return dTDepart != null && dTArivee != null
+    && new Date(dTDepart.date.year, dTDepart.date.month - 1, dTDepart.date.day, dTDepart.time.hour, dTDepart.time.minute)
+    < new Date(dTArivee.date.year, dTArivee.date.month - 1, dTArivee.date.day, dTArivee.time.hour, dTArivee.time.minute);
+  }
+
   ngOnInit(): void {
+    // time picker initialisation
+    this.dateTimeDepart = {date: {year: 0, month: 1, day: 1}, time: {hour: 12, minute: 0, second: 0}};
+    this.dateTimeArivee = {date: {year: 0, month: 1, day: 1}, time: {hour: 12, minute: 0, second: 0}};
+
     this.getAllVehicule();
   }
 
