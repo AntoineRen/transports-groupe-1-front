@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import {TechComponent} from './tech/tech.component';
 import {StatutConnecteService} from './auth/statut-connecte.service';
 import {AuthComponent} from './auth/auth.component';
-import { ListReservationCovoituragesComponent } from './list-reservation-covoiturages/list-reservation-covoiturages.component';
 import { CollaborateurComponent } from './collaborateur/collaborateur.component';
 import { ChauffeurComponent } from './chauffeur/chauffeur.component';
 import { AdministrateurComponent } from './administrateur/administrateur.component';
