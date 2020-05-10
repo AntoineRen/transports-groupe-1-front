@@ -10,6 +10,7 @@ import {StatutAdminService} from './auth/status-admin.service';
 import { StatutChauffeurService } from './auth/status-chauffeur.service';
 import { VosReservationsComponent } from './vos-reservations/vos-reservations.component';
 import { PubAnnonceComponent } from './pub-annonce/pub-annonce.component';
+import { VehiculesComponent } from './vehicules/vehicules.component';
 
 const routes: Routes =  [
   // /tech accessible uniquement si connecté et admin
@@ -24,7 +25,8 @@ const routes: Routes =  [
   // route chauffeur et admin, seulement si connecté
   { path: 'chauffeur', component: ChauffeurComponent, canActivate: [StatutConnecteService, StatutChauffeurService]},
   // route administrateur, seulement si connecté
-  { path: 'administrateur', component: AdministrateurComponent, canActivate: [StatutConnecteService, StatutAdminService]}
+  { path: 'admin', component: AdministrateurComponent, canActivate: [StatutConnecteService, StatutAdminService]},
+  { path: 'admin/vehicules', component: VehiculesComponent, canActivate: [StatutConnecteService, StatutAdminService]}
 ];
 
 

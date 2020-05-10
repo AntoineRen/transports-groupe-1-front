@@ -18,6 +18,7 @@ import { ChauffeurComponent } from './chauffeur/chauffeur.component';
 import { CollaborateurComponent } from './collaborateur/collaborateur.component';
 import { AdministrateurComponent } from './administrateur/administrateur.component';
 import { VosReservationsComponent } from './vos-reservations/vos-reservations.component';
+import { VehiculesComponent } from './vehicules/vehicules.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { VosReservationsComponent } from './vos-reservations/vos-reservations.co
     ChauffeurComponent,
     CollaborateurComponent,
     AdministrateurComponent,
-    VosReservationsComponent
+    VosReservationsComponent,
+    VehiculesComponent
   ],
   imports: [
     BrowserModule,

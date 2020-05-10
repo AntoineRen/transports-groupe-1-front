@@ -33,7 +33,7 @@ export class AuthComponent implements OnInit {
           let redirectionUser:string = '';
             for(let roleindex in col.roles){
               if( col.roles[roleindex] == 'ROLE_ADMINISTRATEUR'){
-                redirectionUser = '/administrateur';
+                redirectionUser = '/admin';
               }
 
               else if( col.roles[roleindex] == 'ROLE_CHAUFFEUR' && redirectionUser == '' || col.roles[roleindex] == 'ROLE_CHAUFFEUR' && redirectionUser == '/collaborateur'){
