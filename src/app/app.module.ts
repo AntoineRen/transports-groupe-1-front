@@ -8,7 +8,7 @@ import {AuthComponent} from './auth/auth.component';
 import {TechComponent} from './tech/tech.component';
 import {AuthInterceptorService} from './auth/auth-interceptor.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ListReservationCovoituragesComponent } from './list-reservation-covoiturages/list-reservation-covoiturages.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MenuComponent } from './menu/menu.component';
@@ -20,7 +20,13 @@ import { CollaborateurComponent } from './collaborateur/collaborateur.component'
 import { AdministrateurComponent } from './administrateur/administrateur.component';
 import { CovoitAnnonceResume } from './list-reservation-covoiturages/modalComponnent/CovoitAnnonceResume.modal-component';
 import { VosReservationsComponent } from './vos-reservations/vos-reservations.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AdresseService } from './pub-annonce/adresse.service';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
+import {MatInputModule} from '@angular/material/input';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -44,13 +50,23 @@ import { VosReservationsComponent } from './vos-reservations/vos-reservations.co
     FormsModule,
     CommonModule,
     FontAwesomeModule,
-    NgbModule
+    NgbModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    MatProgressSpinnerModule,
+    MatAutocompleteModule
+
+
   ],
   providers: [{
-    provide: HTTP_INTERCEPTORS,
+    provide: HTTP_INTERCEPTORS ,
     useClass: AuthInterceptorService,
     multi: true
-  }],
+  },AdresseService
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
