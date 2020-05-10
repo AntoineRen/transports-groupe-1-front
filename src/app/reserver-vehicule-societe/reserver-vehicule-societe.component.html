@@ -9,8 +9,7 @@
         <!--datepicker-->
         <div class="input-group col-12 col-md-4">
           <input class="form-control" name="dateDepart" [(ngModel)]="dateTimeDepart.date"
-          (ngModelChange)="dateDepartValide = validerDateTime(dateTimeDepart);
-          dateAriveeValide = apresDateTimeDepart(dateTimeDepart, dateTimeArivee)"
+          (ngModelChange)="validerPeriode(dateTimeDepart, dateTimeArivee)"
           ngbDatepicker #dDepartDP="ngbDatepicker" #dDepartMod="ngModel" id="id_dateDepart">
           <div class="input-group-append">
             <button class="btn btn-outline-secondary calendar" (click)="dDepartDP.toggle()" type="button">
@@ -22,8 +21,7 @@
         <!-- timepicker -->
         <div class="col-12 col-md-5">
           <ngb-timepicker [(ngModel)]="dateTimeDepart.time" [hourStep]="hourStep" [minuteStep]="minuteStep"
-          (ngModelChange)="dateDepartValide = validerDateTime(dateTimeDepart);
-          dateAriveeValide = apresDateTimeDepart(dateTimeDepart, dateTimeArivee)"
+          (ngModelChange)="validerPeriode(dateTimeDepart, dateTimeArivee)"
             name="timepickerDepart" #timeDepart="ngModel">
           </ngb-timepicker>
         </div>
@@ -31,8 +29,7 @@
       </div>
 
       <!--alert verification date depart-->
-      <ng-container *ngIf="(dDepartMod.dirty || dDepartMod.touched) &&
-      (timeDepart.dirty || timeDepart.touched) && !dateDepartValide">
+      <ng-container *ngIf="(dDepartMod.dirty || dDepartMod.touched) && !dateDepartValide">
         <div class="alert alert-warning" role="alert">Date/heure invalide : veuillez renseigner une date et une heure postérieure à la date du jour.</div>
       </ng-container>
 
@@ -43,8 +40,8 @@
         <!--datepicker-->
         <div class="input-group col-12 col-md-4">
           <input class="form-control" name="dateArivee" [(ngModel)]="dateTimeArivee.date"
-          (ngModelChange)="dateAriveeValide = apresDateTimeDepart(dateTimeDepart, dateTimeDepart)" ngbDatepicker
-           #dAriveeDP="ngbDatepicker" #dAriveeMod="ngModel" id="id_dateArivee">
+          (ngModelChange)="validerPeriode(dateTimeDepart, dateTimeArivee)"
+          ngbDatepicker #dAriveeDP="ngbDatepicker" #dAriveeMod="ngModel" id="id_dateArivee">
           <div class="input-group-append">
             <button class="btn btn-outline-secondary calendar" (click)="dAriveeDP.toggle()" type="button">
               <fa-icon [icon]="faCalendarAlt"></fa-icon>
@@ -55,8 +52,7 @@
         <!-- timepicker -->
         <div class="col-12 col-md-5">
           <ngb-timepicker [(ngModel)]="dateTimeArivee.time" [hourStep]="hourStep" [minuteStep]="minuteStep"
-          (ngModelChange)="dateDepartValide = validerDateTime(dateTimeDepart);
-          dateAriveeValide = apresDateTimeDepart(dateTimeDepart, dateTimeArivee)"
+          (ngModelChange)="validerPeriode(dateTimeDepart, dateTimeArivee)"
             name="timepickerRetour" #timeArivee="ngModel">
           </ngb-timepicker>
         </div>
@@ -64,8 +60,7 @@
       </div>
 
        <!--alert verification date arivee-->
-       <ng-container *ngIf="(dAriveeMod.dirty || dAriveeMod.touched) &&
-       (timeArivee.dirty || timeArivee.touched) && !dateAriveeValide">
+       <ng-container *ngIf="(dAriveeMod.dirty || dAriveeMod.touched) && !dateAriveeValide">
         <div class="alert alert-warning" role="alert">Date/heure invalide : veuillez renseigner une date et une heure postérieure à la date de départ.</div>
       </ng-container>
 
@@ -99,14 +94,14 @@
         <ng-container *ngIf="!periodeValide">
           <div class="alert alert-warning" role="alert">Veuillez renseigner une période valide pour connaître la disponibilité du véhicule.</div>
         </ng-container>
-        <ng-container *ngIf="periodeValide && vehicules[indexVehiculeCourant].statut.match('EN_SERVICE')">
+        <ng-container *ngIf="periodeValide && dispoVehicules.get(vehicules[indexVehiculeCourant].id)">
           <span class="text-success">DISPONIBLE</span>
         </ng-container>
-        <ng-container *ngIf="periodeValide && !vehicules[indexVehiculeCourant].statut.match('EN_SERVICE')">
+        <ng-container *ngIf="periodeValide && !dispoVehicules.get(vehicules[indexVehiculeCourant].id)">
           <span class="text-danger">NON DISPONIBLE</span>
         </ng-container>
       </div>
-      <div class="col-md-12">
+      <div class="col-md-12 mt-2">
         <button class="btn btn-primary">Réserver</button>
       </div>
     </div>

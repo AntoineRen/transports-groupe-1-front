@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbDateStruct, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { faCalendarAlt, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { GetVehiculeService } from './get-vehicule.service';
-import { Vechicule } from './vehiculeSociete.domains';
+import { GetVehiculeService } from './service/get-vehicule.service';
+import { Vechicule } from './domains/vehiculeSociete.domains';
 import { timeInterval } from 'rxjs/operators';
+import { Periode } from './domains/periode.domains';
+import { DisponibiliteVehicule } from './domains/disponibiliteVehicule.domains';
 
 @Component({
   selector: 'app-reserver-vehicule-societe',
@@ -12,7 +14,7 @@ import { timeInterval } from 'rxjs/operators';
 })
 export class ReserverVehiculeSocieteComponent implements OnInit {
 
-  // dateTime TODO
+  // dateTime
   dateTimeDepart: {
     date: NgbDateStruct;
     time: NgbTimeStruct;
@@ -35,6 +37,7 @@ export class ReserverVehiculeSocieteComponent implements OnInit {
   // vehicules
   vehicules: Vechicule[];
   indexVehiculeCourant = 0;
+  dispoVehicules: Map<number, boolean> = new Map();
 
   // verification
   periodeValide = false;
@@ -43,46 +46,81 @@ export class ReserverVehiculeSocieteComponent implements OnInit {
 
   constructor(private vehiculeService: GetVehiculeService) { }
 
-  public getAllVehicule(){
+  /** Recuperation de tous les véhicules */
+  public getAllVehicule() {
     this.vehiculeService.getAllVehicule().subscribe(
-      vehiculesServeur => this.vehicules = vehiculesServeur.map( vehiculeServeur => new Vechicule(vehiculeServeur)),
+      vehiculesServeur => this.vehicules = vehiculesServeur.map(vehiculeServeur => new Vechicule(vehiculeServeur)),
       error => console.log('Oups'), // TODO gestion via alert
     );
   }
 
-  public nextVehicule(){
-    if (this.indexVehiculeCourant + 1 >= this.vehicules.length){
+  /** Recuperation des disponibilités de tous les véhicules */
+  public getAllDispo(dTDepart: { date: NgbDateStruct; time: NgbTimeStruct }, dTArivee: { date: NgbDateStruct; time: NgbTimeStruct }) {
+
+    const periode = new Periode(dTDepart, dTArivee);
+
+    this.vehiculeService.getDispoAllVehicules(periode).subscribe(
+      disposServeurs => {
+        for (const dispo of disposServeurs) {
+          this.dispoVehicules.set(dispo.id, dispo.disponibilite);
+        }
+      },
+      error => console.log('Oups'), // TODO gestion via alert
+    );
+  }
+
+  /** Affichage du véhicule suivant */
+  public nextVehicule() {
+    if (this.indexVehiculeCourant + 1 >= this.vehicules.length) {
       this.indexVehiculeCourant = 0;
     } else {
-      this.indexVehiculeCourant ++;
+      this.indexVehiculeCourant++;
     }
   }
 
-  public prevVehicule(){
-    if (this.indexVehiculeCourant - 1 < 0){
+  /** Affichage du véhicule précédent */
+  public prevVehicule() {
+    if (this.indexVehiculeCourant - 1 < 0) {
       this.indexVehiculeCourant = this.vehicules.length - 1;
     } else {
-      this.indexVehiculeCourant --;
+      this.indexVehiculeCourant--;
     }
   }
 
-  public validerDateTime(dateTime: {date: NgbDateStruct; time: NgbTimeStruct}){
+  /** Indique si une date/heure est postérieure à la date/heure actuelle */
+  private validerDateTime(dateTime: { date: NgbDateStruct; time: NgbTimeStruct }) {
 
     return dateTime != null
-    && new Date() < new Date(dateTime.date.year, dateTime.date.month - 1, dateTime.date.day, dateTime.time.hour, dateTime.time.minute);
+      && new Date() < new Date(dateTime.date.year, dateTime.date.month - 1, dateTime.date.day, dateTime.time.hour, dateTime.time.minute);
   }
 
-  public apresDateTimeDepart(dTDepart: {date: NgbDateStruct; time: NgbTimeStruct}, dTArivee: {date: NgbDateStruct; time: NgbTimeStruct}){
+  /** Indique si une date/heure de retour est postérieure à une date/heure de départ */
+  private apresDateTimeDepart(dTDepart: { date: NgbDateStruct; time: NgbTimeStruct },
+                              dTArivee: { date: NgbDateStruct; time: NgbTimeStruct }) {
 
     return dTDepart != null && dTArivee != null
-    && new Date(dTDepart.date.year, dTDepart.date.month - 1, dTDepart.date.day, dTDepart.time.hour, dTDepart.time.minute)
-    < new Date(dTArivee.date.year, dTArivee.date.month - 1, dTArivee.date.day, dTArivee.time.hour, dTArivee.time.minute);
+      && new Date(dTDepart.date.year, dTDepart.date.month - 1, dTDepart.date.day, dTDepart.time.hour, dTDepart.time.minute)
+      < new Date(dTArivee.date.year, dTArivee.date.month - 1, dTArivee.date.day, dTArivee.time.hour, dTArivee.time.minute);
+  }
+
+  /** Vérifie que la période est valide et lance la rechercher de disponibilité */
+  public validerPeriode(dTDepart: { date: NgbDateStruct; time: NgbTimeStruct },
+                        dTArivee: { date: NgbDateStruct; time: NgbTimeStruct }) {
+
+    this.dateDepartValide = this.validerDateTime(dTDepart);
+    this.dateAriveeValide = this.apresDateTimeDepart(dTDepart, dTArivee);
+    this.periodeValide = this.dateDepartValide && this.dateAriveeValide;
+
+    if (this.periodeValide) {
+      this.getAllDispo(dTDepart, dTArivee);
+    }
+
   }
 
   ngOnInit(): void {
     // time picker initialisation
-    this.dateTimeDepart = {date: {year: 0, month: 1, day: 1}, time: {hour: 12, minute: 0, second: 0}};
-    this.dateTimeArivee = {date: {year: 0, month: 1, day: 1}, time: {hour: 12, minute: 0, second: 0}};
+    this.dateTimeDepart = { date: { year: 0, month: 1, day: 1 }, time: { hour: 12, minute: 0, second: 0 } };
+    this.dateTimeArivee = { date: { year: 0, month: 1, day: 1 }, time: { hour: 12, minute: 0, second: 0 } };
 
     this.getAllVehicule();
   }
