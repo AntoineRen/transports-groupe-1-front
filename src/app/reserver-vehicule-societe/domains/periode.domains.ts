@@ -12,10 +12,12 @@ export class Periode{
     this.dateRetour = this.formatDateTime(dateRetour.date, dateRetour.time);
   }
 
+  /** Ajoute un 0 devant un chiffre < 10 */
   private step(i: number): string {
     return i < 10 ? `0${i}` : `${i}`;
   }
 
+  /** Formate une date/heure en format UTC */
   private formatDateTime(date: NgbDateStruct, time: NgbTimeStruct){
 
     return `${this.step(date.year)}-${this.step(date.month)}-${this.step(date.day)}T${this.step(time.hour)}:${this.step(time.minute)}`;
