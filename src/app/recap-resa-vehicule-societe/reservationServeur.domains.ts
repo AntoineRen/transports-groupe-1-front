@@ -1,11 +1,9 @@
 export interface ReservationServeur {
 
-  itineraire: {
-    dateDepart: string;
-    dateArrivee: string;
-    lieuDepart: string;
-    lieuDestination: string;
-  };
+
+  dateDepart: string;
+  dateArrivee: string;
+
 
   responsable: {
     nom: string;

@@ -11,15 +11,23 @@ import {Observable} from 'rxjs';
  *
  */
 @Injectable()
-export class AuthInterceptorService  implements HttpInterceptor {
+export class AuthInterceptorService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    const cRequest = req.clone({
-      withCredentials: true
-    });
 
-    return next.handle(cRequest);
+    if (req.url.match(/api-adresse.data.gouv.fr\//)){
+
+      return next.handle(req);
+
+    }else{
+
+      const cRequest = req.clone({
+        withCredentials: true
+      });
+
+      return next.handle(cRequest);
+    }
   }
 
   constructor() { }
