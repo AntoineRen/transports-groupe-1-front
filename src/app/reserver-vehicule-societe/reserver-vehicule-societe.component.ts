@@ -141,7 +141,7 @@ export class ReserverVehiculeSocieteComponent implements OnInit {
 
   }
 
-  /** Ouvre la fenêtre modale de confirmation */
+  /** Ouvre et ferme la fenêtre modale de confirmation */
   public open(content) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-confirmation' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -150,7 +150,7 @@ export class ReserverVehiculeSocieteComponent implements OnInit {
     });
   }
 
-  /** Gere la fermeture de la fenetre modale si click sur l'arrière plan ou echap */
+  /** Indique la raison de la fermeture de la fenêtre modale */
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
