@@ -9,7 +9,7 @@ export class CovoitAnnonce {
   vehiculeModel: string;
   chauffeurPrenom: string;
   chauffeurNom: string;
-
+  nbPlace: number;
 
   constructor(annonceServeur: CovoitAnnonceServer) {
     this.dateDepart = new Date(annonceServeur.itineraire.dateDepart);
@@ -20,6 +20,6 @@ export class CovoitAnnonce {
     this.vehiculeModel = annonceServeur.modele;
     this.chauffeurNom = annonceServeur.responsable.nom;
     this.chauffeurPrenom = annonceServeur.responsable.prenom;
-
+    this.nbPlace = annonceServeur.nbPlace;
   }
 }
