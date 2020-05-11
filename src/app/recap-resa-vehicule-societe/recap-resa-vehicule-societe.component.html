@@ -26,7 +26,7 @@
     </tbody>
   </table>
 
-  <ng-container #elseBlockEncours>
+  <ng-template #elseBlockEncours>
     <div class="col-12">
       <ng-container *ngIf="reservationEnCoursVide">
 
@@ -38,7 +38,7 @@
           cours.</div>
       </ng-container>
     </div>
-  </ng-container>
+  </ng-template>
 
   <h3>Historique</h3>
 
@@ -66,7 +66,7 @@
     </tbody>
   </table>
 
-  <ng-container #elseBlockHisto>
+  <ng-template #elseBlockHisto>
     <div class="col-12">
       <ng-container *ngIf="reservationHistoVide">
 
@@ -78,7 +78,7 @@
         </div>
       </ng-container>
     </div>
-  </ng-container>
+  </ng-template>
 
   <ng-container *ngIf="nombrePagemax > 1">
     <div class="col-12">

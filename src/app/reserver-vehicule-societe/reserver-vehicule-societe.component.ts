@@ -4,6 +4,9 @@ import { faCalendarAlt, faChevronLeft, faChevronRight } from '@fortawesome/free-
 import { GetVehiculeService } from './service/get-vehicule.service';
 import { Vechicule } from './domains/vehiculeSociete.domains';
 import { Periode } from './domains/periode.domains';
+import { PostReservationService } from './service/post-reservation.service';
+import { PostReservationServeur } from './domains/postReservationServeur.domains';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reserver-vehicule-societe',
@@ -33,7 +36,7 @@ export class ReserverVehiculeSocieteComponent implements OnInit {
   faChevronRight = faChevronRight;
 
   // vehicules
-  vehicules: Vechicule[];
+  vehicules: Vechicule[] = [];
   indexVehiculeCourant = 0;
   dispoVehicules: Map<number, boolean> = new Map();
 
@@ -43,11 +46,15 @@ export class ReserverVehiculeSocieteComponent implements OnInit {
   dateAriveeValide = false;
   erreurGetVehicules = false;
   erreurGetDispo = false;
+  erreurReservation = false;
 
   // modal
   closeResult = '';
 
-  constructor(private vehiculeService: GetVehiculeService, private modalService: NgbModal) { }
+  constructor(private vehiculeService: GetVehiculeService,
+              private reservationService: PostReservationService,
+              private modalService: NgbModal,
+              private router: Router) { }
 
   /** Recuperation de tous les véhicules */
   public getAllVehicule() {
@@ -70,6 +77,20 @@ export class ReserverVehiculeSocieteComponent implements OnInit {
       },
       error => this.erreurGetDispo = true,
     );
+  }
+
+  /** Ajoute la réservation en cours en base de données */
+  public postReservation(){
+    // creation reservation
+     const reservation: PostReservationServeur = new PostReservationServeur(
+       new Periode(this.dateTimeDepart, this.dateTimeArivee),
+       this.vehicules[this.indexVehiculeCourant].id);
+
+    // sauvegarde reservation
+     this.reservationService.postReservation(reservation).subscribe(
+        () => this.router.navigate(['/collaborateur/reservations']),
+        () => this.erreurReservation = true,
+      );
   }
 
   /** Affichage du véhicule suivant */
@@ -99,7 +120,7 @@ export class ReserverVehiculeSocieteComponent implements OnInit {
 
   /** Indique si une date/heure de retour est postérieure à une date/heure de départ */
   private apresDateTimeDepart(dTDepart: { date: NgbDateStruct; time: NgbTimeStruct },
-    dTArivee: { date: NgbDateStruct; time: NgbTimeStruct }) {
+                              dTArivee: { date: NgbDateStruct; time: NgbTimeStruct }) {
 
     return dTDepart != null && dTArivee != null
       && new Date(dTDepart.date.year, dTDepart.date.month - 1, dTDepart.date.day, dTDepart.time.hour, dTDepart.time.minute)
@@ -108,7 +129,7 @@ export class ReserverVehiculeSocieteComponent implements OnInit {
 
   /** Vérifie que la période est valide et lance la rechercher de disponibilité */
   public validerPeriode(dTDepart: { date: NgbDateStruct; time: NgbTimeStruct },
-    dTArivee: { date: NgbDateStruct; time: NgbTimeStruct }) {
+                        dTArivee: { date: NgbDateStruct; time: NgbTimeStruct }) {
 
     this.dateDepartValide = this.validerDateTime(dTDepart);
     this.dateAriveeValide = this.apresDateTimeDepart(dTDepart, dTArivee);

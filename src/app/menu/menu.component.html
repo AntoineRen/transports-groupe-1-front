@@ -28,8 +28,11 @@
               aria-haspopup="true" aria-expanded="false">
               Bonjour {{col.nom}}
             </a>
-            <div class="dropdown-menu " aria-labelledby="navbarDropdown">
-              <button  class="btn" (click)="seDeconnecter()" style="background-color:#004F2F;color:#F8FFB9"><fa-icon [icon]="iconeDisconnected"></fa-icon> Se déconnecter</button>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: rgba(0,0,0,0); border-style: none;">
+              <button  class="btn" (click)="seDeconnecter()" style="background-color:#76000C;color:#F8FFB9;">
+                <fa-icon [icon]="iconeDisconnected" class="align-middle mr-2" style="font-size: 18px;"></fa-icon>
+                <span class="align-middle">Se déconnecter</span>
+              </button>
             </div>
           </li>
         </ul>
