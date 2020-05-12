@@ -29,6 +29,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -61,8 +62,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatSelectModule,
     MatInputModule,
     MatProgressSpinnerModule,
-    MatAutocompleteModule
-
+    MatAutocompleteModule,
+    MatCheckboxModule
 
   ],
   providers: [{

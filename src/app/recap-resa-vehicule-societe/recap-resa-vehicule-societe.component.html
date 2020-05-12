@@ -5,11 +5,12 @@
   <table class="table">
     <thead>
       <tr>
-        <th scope="col">Date / heure début</th>
-        <th scope="col">Date / heure fin</th>
-        <th scope="col">Immatriculation</th>
-        <th scope="col">Marque</th>
-        <th scope="col">Modèle</th>
+        <th scope="col" class="col-2">Date / heure début</th>
+        <th scope="col" class="col-2">Date / heure fin</th>
+        <th scope="col" class="col-2">Immatriculation</th>
+        <th scope="col" class="col-2">Marque</th>
+        <th scope="col" class="col-2">Modèle</th>
+        <th scope="col" class="col-2">Chauffeur</th>
       </tr>
     </thead>
     <tbody>
@@ -21,6 +22,14 @@
           <td>{{reservation.immatriculation}}</td>
           <td>{{reservation.marque}}</td>
           <td>{{reservation.modele}}</td>
+          <td>
+            <ng-container *ngIf="reservation.statutDemandeChauffeur === 'EN_ATTENTE'">
+              En attente
+            </ng-container>
+            <ng-container *ngIf="reservation.statutDemandeChauffeur === 'AVEC_CHAUFFEUR'">
+              {{reservation.nomChauffeur}} {{reservation.prenomChauffeur}}
+            </ng-container>
+          </td>
         </tr>
       </ng-container>
     </tbody>
@@ -45,11 +54,12 @@
   <table class="table">
     <thead>
       <tr>
-        <th scope="col">Date / heure début</th>
-        <th scope="col">Date / heure fin</th>
-        <th scope="col">Immatriculation</th>
-        <th scope="col">Marque</th>
-        <th scope="col">Modèle</th>
+        <th scope="col" class="col-2">Date / heure début</th>
+        <th scope="col" class="col-2">Date / heure fin</th>
+        <th scope="col" class="col-2">Immatriculation</th>
+        <th scope="col" class="col-2">Marque</th>
+        <th scope="col" class="col-2">Modèle</th>
+        <th scope="col" class="col-2">Chauffeur</th>
       </tr>
     </thead>
     <tbody>
@@ -61,6 +71,14 @@
           <td>{{reservation.immatriculation}}</td>
           <td>{{reservation.marque}}</td>
           <td>{{reservation.modele}}</td>
+          <td>
+            <ng-container *ngIf="reservation.statutDemandeChauffeur === 'EN_ATTENTE'">
+              En attente
+            </ng-container>
+            <ng-container *ngIf="reservation.statutDemandeChauffeur === 'AVEC_CHAUFFEUR'">
+              {{reservation.nomChauffeur}} {{reservation.prenomChauffeur}}
+            </ng-container>
+          </td>
         </tr>
       </ng-container>
     </tbody>
