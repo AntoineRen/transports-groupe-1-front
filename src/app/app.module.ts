@@ -29,6 +29,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { AnnoncesComponent } from './annonces/annonces.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
@@ -45,6 +46,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     CollaborateurComponent,
     AdministrateurComponent,
     VosReservationsComponent,
+    AnnoncesComponent,
     ReserverUnVehiculeComponent,
     ReserverVehiculeSocieteComponent,
   ],
