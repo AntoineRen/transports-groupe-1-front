@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
   <a class="ml-3 mr-2 p-0">
-    <img src="../../assets/logo.png" alt="logo">
+    <img src="https://cdn.discordapp.com/attachments/705412725098020906/707149807038496778/logo.png" alt="logo">
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,8 +28,11 @@
               aria-haspopup="true" aria-expanded="false">
               Bonjour {{col.nom}}
             </a>
-            <div class="dropdown-menu " aria-labelledby="navbarDropdown">
-              <button  class="btn" (click)="seDeconnecter()" style="background-color:#004F2F;color:#F8FFB9"><fa-icon [icon]="iconeDisconnected"></fa-icon> Se déconnecter</button>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: rgba(0,0,0,0); border-style: none;">
+              <button  class="btn" (click)="seDeconnecter()" style="background-color:#76000C;color:#F8FFB9;">
+                <fa-icon [icon]="iconeDisconnected" class="align-middle mr-2" style="font-size: 18px;"></fa-icon>
+                <span class="align-middle">Se déconnecter</span>
+              </button>
             </div>
           </li>
         </ul>

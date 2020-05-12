@@ -1,26 +1,35 @@
 <div class="row mt-5">
 
+  <div class="col-12 mb-3">
+    <a routerLink="/collaborateur/reservations"><< Retour à la liste</a>
+  </div>
+
   <div class="col-12">
-    <h1>Vos Réservations</h1>
+    <h1>Réserver un véhicule</h1>
   </div>
 
   <ng-container *ngIf="!error; else elseBlock">
-    <div class="col-12">
-      <a class="btn btn-primary float-right" routerLink="/collaborateur/reservations/creer">Réserver un transport</a>
-    </div>
 
     <div class="col-12 mt-5">
-      <ngb-accordion [closeOthers]="true" activeIds="static-1">
+      <ngb-accordion [closeOthers]="true" activeIds="static-2">
         <ngb-panel id="static-1" title="Covoiturage">
           <ng-template ngbPanelContent>
 
-            <app-list-reservation-covoiturages [col]="col"></app-list-reservation-covoiturages>
+            <h1>LE COMPONENT DE JULES</h1>
+
           </ng-template>
         </ngb-panel>
         <ngb-panel id="static-2" title="Véhicule de société">
           <ng-template ngbPanelContent>
 
-            <app-recap-resa-vehicule-societe [col]="col"></app-recap-resa-vehicule-societe>
+            <app-reserver-vehicule-societe></app-reserver-vehicule-societe>
+
+          </ng-template>
+        </ngb-panel>
+        <ngb-panel id="static-3" title="Véhicule avec chauffeur privé">
+          <ng-template ngbPanelContent>
+
+            <h1>LE COMPONENT DE QUELQU'UN</h1>
 
           </ng-template>
         </ngb-panel>
