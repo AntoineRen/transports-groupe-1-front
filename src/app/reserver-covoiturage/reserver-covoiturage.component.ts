@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl,Validators,FormGroup,AbstractControl} from '@angular/forms';
+import { FormControl, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import * as moment from 'moment';
 import { FeatureGeocodeJSON } from '../pub-annonce/geocode-json-response';
 import { AdresseService } from '../pub-annonce/adresse.service';
 import { switchMap, tap, finalize } from 'rxjs/operators';
+import { GetAnnonceCovoitService } from './service/get-annonce-covoit.service';
+import { CovoitAnnonce } from '../list-reservation-covoiturages/models/CovoitAnnonce.model';
 @Component({
   selector: 'app-reserver-covoiturage',
   templateUrl: './reserver-covoiturage.component.html',
@@ -12,8 +14,20 @@ import { switchMap, tap, finalize } from 'rxjs/operators';
 export class ReserverCovoiturageComponent implements OnInit {
 
 
+  //Detection adresses valides
   adresses: [];
   isLoading = false;
+
+  //list annonce en cours réccupéré du CovoitAnnonceServer
+  listAnnoncesCovoit: CovoitAnnonce[] = [];
+  //List filtre rempli par la méthode filtreLieuDepartCovoit()
+  listFiltreLieuDepart: CovoitAnnonce[] = [];
+
+  //Verifications
+  erreurGetAnnoncesCovoit = false;
+
+  lieuDepart: string;
+
 
   //Construction des champs du reactive Formulaire
   reservationCovoitForm = new FormGroup({
@@ -23,32 +37,46 @@ export class ReserverCovoiturageComponent implements OnInit {
     distance: new FormControl(),
     dateAnn: new FormControl('', [Validators.required, this.dateVaidator]),
   });
-    constructor(private adresseService: AdresseService) {
-      this.reservationCovoitForm.get('lieuDepart').valueChanges.pipe(
-        tap(() => this.isLoading = true),
-        switchMap(value => this.adresseService.search(value)
-          .pipe(
-            finalize(() => this.isLoading = false),
-          )
-        )
-      ).subscribe(response => {
-        this.adresses = response.features;
-      });
 
-      this.reservationCovoitForm.get('lieuDestination').valueChanges.pipe(
-        tap(() => this.isLoading = true),
-        switchMap(value => this.adresseService.search(value)
-          .pipe(
-            finalize(() => this.isLoading = false),
-          )
-        )
-      ).subscribe(response => {
-        this.adresses = response.features;
-      });
-    }
+  //Constructeur
 
-  ngOnInit(): void {
+  constructor(private adresseService: AdresseService,
+    private annoncesCovoit: GetAnnonceCovoitService) {
+
+    //Récuperation Adresse Lieu de depart via bakcend
+    this.reservationCovoitForm.get('lieuDepart').valueChanges
+    .pipe(
+      tap(unLieuDepart=> this.filtreLieuDepartCovoit(unLieuDepart)),
+      tap(() => this.isLoading = true),
+      switchMap(value => this.adresseService.search(value)
+    .pipe(
+          finalize(() => this.isLoading = false),
+        )
+      )
+    ).subscribe(response => {
+      this.adresses = response.features;
+    });
+    //Recupération Adresse Lieu de destinaiton  via bakcend
+    this.reservationCovoitForm.get('lieuDestination').valueChanges.pipe(
+      tap(() => this.isLoading = true),
+      switchMap(value => this.adresseService.search(value)
+        .pipe(
+          finalize(() => this.isLoading = false),
+        )
+      )
+    ).subscribe(response => {
+      this.adresses = response.features;
+    });
   }
+  //récuperation de toutes les annonces en cours grace au services getAnnonceCovoit
+  public getAllAnnonceCovoit() {
+    this.annoncesCovoit.getAllAnnonceCoitEnCourse().subscribe(
+      annoncesCovoitServer => this.listAnnoncesCovoit = annoncesCovoitServer
+        .map(annoncesCovoitServer => new CovoitAnnonce(annoncesCovoitServer)),
+      error => this.erreurGetAnnoncesCovoit = true,
+    )
+  }
+
   AdresseVaidator(control: AbstractControl) {
     const selection: any = control.value;
     if (typeof selection === 'string') {
@@ -60,17 +88,28 @@ export class ReserverCovoiturageComponent implements OnInit {
     const date1 = moment(control.value).format('YYYY-MM-DD');
     const date2 = moment().add(1, 'M').format('YYYY-MM-DD');
     if (date2 == date1) {
-      return { dateAujVaidator: true};
-    }else if (date1<date2) {
-      return { dateVaidator: true};
+      return { dateAujVaidator: true };
+    } else if (date1 < date2) {
+      return { dateVaidator: true };
     }
     return null;
   }
 
   adresseFn(adresse?: FeatureGeocodeJSON): string | undefined {
+    //active le filtre au moment de la selection de l'adresse dans le bandeau déroulant du champ Lieudepart
     return adresse ? adresse.properties.label : undefined;
   }
-  filtreDateCovoit(dateAnn){
+  //methode pour filtrer annonce en fonction du lieu de depart, seul les lieu de depart complet sont acceptés
 
+  filtreLieuDepartCovoit(unLieuDepart) {
+    this.listFiltreLieuDepart = this.listAnnoncesCovoit.filter(annonce => annonce.lieuDepart === unLieuDepart);
+  }
+  //doit ouvrirmodal pour réservation
+  reserver(annonce: CovoitAnnonce) {
+
+  }
+
+  ngOnInit(): void {
+    this.getAllAnnonceCovoit();
   }
 }

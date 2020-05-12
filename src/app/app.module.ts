@@ -21,6 +21,8 @@ import { AdministrateurComponent } from './administrateur/administrateur.compone
 import { CovoitAnnonceResume } from './list-reservation-covoiturages/modalComponnent/CovoitAnnonceResume.modal-component';
 import { VosReservationsComponent } from './vos-reservations/vos-reservations.component';
 import { ReserverCovoiturageComponent } from './reserver-covoiturage/reserver-covoiturage.component';
+import { ReserverUnVehiculeComponent } from './reserver-un-vehicule/reserver-un-vehicule.component';
+import { ReserverVehiculeSocieteComponent } from './reserver-vehicule-societe/reserver-vehicule-societe.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdresseService } from './pub-annonce/adresse.service';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -43,7 +45,9 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     CollaborateurComponent,
     AdministrateurComponent,
     VosReservationsComponent,
-    ReserverCovoiturageComponent
+    ReserverCovoiturageComponent,
+    ReserverUnVehiculeComponent,
+    ReserverVehiculeSocieteComponent,
   ],
   imports: [
     BrowserModule,

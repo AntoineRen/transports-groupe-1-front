@@ -70,19 +70,19 @@
         </tbody>
       </table>
 
-      <ng-container #elseBlockHisto>
+      <ng-template #elseBlockHisto>
         <div class="col-12">
-          <ng-container *ngIf="annonceHistoVide">
+          <ng-template *ngIf="annonceHistoVide">
             <div class="alert alert-warning" role="alert">
               Vous n'avez pas de réservation de covoiturage en cours.</div>
-          </ng-container>
+          </ng-template>
           <ng-container *ngIf="erreurAnnonceHisto">
             <div class="alert alert-danger" role="alert">
               Erreur : Impossible de récupérer la liste de vos covoiturrage en cours.
             </div>
           </ng-container>
         </div>
-      </ng-container>
+      </ng-template>
       <ng-container *ngIf="nombrePagemax > 1">
         <div class="col-12">
           <div class="float-right d-flex align-items-center">
