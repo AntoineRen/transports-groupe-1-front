@@ -11,6 +11,7 @@ import {StatutAdminService} from './auth/status-admin.service';
 import { StatutChauffeurService } from './auth/status-chauffeur.service';
 import { VosReservationsComponent } from './vos-reservations/vos-reservations.component';
 import { PubAnnonceComponent } from './pub-annonce/pub-annonce.component';
+import { AnnoncesComponent } from './annonces/annonces.component';
 
 
 const routes: Routes =  [
@@ -22,7 +23,8 @@ const routes: Routes =  [
   { path: 'collaborateur', component: CollaborateurComponent, canActivate: [StatutConnecteService]},
   { path: 'collaborateur/reservations', component: VosReservationsComponent, canActivate: [StatutConnecteService]},
   { path: 'collaborateur/reservations/creer', component: VosReservationsComponent, canActivate: [StatutConnecteService]},
-  { path: 'collaborateur/annonces/creer', component: PubAnnonceComponent, canActivate: [StatutConnecteService]},
+  { path: 'collaborateur/annonces/creer', component: PubAnnonceComponent},
+  { path: 'collaborateur/annonces', component: AnnoncesComponent},
   // route chauffeur et admin, seulement si connecté
   { path: 'chauffeur', component: ChauffeurComponent, canActivate: [StatutConnecteService, StatutChauffeurService]},
   // route administrateur, seulement si connecté

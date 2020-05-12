@@ -27,6 +27,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { AnnoncesComponent } from './annonces/annonces.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     ChauffeurComponent,
     CollaborateurComponent,
     AdministrateurComponent,
-    VosReservationsComponent
+    VosReservationsComponent,
+    AnnoncesComponent
   ],
   imports: [
     BrowserModule,
