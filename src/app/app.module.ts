@@ -8,7 +8,7 @@ import {AuthComponent} from './auth/auth.component';
 import {TechComponent} from './tech/tech.component';
 import {AuthInterceptorService} from './auth/auth-interceptor.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MenuComponent } from './menu/menu.component';
 import { PubAnnonceComponent } from './pub-annonce/pub-annonce.component';
@@ -42,7 +42,8 @@ import { VehiculesComponent } from './vehicules/vehicules.component';
     FormsModule,
     CommonModule,
     FontAwesomeModule,
-    NgbModule
+    NgbModule,
+    ReactiveFormsModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

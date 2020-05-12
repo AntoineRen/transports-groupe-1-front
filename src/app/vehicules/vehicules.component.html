@@ -1,8 +1,25 @@
 <h2>Véhicules</h2>
+<div class="col-sm-4" >
+    <form [formGroup]="profileFormControleVehicule" >
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" style="width: 9rem;">immatriculation:</span>
+            </div>
+            <input type="text" class="form-control" formControlName="ReactiveFormControleVehiculeImat">
+        </div>
+    
+        <div class="input-group mb-3">
+            <div class="input-group-prepend" >
+                <span class="input-group-text" style="width: 9rem;">marque:</span>
+            </div>
+            <input type="text" class="form-control" formControlName="ReactiveFormControleVehiculeModel">
+        </div>
+    </form>
+</div>
 
 <ng-container>
     <div class="row">
-        <div class="card text-center" *ngFor="let Vehicule of vehicules" style="width: 22rem; margin: 10px;">
+        <div class="card text-center" *ngFor="let Vehicule of filterVehicule" style="width: 22rem; margin: 10px;">
             <div class="card-body">
                 <!--<img class="card-img-top" src = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRhLy5Ej_s7VB97H80_6Q8xS4V8Kn1z_lUVCQt8wSAaZWjE2TMa&usqp=CAU" alt="Photo véhicule">-->
                 <img src="error.png" onerror="this.src='https://cdn.discordapp.com/attachments/705412725098020906/709174770247401563/imgNotLoad.png'" alt="Photo véhicule {{Vehicule.id}}" >
