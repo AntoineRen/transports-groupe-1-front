@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import * as moment from 'moment';
 import { FeatureGeocodeJSON } from '../pub-annonce/geocode-json-response';
@@ -6,13 +6,18 @@ import { AdresseService } from '../pub-annonce/adresse.service';
 import { switchMap, tap, finalize } from 'rxjs/operators';
 import { GetAnnonceCovoitService } from './service/get-annonce-covoit.service';
 import { CovoitAnnonce } from '../list-reservation-covoiturages/models/CovoitAnnonce.model';
+import { ReserverUnCovoitModalComponent } from './modalComponnent/reserver-un-covoit-modal/reserver-un-covoit-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-reserver-covoiturage',
   templateUrl: './reserver-covoiturage.component.html',
   styleUrls: ['./reserver-covoiturage.component.scss']
 })
-export class ReserverCovoiturageComponent implements OnInit {
+export class ReserverCovoiturageComponent implements OnInit, OnDestroy {
 
+
+  subCovoitAnnonce: Subscription;
 
   //Detection adresses valides
   adresses: [];
@@ -41,21 +46,21 @@ export class ReserverCovoiturageComponent implements OnInit {
   //Constructeur
 
   constructor(private adresseService: AdresseService,
-    private annoncesCovoit: GetAnnonceCovoitService) {
+    private annoncesCovoit: GetAnnonceCovoitService, private modalService: NgbModal) {
 
     //Récuperation Adresse Lieu de depart via bakcend
     this.reservationCovoitForm.get('lieuDepart').valueChanges
-    .pipe(
-      tap(unLieuDepart=> this.filtreLieuDepartCovoit(unLieuDepart)),
-      tap(() => this.isLoading = true),
-      switchMap(value => this.adresseService.search(value)
-    .pipe(
-          finalize(() => this.isLoading = false),
+      .pipe(
+        tap(unLieuDepart => this.filtreLieuDepartCovoit(unLieuDepart)),
+        tap(() => this.isLoading = true),
+        switchMap(value => this.adresseService.search(value)
+          .pipe(
+            finalize(() => this.isLoading = false),
+          )
         )
-      )
-    ).subscribe(response => {
-      this.adresses = response.features;
-    });
+      ).subscribe(response => {
+        this.adresses = response.features;
+      });
     //Recupération Adresse Lieu de destinaiton  via bakcend
     this.reservationCovoitForm.get('lieuDestination').valueChanges.pipe(
       tap(() => this.isLoading = true),
@@ -68,9 +73,10 @@ export class ReserverCovoiturageComponent implements OnInit {
       this.adresses = response.features;
     });
   }
+
   //récuperation de toutes les annonces en cours grace au services getAnnonceCovoit
   public getAllAnnonceCovoit() {
-    this.annoncesCovoit.getAllAnnonceCoitEnCourse().subscribe(
+    this.annoncesCovoit.getAllAnnonceCovoitEnCourse().subscribe(
       annoncesCovoitServer => this.listAnnoncesCovoit = annoncesCovoitServer
         .map(annoncesCovoitServer => new CovoitAnnonce(annoncesCovoitServer)),
       error => this.erreurGetAnnoncesCovoit = true,
@@ -104,12 +110,29 @@ export class ReserverCovoiturageComponent implements OnInit {
   filtreLieuDepartCovoit(unLieuDepart) {
     this.listFiltreLieuDepart = this.listAnnoncesCovoit.filter(annonce => annonce.lieuDepart === unLieuDepart);
   }
-  //doit ouvrirmodal pour réservation
-  reserver(annonce: CovoitAnnonce) {
-
+  //doit ouvrir modal pour réservation
+  reserver(reservationCovoit: ReserverUnCovoitModalComponent) {
+    /* l'instantce de NgbModal utilise le methode reserver qui prend en paramettre le composant fenetre modal*/
+    const modalRef = this.modalService.open(ReserverUnCovoitModalComponent);
+    /*Champ "annonce " (présent en input du composant fenetre modal) est remplis avec l'annonceRecup */
+    modalRef.componentInstance.annonce = reservationCovoit;
   }
 
   ngOnInit(): void {
     this.getAllAnnonceCovoit();
+
+    //tentative de subject
+    this.subCovoitAnnonce = this.annoncesCovoit.observableCovoitAnnonceServer.subscribe(
+      annoncesCovoitServer => {
+      this.listAnnoncesCovoit = annoncesCovoitServer.map(annoncesCovoitServer => new CovoitAnnonce(annoncesCovoitServer));
+        this.filtreLieuDepartCovoit(this.lieuDepart)
+      },
+      error => this.erreurGetAnnoncesCovoit = true,
+    );
+  }
+  ngOnDestroy(): void {
+    this.subCovoitAnnonce.unsubscribe();
   }
 }
+
+

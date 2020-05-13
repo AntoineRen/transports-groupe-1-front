@@ -30,6 +30,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { ReserverUnCovoitModalComponent } from './reserver-covoiturage/modalComponnent/reserver-un-covoit-modal/reserver-un-covoit-modal.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     ReserverCovoiturageComponent,
     ReserverUnVehiculeComponent,
     ReserverVehiculeSocieteComponent,
+    ReserverUnCovoitModalComponent,
   ],
   imports: [
     BrowserModule,
