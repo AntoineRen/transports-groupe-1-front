@@ -104,6 +104,8 @@ export class PubAnnonceComponent implements OnInit {
     this.annoncesForm.value.lieuDestination = this.adresseFn(this.annoncesForm.value.lieuDestination);
     this.annoncesForm.value.dateArrivee = `${this.toModelDate(this.annoncesForm.get('dateAnn').value)}T${this.toModelTime(this.annoncesForm.get('heure').value)}`;
     this.annoncesForm.value.dateDepart = `${this.toModelDate(this.annoncesForm.get('dateAnn').value)}T${this.toModelTime(this.annoncesForm.get('heure').value)}`;
+    this.annoncesForm.value.distance = 2;
+    this.annoncesForm.value.dureeTrajet = 3;
     delete this.annoncesForm.value.heure;
     delete this.annoncesForm.value.dateAnn;
     this.annonceService.creerAnnonceCovoiturage(formAnn.value).subscribe(() => {

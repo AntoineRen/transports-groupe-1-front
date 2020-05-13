@@ -27,5 +27,5 @@ export default interface CovoitAnnonceServer {
   marque?: string;
   modele?: string;
   nbPlace?: number;
-
+  statut?: string;
 }
