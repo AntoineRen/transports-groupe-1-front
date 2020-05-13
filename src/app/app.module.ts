@@ -30,6 +30,9 @@ import {MatInputModule} from '@angular/material/input';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { PlanningComponent } from './planning/planning.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 @NgModule({
   declarations: [
@@ -47,6 +50,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     VosReservationsComponent,
     ReserverUnVehiculeComponent,
     ReserverVehiculeSocieteComponent,
+    PlanningComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,14 +67,18 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatInputModule,
     MatProgressSpinnerModule,
     MatAutocompleteModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
 
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS ,
     useClass: AuthInterceptorService,
     multi: true
-  },AdresseService
+  }, AdresseService
 ],
   bootstrap: [AppComponent]
 })
