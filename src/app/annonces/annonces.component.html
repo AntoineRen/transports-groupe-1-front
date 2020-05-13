@@ -33,6 +33,17 @@
             <td>{{annonce.lieuDepart}}</td>
             <td>{{annonce.lieuDestination}}</td>
             <td>{{annonce.nbVoyageurs}}</td>
+            <div *ngIf="annonce.statut == 'STATUT_EN_COURS'; else elseBlock">
+              <td style="text-align: center">
+                <button ngbButton class="gdp-button5 btn-danger" (click)="open(content,annonce.id)">Annuler </button>
+              </td>
+            </div>
+            <ng-template #elseBlock>
+              <td style="text-align: center; color: red;">
+                Annulé
+              </td>
+            </ng-template>
+
           </tr>
         </ng-container>
       </tbody>
@@ -123,4 +134,18 @@
       <div class="alert alert-danger" role="alert">Erreur : Vous n'êtes pas connecté.</div>
     </div>
   </ng-template>
+
+  <ng-template #content let-modal>
+    <div class="modal-body">
+      <div class="">
+        Etes-vous sûr de vouloir annuler cette annonce ?
+      </div>
+
+      </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss('Cross click')">Annuler</button>
+      <button type="button" ngbAutofocus class="btn btn-danger" (click)="modal.close('Save click')">Confirmer</button>
+    </div>
+  </ng-template>
+
 </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { AnnonceService } from '../pub-annonce/annonce.service';
 import { Annonce } from '../pub-annonce/annonce';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-annonces',
@@ -14,6 +15,10 @@ export class AnnoncesComponent implements OnInit {
   listAnnoncesEncours: Annonce[];
   listAnnoncesHistorique: Annonce[];
   listAnnoncesHistoriqueAffichage: Annonce[];
+  closeResult = '';
+  annuler;
+  statut;
+
   // pagination
   nbAnnoncesParPages = 3;
   start = 0;
@@ -32,7 +37,7 @@ export class AnnoncesComponent implements OnInit {
   erreurAnnonceHisto = false;
   error = false;
 
-  constructor(private annonceServices: AnnonceService) { }
+  constructor(private annonceServices: AnnonceService, private modalService: NgbModal) { }
 
    /*Reccuperation de la liste des annonces au statue en cours*/
    subListAnnoncesEnCour(): void {
@@ -41,7 +46,6 @@ export class AnnoncesComponent implements OnInit {
         this.listAnnoncesEncours = listeAnnonceServer
           .map(CovoitAnnonceServer => new Annonce(CovoitAnnonceServer));
         this.annonceEnCoursVide = this.listAnnoncesEncours.length === 0;
-        console.log(this.listAnnoncesEncours);
       },
         err => {
           this.erreurAnnonceEnCours = true;
@@ -61,10 +65,15 @@ export class AnnoncesComponent implements OnInit {
 
         this.annonceHistoVide = this.listAnnoncesHistorique.length === 0;
 
-
       },
         err => this.erreurAnnonceHisto = true);
   }
+
+  /*Annulation des annonces */
+    annulerAnnonce(id){
+      this.annonceServices.annulerAnnonce(id).subscribe(() => this.subListAnnoncesEnCour());
+    }
+
     /*Methode de pagination pour historique des annonces de covoiturage*/
     pagePrecedente() {
       if (this.pageActuelle - 1 > 0) {
@@ -85,6 +94,25 @@ export class AnnoncesComponent implements OnInit {
 
       this.listAnnoncesHistoriqueAffichage = this.listAnnoncesHistorique.slice(this.start, this.end);
     }
+
+
+  open(content, id) {
+    this.modalService.open(content).result.then(() => {
+    this.annulerAnnonce(id);
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
 
   ngOnInit(): void {
     this.subListAnnoncesEnCour();
