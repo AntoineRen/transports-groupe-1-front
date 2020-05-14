@@ -3,7 +3,6 @@ import { Vehicule } from './vehicule';
 import { VehiculesService } from './vehicules.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { switchMap, map } from 'rxjs/operators';
-
 @Component({
   selector: 'app-vehicules',
   templateUrl: './vehicules.component.html',
@@ -20,21 +19,15 @@ export class VehiculesComponent implements OnInit {
     ReactiveFormControleVehiculeModel : new FormControl('')
   });
   constructor(private vehiculesService : VehiculesService) {
-    this.profileFormControleVehicule.get('ReactiveFormControleVehiculeImat').valueChanges.pipe(
-      map( 
-        immatriculation => 
-          this.FilterVehiculeFunctionimmat(immatriculation)
-      )
-    )
-    .subscribe(object => this.filterVehicule = object.slice());
-
-    this.profileFormControleVehicule.get('ReactiveFormControleVehiculeModel').valueChanges.pipe(
-      map( 
-        immatriculation => 
-          this.FilterVehiculeFunctionMarque(immatriculation)
-      )
-    )
-    .subscribe(object => this.filterVehicule = object.slice());
+    this.profileFormControleVehicule.valueChanges.pipe(
+      map( ()=>{
+        let filterVehiculeTemp:Vehicule[];
+          filterVehiculeTemp = this.FilterVehiculeFunctionimmat(
+            this.profileFormControleVehicule.get('ReactiveFormControleVehiculeImat').value,
+            this.profileFormControleVehicule.get('ReactiveFormControleVehiculeModel').value);
+        return filterVehiculeTemp;
+      })
+    ).subscribe(object => this.filterVehicule = object);
    }
 
   ngOnInit(): void {
@@ -48,11 +41,15 @@ export class VehiculesComponent implements OnInit {
     },error=>this.erreurVehicules=true,
     );
   }
-
-  FilterVehiculeFunctionimmat(immatriculation:string):Vehicule[]{
-    return this.vehicules.filter( vehicule=> vehicule.immatriculation.includes(immatriculation.toLocaleUpperCase()))
-  }
-  FilterVehiculeFunctionMarque(marque:string):Vehicule[]{
-    return this.vehicules.filter( vehicule=> vehicule.marque.includes(marque.toLocaleUpperCase()))
+  
+  FilterVehiculeFunctionimmat(immatriculation:string, marque:string):Vehicule[]{
+    let tempFilterArray:Vehicule[];
+    tempFilterArray = this.vehicules.filter( vehicule=> vehicule.immatriculation.toUpperCase().includes(immatriculation.toLocaleUpperCase()))
+    console.log("immat");
+    console.log(tempFilterArray);
+    tempFilterArray = tempFilterArray.filter( vehicule=> vehicule.marque.toLocaleLowerCase().includes(marque.toLocaleLowerCase()));
+    console.log("marque");
+    console.log(tempFilterArray);
+    return tempFilterArray;
   }
 }

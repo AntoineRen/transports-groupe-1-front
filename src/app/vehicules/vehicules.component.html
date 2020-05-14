@@ -1,4 +1,5 @@
 <h2>Véhicules</h2>
+<!-- Filtre liste -->
 <div class="col-sm-4" >
     <form [formGroup]="profileFormControleVehicule" >
         <div class="input-group mb-3">
@@ -16,19 +17,95 @@
         </div>
     </form>
 </div>
-
-<ng-container>
-    <div class="row">
-        <div class="card text-center" *ngFor="let Vehicule of filterVehicule" style="width: 22rem; margin: 10px;">
-            <div class="card-body">
-                <!--<img class="card-img-top" src = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRhLy5Ej_s7VB97H80_6Q8xS4V8Kn1z_lUVCQt8wSAaZWjE2TMa&usqp=CAU" alt="Photo véhicule">-->
-                <img src="error.png" onerror="this.src='https://cdn.discordapp.com/attachments/705412725098020906/709174770247401563/imgNotLoad.png'" alt="Photo véhicule {{Vehicule.id}}" >
-                <p class="card-text">
-                    {{Vehicule.immatriculation}}<br/>
-                    {{Vehicule.marque}} - {{Vehicule.modele}}<br/>
-                    {{Vehicule.categorie}}<br/>
-                </p>
-            </div>
-        </div>
+<div class="row">
+    <div class="col-sm-12 ">
+        <!-- Button modal -->
+        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter"style="float:right">
+            Ajouter un véhicule
+        </button>
     </div>
-</ng-container>
+    
+    <div class="col-sm-12 ">
+        <!-- liste Véhicules -->
+        <ng-container>
+            <div class="row">
+                <div class="card text-center" *ngFor="let Vehicule of filterVehicule" style="width: 22rem; margin: 10px;">
+                    <div class="card-body">
+                        <img src="error.png" onerror="this.src='https://cdn.discordapp.com/attachments/705412725098020906/709174770247401563/imgNotLoad.png'" alt="Photo véhicule {{Vehicule.id}}" >
+                        <p class="card-text">
+                            {{Vehicule.immatriculation}}<br/>
+                            {{Vehicule.marque}} - {{Vehicule.modele}}<br/>
+                            {{Vehicule.categorie}}<br/>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Véhicule</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form class="needs-validation" novalidate>
+            <div class="modal-body">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" style="width: 10rem;">immatriculation:</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="XX-NNN-XX" required>
+                    <div class="invalid-feedback">
+                        immatriculation requis.
+                        </div>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" style="width: 10rem;">Marque:</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Marque du véhicule" required>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" style="width: 10rem;">Modèle:</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Modèle du véhicule" required>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" style="width: 10rem;">Catégorie:</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Catégorie du véhicule" required>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" style="width: 10rem;">Nombre de places:</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Nombre de places" required>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" style="width: 10rem;">Photo:</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="URL de la photo" required>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-primary">Ajouter</button>
+            </div>
+        </form> 
+      </div>
+    </div>
+  </div>
