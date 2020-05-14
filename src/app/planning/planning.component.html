@@ -4,7 +4,7 @@
     <h1>Planning</h1>
   </div>
 
-  <!-- Swicth day -->
+  <!-- Switch day -->
   <div class="col-12 text-right">
     <button class="btn" (click)="jourPrecedent()">
       <fa-icon [icon]="faChevronLeft"></fa-icon>
@@ -16,8 +16,8 @@
   </div>
 
   <!-- Calendar -->
-  <mwl-calendar-day-view [viewDate]="viewDate" [hourSegmentTemplate]="heure" [events]="events" [refresh]="refresh"
-    [eventTemplate]="eventTemplate">
+  <mwl-calendar-day-view [viewDate]="viewDate" [events]="events" [refresh]="refresh"
+    [eventTemplate]="customEventTemplate" [hourSegmentTemplate]="heure">
   </mwl-calendar-day-view>
 
 
@@ -33,16 +33,51 @@
   </div>
 </ng-template>
 
-<!-- Event Template -->
-<ng-template #eventTemplate let-dayEvent="dayEvent" let-tooltipPlacement="tooltipPlacement"
-  let-eventClicked="eventClicked" let-tooltipTemplate="tooltipTemplate" let-tooltipAppendToBody="tooltipAppendToBody">
-  <div class="cal-event" [style.backgroundColor]="dayEvent.event.color?.secondary"
-    [style.borderColor]="dayEvent.event.color?.primary"
-    [mwlCalendarTooltip]="dayEvent.event.title | calendarEventTitle:'dayTooltip':dayEvent.event"
-    [tooltipPlacement]="tooltipPlacement" [tooltipEvent]="dayEvent.event" [tooltipTemplate]="tooltipTemplate"
-    [tooltipAppendToBody]="tooltipAppendToBody" (mwlClick)="eventClicked.emit()">
-    &ngsp;
-    <mwl-calendar-event-title [event]="dayEvent.event" [customTemplate]="eventTitleTemplate" view="day">
-    </mwl-calendar-event-title>
+<!-- Event Template-->
+<ng-template #customEventTemplate let-weekEvent="weekEvent">
+
+  <div class="card border-dark text-light" style="width: 100%; background-color:#004F2F;">
+    <div class="card-body">
+      <h2 class="card-title">{{weekEvent.event.start.toLocaleString()}} - {{weekEvent.event.end.toLocaleString()}}</h2>
+      <p class="card-text">
+      <div class="row">
+        <div class="col-4 text-right">
+          Responsable :
+        </div>
+        <div class="col-6">
+          {{weekEvent.event.meta.responsable.nom}} {{weekEvent.event.meta.responsable.prenom}}
+        </div>
+        <div class="col-4 text-right">
+          Téléphone :
+        </div>
+        <div class="col-6">
+          {{weekEvent.event.meta.responsable.numTelephone}}
+        </div>
+        <div class="col-4 text-right">
+          Email :
+        </div>
+        <div class="col-6">
+          {{weekEvent.event.meta.responsable.email}}
+        </div>
+        <div class="col-4 text-right">
+          Véhicule :
+        </div>
+        <div class="col-6">
+          {{weekEvent.event.meta.vehicule.immatriculation}}
+        </div>
+
+      </div>
+      <ng-container *ngIf="weekEvent.event.meta.statut === 'EN_ATTENTE'; else elseBlockStatut">
+
+          <button class="btn btn-outline-light float-right">Accepter la demande</button>
+
+      </ng-container>
+      <ng-template #elseBlockStatut>
+
+          <span class="float-right">Reservation Accepté</span>
+
+      </ng-template>
+    </div>
   </div>
+
 </ng-template>
