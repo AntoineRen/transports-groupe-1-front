@@ -1,0 +1,142 @@
+<h2 class="my-3">Reserver un vehicule</h2>
+<form [formGroup]="reservationCovoitForm">
+  <div class="card mb-2">
+    <div class="card-header">
+      Covoiturage
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class=" col-sm-3">
+
+          <!--Champ de L'adresse de départ-->
+          <label for="staticEmail" class=" col-form-label">Adesse de départ * </label>
+          <input formControlName="lieuDepart" class="form-control" type="text" [matAutocomplete]="auto"
+            [ngClass]="{ 'is-invalid':   reservationCovoitForm.get('lieuDepart').invalid  && (reservationCovoitForm.get('lieuDepart').dirty || reservationCovoitForm.get('lieuDepart').touched)}"
+            required>
+          <div
+            *ngIf="  reservationCovoitForm.get('lieuDepart').invalid  && (reservationCovoitForm.get('lieuDepart').dirty || reservationCovoitForm.get('lieuDepart').touched)">
+            <mat-error *ngIf="reservationCovoitForm.controls['lieuDepart'].hasError('required') ">
+              Veuillez renseigner l'adresse de départ
+            </mat-error>
+            <mat-error
+              *ngIf="reservationCovoitForm.get('lieuDepart').hasError('incorrect') && !reservationCovoitForm.controls['lieuDepart'].hasError('required')">
+              L'adresse de départ est une adresse inconnue
+            </mat-error>
+          </div>
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="adresseFn">
+            <mat-option *ngIf="isLoading" class="is-loading">
+              <mat-spinner diameter="50"></mat-spinner>
+            </mat-option>
+            <mat-option *ngIf="isLoading" class="is-loading">
+              <mat-progress-spinner diameter="50"></mat-progress-spinner>
+            </mat-option>
+            <mat-option *ngFor="let adresse of adresses" [value]="adresse">
+              {{adresseFn(adresse)}}
+            </mat-option>
+          </mat-autocomplete>
+
+          <!--Champ de la date de départ-->
+          <span class="col-form-label inputdate p-2">Date de Départ</span>
+          <div class="input-group inputdate ">
+            <input formControlName="dateAnn" class="form-control" id="date" ngbDatepicker #d="ngbDatepicker" name="date"
+              required>
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar " (click)="d.toggle()" type="button"></button>
+            </div>
+
+            <div class="col-lg-12"
+              *ngIf=" reservationCovoitForm.get('dateAnn').invalid && reservationCovoitForm.get('dateAnn').touched">
+              <mat-error *ngIf="reservationCovoitForm.controls['dateAnn'].hasError('required') ">
+                Veuillez renseigner une date de départ posterieur à aujourd'hui
+              </mat-error>
+              <mat-error
+                *ngIf="reservationCovoitForm.get('dateAnn').hasError('dateVaidator')  && !reservationCovoitForm.controls['dateAnn'].hasError('required') ">
+                La date ne peut être antérieure à aujourd'hui.
+              </mat-error>
+            </div>
+          </div>
+        </div>
+
+        <!--Champ de L'adresse de destination-->
+        <div class="col-sm-3">
+          <label for="inputPassword" class=" col-form-label">Adresse de destination *</label>
+          <input formControlName="lieuDestination" class="form-control" type="text" [matAutocomplete]="auto"
+            [ngClass]="{ 'is-invalid':   reservationCovoitForm.get('lieuDestination').invalid  && (reservationCovoitForm.get('lieuDestination').dirty || reservationCovoitForm.get('lieuDestination').touched)}"
+            required>
+          <div
+            *ngIf="  reservationCovoitForm.get('lieuDestination').invalid  && (reservationCovoitForm.get('lieuDestination').dirty || reservationCovoitForm.get('lieuDestination').touched)">
+            <mat-error *ngIf="reservationCovoitForm.controls['lieuDestination'].hasError('required') ">
+              Veuillez renseigner l'adresse de destination
+            </mat-error>
+            <mat-error
+              *ngIf="reservationCovoitForm.get('lieuDestination').hasError('incorrect') && !reservationCovoitForm.controls['lieuDestination'].hasError('required')">
+              L'adresse de destination est une adresse inconnue
+            </mat-error>
+          </div>
+
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="adresseFn">
+            <mat-option *ngIf="isLoading" class="is-loading">
+              <mat-spinner diameter="50"></mat-spinner>
+            </mat-option>
+            <mat-option *ngIf="isLoading" class="is-loading">
+              <mat-progress-spinner diameter="50"></mat-progress-spinner>
+            </mat-option>
+            <mat-option *ngFor="let adresse of adresses" [value]="adresse">
+              {{adresseFn(adresse)}}
+            </mat-option>
+          </mat-autocomplete>
+        </div>
+
+        <!--Champ de Durée du trajet -> auto rempli-->
+        <div class="form-group offset-1 col-sm-3 ">
+          <label for="staticEmail" class=" col-form-label">Durée du trajet</label>
+          <div class="col-sm-9">
+            <input formControlName="dureeTrajet" type="text" readonly class="form-control-plaintext"
+              name="duree_trajet">
+          </div>
+        <!--Champ de Distance du trajet -> auto rempli-->
+          <div class="form-group ">
+            <label class="col-form-label">Distance</label>
+            <div class="offset-1 col-sm-3">
+              <input formControlName="distance" type="text" readonly class="form-control-plaintext" name="distance">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--Tableau des différent covoiturage en cours , se remplit grace au champ adresse de départ-->
+      <div class="row">
+        <h2 class="p-3">Covoiturage</h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Date/heure</th>
+              <th scope="col">Départ</th>
+              <th scope="col">Destination</th>
+              <th scope="col">Vehicule</th>
+              <th scope="col">Chauffeur</th>
+              <th scope="col">Place disponibles</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <!--Mettre la condition permettant que le tableau ne s'affiche que si champ adresse depart valide, piste elle ne s'affiche sue si la liste est pleine -->
+            <ng-container *ngIf="listFiltreLieuDepart">
+              <tr *ngFor="let annonce of listFiltreLieuDepart">
+                <td scope="row">{{annonce.dateDepart.toDateString()}}<br />{{annonce.dateDepart.toLocaleTimeString()}}
+                </td>
+                <td>{{annonce.lieuDepart}}</td>
+                <td>{{annonce.lieuDestination}}</td>
+                <td>{{annonce.vehiculeMarque}}<br />{{annonce.vehiculeModel}}</td>
+                <td>{{annonce.chauffeurNom|uppercase}}{{annonce.chauffeurPrenom|lowercase}}</td>
+                <td>{{annonce.nbPlace}}</td>
+                <td><button type="button" class="btn btn-info" (click)="reserver(annonce)"
+                    [disabled]="annonce.nbPlace==0">Réserver</button></td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</form>
