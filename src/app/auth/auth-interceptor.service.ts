@@ -19,7 +19,7 @@ export class AuthInterceptorService implements HttpInterceptor {
 
       return next.handle(req);
 
-    }else if (req.url.match(/router.project-osrm.org\//) ){
+    }else if (req.url.match(/maps.open-street.com\//) ){
 
       return next.handle(req);
 
