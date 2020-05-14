@@ -21,7 +21,7 @@ export class AdresseService {
 
   dureeDistanceCalculate(value: any): Observable<any>{
     if (typeof value === 'string'){
-      return this.httpClient.get<GeocodeJSON>(`https://router.project-osrm.org/route/v1/driving/${value}`);
+      return this.httpClient.get<JSON>(`https://router.project-osrm.org/route/v1/driving/${value}`);
     }
   }
 
