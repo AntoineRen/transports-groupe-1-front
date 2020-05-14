@@ -28,4 +28,5 @@ export class AnnonceService {
   annulerAnnonce(id): Observable<Annonce>{
     return this.http.put<Annonce>(`${URL_BACKEND}annuler`, id);
   }
+
 }
