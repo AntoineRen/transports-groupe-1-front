@@ -13,7 +13,7 @@ const URL_BACKEND = environment.baseUrl + 'annonce/';
 @Injectable({
   providedIn: 'root'
 })
-export class GetAnnonceCovoitService {
+export class AnnonceCovoitService {
 
   private subjectCovoitAnnonceServer = new BehaviorSubject<CovoitAnnonceServer[]>(null);
 

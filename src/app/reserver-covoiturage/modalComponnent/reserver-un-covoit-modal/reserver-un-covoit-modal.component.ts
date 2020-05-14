@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CovoitAnnonce } from 'src/app/list-reservation-covoiturages/models/CovoitAnnonce.model';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { GetAnnonceCovoitService } from '../../service/get-annonce-covoit.service';
+import { AnnonceCovoitService } from '../../service/annonce-covoit.service';
 import { Router } from '@angular/router';
 
 
@@ -17,8 +17,8 @@ export class ReserverUnCovoitModalComponent {
   errorPutReservation = false;
 
   constructor(private modalService: NgbModal,
-    public activeModal: NgbActiveModal,
-    private servicePut: GetAnnonceCovoitService) { }
+              public activeModal: NgbActiveModal,
+              private servicePut: AnnonceCovoitService) { }
 
 
 

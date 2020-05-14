@@ -4,7 +4,7 @@ import * as moment from 'moment';
 import { FeatureGeocodeJSON } from '../pub-annonce/geocode-json-response';
 import { AdresseService } from '../pub-annonce/adresse.service';
 import { switchMap, tap, finalize } from 'rxjs/operators';
-import { GetAnnonceCovoitService } from './service/get-annonce-covoit.service';
+import { AnnonceCovoitService } from './service/annonce-covoit.service';
 import { CovoitAnnonce } from '../list-reservation-covoiturages/models/CovoitAnnonce.model';
 import { ReserverUnCovoitModalComponent } from './modalComponnent/reserver-un-covoit-modal/reserver-un-covoit-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -46,7 +46,7 @@ export class ReserverCovoiturageComponent implements OnInit, OnDestroy {
   //Constructeur
 
   constructor(private adresseService: AdresseService,
-    private annoncesCovoit: GetAnnonceCovoitService, private modalService: NgbModal) {
+              private annoncesCovoit: AnnonceCovoitService, private modalService: NgbModal) {
 
     //Récuperation Adresse Lieu de depart via bakcend
     this.reservationCovoitForm.get('lieuDepart').valueChanges
@@ -124,7 +124,7 @@ export class ReserverCovoiturageComponent implements OnInit, OnDestroy {
     //tentative de subject
     this.subCovoitAnnonce = this.annoncesCovoit.observableCovoitAnnonceServer.subscribe(
       annoncesCovoitServer => {
-      this.listAnnoncesCovoit = annoncesCovoitServer.map(annoncesCovoitServer => new CovoitAnnonce(annoncesCovoitServer));
+        this.listAnnoncesCovoit = annoncesCovoitServer.map(annoncesCovoitServer => new CovoitAnnonce(annoncesCovoitServer));
         this.filtreLieuDepartCovoit(this.lieuDepart)
       },
       error => this.erreurGetAnnoncesCovoit = true,

@@ -31,7 +31,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { ReserverUnCovoitModalComponent } from './reserver-covoiturage/modalComponnent/reserver-un-covoit-modal/reserver-un-covoit-modal.component';
-
+import {AnnonceCovoitService} from './reserver-covoiturage/service/annonce-covoit.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,6 +50,7 @@ import { ReserverUnCovoitModalComponent } from './reserver-covoiturage/modalComp
     ReserverUnVehiculeComponent,
     ReserverVehiculeSocieteComponent,
     ReserverUnCovoitModalComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -73,7 +74,7 @@ import { ReserverUnCovoitModalComponent } from './reserver-covoiturage/modalComp
     provide: HTTP_INTERCEPTORS ,
     useClass: AuthInterceptorService,
     multi: true
-  },AdresseService
+  }, AdresseService, AnnonceCovoitService,
 ],
   bootstrap: [AppComponent]
 })
