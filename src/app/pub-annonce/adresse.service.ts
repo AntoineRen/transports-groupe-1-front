@@ -21,8 +21,7 @@ export class AdresseService {
 
   dureeDistanceCalculate(value: any): Observable<any>{
     if (typeof value === 'string'){
-      return this.httpClient.get<JSON>(`https://maps.open-street.com/api/route/?origin=${value}&mode=driving&key=ddbbdbdcf269fa42cae763c48ce9bcf3
-      `);
+      return this.httpClient.get<JSON>(`https://maps.open-street.com/api/route/?origin=${value}&mode=driving&key=ddbbdbdcf269fa42cae763c48ce9bcf3`);
     }
   }
 
