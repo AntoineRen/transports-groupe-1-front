@@ -88,11 +88,11 @@ export class PubAnnonceComponent implements OnInit {
         }
       }
       if (this.coordDep.length === 2 && this.coordDes.length === 2) {
-        const mesCoord = `${this.coordDep[0]},${this.coordDep[1]};${this.coordDes[0]},${this.coordDes[1]}`;
+        const mesCoord = `${this.coordDep[1]},${this.coordDep[0]}&destination=${this.coordDes[1]},${this.coordDes[0]}`;
         this.adresseService.dureeDistanceCalculate(mesCoord).subscribe(data => {
-          this.distance = (data.routes[0].distance / 1000).toFixed(2);
-          this.duree = ((data.routes[0].duration / 3600) | 0);
-          this.minute = (((data.routes[0].duration % 3600) / 60) | 0);
+          this.distance = (data.total_distance / 1000).toFixed(2);
+          this.duree = ((data.total_time / 3600) | 0);
+          this.minute = (((data.total_time % 3600) / 60) | 0);
         });
       }
     }
