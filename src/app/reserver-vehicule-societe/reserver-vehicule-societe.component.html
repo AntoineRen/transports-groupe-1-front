@@ -2,6 +2,7 @@
 
   <div class="col-12">
     <form #formVehicule="ngForm">
+
       <!-- depart -->
       <div class="form-group row d-flex align-items-center">
         <label for="id_dateDepart" class="col-12 col-md-3 col-form-label">Date/heure de réservation *</label>
@@ -19,11 +20,15 @@
         </div>
 
         <!-- timepicker -->
-        <div class="col-12 col-md-5">
+        <div class="col-6 col-md-3">
           <ngb-timepicker [(ngModel)]="dateTimeDepart.time" [hourStep]="hourStep" [minuteStep]="minuteStep"
             (ngModelChange)="validerPeriode(dateTimeDepart, dateTimeArivee)" name="timepickerDepart"
             #timeDepart="ngModel">
           </ngb-timepicker>
+        </div>
+
+        <div class="form-check col-6 col-md-2">
+          <mat-checkbox [(ngModel)]="avecChauffeur" name="checkChauffeur" color="primary">Avec Chauffeur</mat-checkbox>
         </div>
 
       </div>
@@ -119,9 +124,10 @@
         <div class="col-md-12 mt-2">
           <button class="btn btn-primary" (click)="open(content)"
             [disabled]=" !periodeValide || !dispoVehicules.get(vehicules[indexVehiculeCourant].id)">Réserver</button>
-            <ng-container *ngIf="erreurReservation">
-              <div class="alert alert-danger mt-2" role="alert">Erreur : Impossible de sauvegarder votre réservation.</div>
-            </ng-container>
+          <ng-container *ngIf="erreurReservation">
+            <div class="alert alert-danger mt-2" role="alert">Erreur : Impossible de sauvegarder votre réservation.
+            </div>
+          </ng-container>
         </div>
       </div>
 
@@ -164,13 +170,25 @@
       <div class="col-6 text-right">
         Modèle
       </div>
-      <div class="col-6">
+      <div class="col-6 mb-2">
         {{vehicules[indexVehiculeCourant].modele}}
+      </div>
+      <div class="col-6 text-right">
+        Avec Chauffeur
+      </div>
+      <div class="col-6">
+        <ng-container *ngIf="avecChauffeur; else elseBlockChauffeur">
+          Oui
+        </ng-container>
+        <ng-template #elseBlockChauffeur>
+          Non
+        </ng-template>
       </div>
     </div>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-primary" (click)="modal.close('Annuler')">Annuler</button>
-    <button type="button" class="btn btn-primary" (click)="postReservation() ;modal.close('Confirmer')">Confirmer</button>
+    <button type="button" class="btn btn-primary"
+      (click)="postReservation() ;modal.close('Confirmer')">Confirmer</button>
   </div>
 </ng-template>

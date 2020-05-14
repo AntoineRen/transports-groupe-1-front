@@ -46,7 +46,7 @@ export class ReserverCovoiturageComponent implements OnInit, OnDestroy {
   //Constructeur
 
   constructor(private adresseService: AdresseService,
-              private annoncesCovoit: AnnonceCovoitService, private modalService: NgbModal) {
+    private annoncesCovoit: AnnonceCovoitService, private modalService: NgbModal) {
 
     //Récuperation Adresse Lieu de depart via bakcend
     this.reservationCovoitForm.get('lieuDepart').valueChanges
@@ -120,7 +120,7 @@ export class ReserverCovoiturageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getAllAnnonceCovoit();
-
+    /*
     //tentative de subject
     this.subCovoitAnnonce = this.annoncesCovoit.observableCovoitAnnonceServer.subscribe(
       annoncesCovoitServer => {
@@ -128,7 +128,8 @@ export class ReserverCovoiturageComponent implements OnInit, OnDestroy {
         this.filtreLieuDepartCovoit(this.lieuDepart)
       },
       error => this.erreurGetAnnoncesCovoit = true,
-    );
+    );*/
+
   }
   ngOnDestroy(): void {
     this.subCovoitAnnonce.unsubscribe();

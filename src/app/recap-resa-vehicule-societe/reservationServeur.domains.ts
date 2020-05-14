@@ -30,4 +30,5 @@ export interface ReservationServeur {
     statut: string;
   };
 
+  statutDemandeChauffeur: string;
 }

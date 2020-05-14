@@ -12,6 +12,8 @@ import { VosReservationsComponent } from './vos-reservations/vos-reservations.co
 import { ReserverUnVehiculeComponent } from './reserver-un-vehicule/reserver-un-vehicule.component';
 import { PubAnnonceComponent } from './pub-annonce/pub-annonce.component';
 import { ReserverCovoiturageComponent } from './reserver-covoiturage/reserver-covoiturage.component';
+import { AnnoncesComponent } from './annonces/annonces.component';
+
 
 const routes: Routes =  [
   // /tech accessible uniquement si connecté et admin
@@ -21,6 +23,7 @@ const routes: Routes =  [
   // route collaborateur, seulement si connecté
   { path: 'collaborateur', component: CollaborateurComponent, canActivate: [StatutConnecteService]},
   { path: 'collaborateur/reservations', component: VosReservationsComponent, canActivate: [StatutConnecteService]},
+  { path: 'collaborateur/annonces', component: AnnoncesComponent, canActivate: [StatutConnecteService]},
   { path: 'collaborateur/reservations/creer', component: ReserverUnVehiculeComponent, canActivate: [StatutConnecteService]},
   { path: 'collaborateur/annonces/creer', component: PubAnnonceComponent, canActivate: [StatutConnecteService]},
   // route chauffeur et admin, seulement si connecté

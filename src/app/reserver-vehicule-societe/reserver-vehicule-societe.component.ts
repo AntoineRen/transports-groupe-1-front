@@ -26,6 +26,10 @@ export class ReserverVehiculeSocieteComponent implements OnInit {
     time: NgbTimeStruct;
   };
 
+  // chauffeur
+  avecChauffeur = false;
+  checked = false;
+
   // timepicker
   hourStep = 1;
   minuteStep = 10;
@@ -84,7 +88,8 @@ export class ReserverVehiculeSocieteComponent implements OnInit {
     // creation reservation
      const reservation: PostReservationServeur = new PostReservationServeur(
        new Periode(this.dateTimeDepart, this.dateTimeArivee),
-       this.vehicules[this.indexVehiculeCourant].id);
+       this.vehicules[this.indexVehiculeCourant].id,
+       this.avecChauffeur);
 
     // sauvegarde reservation
      this.reservationService.postReservation(reservation).subscribe(

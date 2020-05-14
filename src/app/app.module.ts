@@ -32,6 +32,9 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { ReserverUnCovoitModalComponent } from './reserver-covoiturage/modalComponnent/reserver-un-covoit-modal/reserver-un-covoit-modal.component';
 import {AnnonceCovoitService} from './reserver-covoiturage/service/annonce-covoit.service';
+import { AnnoncesComponent } from './annonces/annonces.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,6 +50,7 @@ import {AnnonceCovoitService} from './reserver-covoiturage/service/annonce-covoi
     AdministrateurComponent,
     VosReservationsComponent,
     ReserverCovoiturageComponent,
+    AnnoncesComponent,
     ReserverUnVehiculeComponent,
     ReserverVehiculeSocieteComponent,
     ReserverUnCovoitModalComponent,
@@ -66,8 +70,8 @@ import {AnnonceCovoitService} from './reserver-covoiturage/service/annonce-covoi
     MatSelectModule,
     MatInputModule,
     MatProgressSpinnerModule,
-    MatAutocompleteModule
-
+    MatAutocompleteModule,
+    MatCheckboxModule,
 
   ],
   providers: [{

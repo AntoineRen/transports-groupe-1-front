@@ -29,7 +29,7 @@
       </table>
 
       <!--Block d'erreur si list vide-->
-      <ng-container #elseBlockEncours>
+      <ng-template #elseBlockEncours>
         <div class="col-12">
           <ng-container *ngIf="annonceEnCoursVide">
             <div class="alert alert-warning" role="alert">Vous n'avez pas de réservation de covoiturage en cours.</div>
@@ -37,12 +37,10 @@
 
           <!--Block d'erreur si list non récupperé -->
           <ng-container *ngIf="erreurAnnonceEnCours">
-            <div class="alert alert-danger" role="alert">Erreur : Impossible de récupérer la liste de vos covoiturrage
-              en
-              cours.</div>
+            <div class="alert alert-danger" role="alert">Erreur : Impossible de récupérer la liste de vos covoiturrage en cours.</div>
           </ng-container>
         </div>
-      </ng-container>
+      </ng-template>
 
     </div>
     <!--Rubrique Historique des covoiturage-->
@@ -69,6 +67,7 @@
           </ng-container>
         </tbody>
       </table>
+
       <ng-template #elseBlockHisto>
         <div class="col-12">
           <ng-template *ngIf="annonceHistoVide">
