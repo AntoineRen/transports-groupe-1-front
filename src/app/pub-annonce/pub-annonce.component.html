@@ -1,4 +1,4 @@
-<a routerLink="/collaborateur/annonces/">&lt;&lt;Retour à la liste</a>
+<a class="mt-3" routerLink="/collaborateur/annonces/">&lt;&lt;Retour à la liste</a>
 <h2 class="my-3">Publier une annonce</h2>
 <form [formGroup]="annoncesForm">
   <div class="card mb-2">
@@ -10,7 +10,6 @@
       <div class="form-group row">
         <label for="staticEmail" class="col-sm-3 col-form-label">Adesse de départ *</label>
         <div class="col-sm-9">
-
           <input formControlName="lieuDepart" class="form-control" type="text" [matAutocomplete]="auto"
             [ngClass]="{ 'is-invalid':   annoncesForm.get('lieuDepart').invalid  && (annoncesForm.get('lieuDepart').dirty || annoncesForm.get('lieuDepart').touched)}"
             required>
@@ -31,7 +30,6 @@
             <mat-option *ngFor="let adresse of adresses" [value]="adresse">
               {{adresseFn(adresse)}}
             </mat-option>
-
           </mat-autocomplete>
         </div>
       </div>
@@ -42,6 +40,7 @@
 
           <input formControlName="lieuDestination" class="form-control" type="text" [matAutocomplete]="auto"
           [ngClass]="{ 'is-invalid':   annoncesForm.get('lieuDestination').invalid  && (annoncesForm.get('lieuDestination').dirty || annoncesForm.get('lieuDestination').touched)}" required>
+          <div *ngIf="  annoncesForm.get('lieuDestination').valid && annoncesForm.get('lieuDestination').touched"></div>
           <div *ngIf="  annoncesForm.get('lieuDestination').invalid  && (annoncesForm.get('lieuDestination').dirty || annoncesForm.get('lieuDestination').touched)">
             <mat-error *ngIf="annoncesForm.controls['lieuDestination'].hasError('required') ">
               Veuillez renseigner l'adresse de destination
@@ -51,7 +50,6 @@
               L'adresse de destination est une adresse inconnue
             </mat-error>
           </div>
-
           <mat-autocomplete #auto="matAutocomplete" [displayWith]="adresseFn">
             <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="50"></mat-spinner></mat-option>
             <mat-option *ngIf="isLoading" class="is-loading">
@@ -60,22 +58,19 @@
             <mat-option *ngFor="let adresse of adresses" [value]="adresse">
               {{adresseFn(adresse)}}
             </mat-option>
-
           </mat-autocomplete>
         </div>
       </div>
       <div class="form-group row">
-        <label for="staticEmail" class="col-sm-3 col-form-label">Durée du trajet</label>
+        <label class="col-sm-3 col-form-label">Durée du trajet</label>
         <div class="col-sm-9">
-          <input formControlName="dureeTrajet" type="text" readonly class="form-control-plaintext" name="duree_trajet"
-            value="2 h 31 mn">
+          <p>{{duree}}</p>
         </div>
       </div>
       <div class="form-group row">
         <label  class="col-sm-3 col-form-label">Distance</label>
         <div class="col-sm-9">
-          <input formControlName="distance" type="text" readonly class="form-control-plaintext" name="distance"
-            value="250 km">
+          <p>{{distance}}</p>
         </div>
       </div>
 
@@ -157,20 +152,22 @@
             <button class="btn btn-outline-secondary calendar " (click)="d.toggle()" type="button"></button>
           </div>
 
-          <div class="col-lg-12" *ngIf=" annoncesForm.get('dateAnn').invalid && annoncesForm.get('dateAnn').touched">
+          <div class="col-lg-12" *ngIf=" annoncesForm.get('dateAnn').invalid &&  (annoncesForm.get('dateAnn').dirty ||annoncesForm.get('dateAnn').touched)">
             <mat-error *ngIf="annoncesForm.controls['dateAnn'].hasError('required') ">
               Veuillez renseigner la date de départ antérieure à aujourd'hui
             </mat-error>
             <mat-error
-              *ngIf="annoncesForm.get('dateAnn').hasError('dateVaidator')  && !annoncesForm.controls['dateAnn'].hasError('required') ">
+              *ngIf="annoncesForm.hasError('dateVaidator')  && !annoncesForm.controls['dateAnn'].hasError('required') ">
               La date et l'heure ne peuvent être antérieure à aujourd'hui.
             </mat-error>
-              <mat-error
-              *ngIf="annoncesForm.get('dateAnn').hasError('dateAujVaidator') && annoncesForm.get('heure').hasError('timeVaidator') && !annoncesForm.controls['dateAnn'].hasError('required') && !annoncesForm.controls['heure'].hasError('required') ">
-              La date et l'heure ne peuvent être antérieure à aujourd'hui.
-            </mat-error>
-           </div>
 
+           </div>
+           <div class="col-lg-12">
+           <mat-error
+           *ngIf="annoncesForm.get('dateAnn').valid  && (annoncesForm.hasError('timeVaidator') || annoncesForm.hasError('dateVaidator')) ">
+           La date et l'heure ne peuvent être antérieure à aujourd'hui.
+         </mat-error>
+        </div>
         </div>
         <div class="col-sm-3">
           <ngb-timepicker formControlName="heure" [hourStep]="hourStep" [minuteStep]="minuteStep" #input8 required

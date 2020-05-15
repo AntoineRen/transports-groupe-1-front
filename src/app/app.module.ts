@@ -29,6 +29,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { AnnoncesComponent } from './annonces/annonces.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { PlanningComponent } from './planning/planning.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
@@ -48,6 +49,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     CollaborateurComponent,
     AdministrateurComponent,
     VosReservationsComponent,
+    AnnoncesComponent,
     ReserverUnVehiculeComponent,
     ReserverVehiculeSocieteComponent,
     PlanningComponent,
