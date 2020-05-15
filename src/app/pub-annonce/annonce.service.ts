@@ -2,16 +2,31 @@ import { Injectable } from '@angular/core';
 import { Annonce } from './annonce';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+
+const URL_BACKEND = environment.baseUrl + 'annonce/';
 @Injectable({
   providedIn: 'root'
 })
 export class AnnonceService {
 
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   creerAnnonceCovoiturage(ann: Annonce): Observable<void> {
-    return this.httpClient.post<void>(`http://localhost:8080/annonce`, ann);
+    return this.http.post<void>(URL_BACKEND, ann);
+  }
+
+  recupererListAnnonceEncours(): Observable<Annonce[]> {
+    return this.http.get<Annonce[]>(`${URL_BACKEND}listAnnonceByResponsable`);
+  }
+
+  recupererListAnnonceHistorique(): Observable<Annonce[]>{
+    return this.http.get<Annonce[]>(`${URL_BACKEND}listAnnonceByResponsableHistorique`);
+  }
+
+  annulerAnnonce(id): Observable<Annonce>{
+    return this.http.put<Annonce>(`${URL_BACKEND}annuler`, id);
   }
 
 }

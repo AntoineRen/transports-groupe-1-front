@@ -37,7 +37,7 @@ export class RecapResaVehiculeSocieteComponent implements OnInit {
   constructor(private reservationsService: ReservationsService) { }
 
   refreshReservationsCourantes(): void {
-    this.reservationsService.requestGetReservationsEnCours(this.col.email)
+    this.reservationsService.requestGetReservationsEnCours()
     .subscribe(
       listeResaServeur => {
       this.reservationsCourantes = listeResaServeur
@@ -50,7 +50,7 @@ export class RecapResaVehiculeSocieteComponent implements OnInit {
   }
 
   refreshReservationsHistorique(){
-    this.reservationsService.requestGetReservationsHisto(this.col.email)
+    this.reservationsService.requestGetReservationsHisto()
     .subscribe(
       listeResaServeur => {
       this.reservationsHistorique = listeResaServeur

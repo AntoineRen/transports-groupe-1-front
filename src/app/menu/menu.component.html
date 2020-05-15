@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
   <a class="ml-3 mr-2 p-0">
-    <img src="../../assets/logo.png" alt="logo">
+    <img src="https://cdn.discordapp.com/attachments/705412725098020906/707149807038496778/logo.png" alt="logo">
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,15 +12,22 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
 
-          <li class="nav-item">
+          <li class="nav-item" routerLinkActive="active">
             <a class="nav-link" routerLink="/collaborateur/reservations">Vos réservations</a>
           </li>
+
           <li class="nav-item">
-            <a class="nav-link" routerLink="/collaborateur/annonces/creer">Vos annonces</a>
+            <a class="nav-link" routerLink="/collaborateur/annonces">Vos annonces</a>
+
           </li>
-          <li class="nav-item">
+          <li class="nav-item"routerLinkActive="active">
             <a class="nav-link" routerLink="/contact-create">Statistiques</a>
           </li>
+          <ng-container *ngIf="col.roles.includes('ROLE_CHAUFFEUR')">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/chauffeur/planning">Planning</a>
+            </li>
+          </ng-container>
         </ul>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item dropdown">
@@ -28,8 +35,11 @@
               aria-haspopup="true" aria-expanded="false">
               Bonjour {{col.nom}}
             </a>
-            <div class="dropdown-menu " aria-labelledby="navbarDropdown">
-              <button  class="btn" (click)="seDeconnecter()" style="background-color:#004F2F;color:#F8FFB9"><fa-icon [icon]="iconeDisconnected"></fa-icon> Se déconnecter</button>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: rgba(0,0,0,0); border-style: none;">
+              <button  class="btn" (click)="seDeconnecter()" style="background-color:#76000C;color:#F8FFB9;">
+                <fa-icon [icon]="iconeDisconnected" class="align-middle mr-2" style="font-size: 18px;"></fa-icon>
+                <span class="align-middle">Se déconnecter</span>
+              </button>
             </div>
           </li>
         </ul>

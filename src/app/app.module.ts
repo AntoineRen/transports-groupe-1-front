@@ -9,6 +9,7 @@ import {TechComponent} from './tech/tech.component';
 import {AuthInterceptorService} from './auth/auth-interceptor.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { ListReservationCovoituragesComponent } from './list-reservation-covoiturages/list-reservation-covoiturages.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MenuComponent } from './menu/menu.component';
 import { PubAnnonceComponent } from './pub-annonce/pub-annonce.component';
@@ -17,15 +18,35 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ChauffeurComponent } from './chauffeur/chauffeur.component';
 import { CollaborateurComponent } from './collaborateur/collaborateur.component';
 import { AdministrateurComponent } from './administrateur/administrateur.component';
+import { CovoitAnnonceResume } from './list-reservation-covoiturages/modalComponnent/CovoitAnnonceResume.modal-component';
 import { VosReservationsComponent } from './vos-reservations/vos-reservations.component';
 import { VehiculesComponent } from './vehicules/vehicules.component';
 
+import { ReserverCovoiturageComponent } from './reserver-covoiturage/reserver-covoiturage.component';
+import { ReserverUnVehiculeComponent } from './reserver-un-vehicule/reserver-un-vehicule.component';
+import { ReserverVehiculeSocieteComponent } from './reserver-vehicule-societe/reserver-vehicule-societe.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AdresseService } from './pub-annonce/adresse.service';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
+import {MatInputModule} from '@angular/material/input';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { ReserverUnCovoitModalComponent } from './reserver-covoiturage/modalComponnent/reserver-un-covoit-modal/reserver-un-covoit-modal.component';
+import {AnnonceCovoitService} from './reserver-covoiturage/service/annonce-covoit.service';
+import { AnnoncesComponent } from './annonces/annonces.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { PlanningComponent } from './planning/planning.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthComponent,
     TechComponent,
+    ListReservationCovoituragesComponent,
+    CovoitAnnonceResume,
     MenuComponent,
     PubAnnonceComponent,
     RecapResaVehiculeSocieteComponent,
@@ -33,7 +54,14 @@ import { VehiculesComponent } from './vehicules/vehicules.component';
     CollaborateurComponent,
     AdministrateurComponent,
     VosReservationsComponent,
-    VehiculesComponent
+    ReserverCovoiturageComponent,
+    AnnoncesComponent,
+    ReserverUnVehiculeComponent,
+    ReserverVehiculeSocieteComponent,
+    PlanningComponent,
+    ReserverUnCovoitModalComponent,
+    VehiculesComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -43,13 +71,26 @@ import { VehiculesComponent } from './vehicules/vehicules.component';
     CommonModule,
     FontAwesomeModule,
     NgbModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    MatProgressSpinnerModule,
+    MatAutocompleteModule,
+    MatCheckboxModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
+
   ],
   providers: [{
-    provide: HTTP_INTERCEPTORS,
+    provide: HTTP_INTERCEPTORS ,
     useClass: AuthInterceptorService,
     multi: true
-  }],
+  }, AdresseService, AnnonceCovoitService,
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

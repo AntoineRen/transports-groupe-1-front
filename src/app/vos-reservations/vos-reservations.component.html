@@ -1,4 +1,4 @@
-<div class="row mt-5 mx-5">
+<div class="row mt-5">
 
   <div class="col-12">
     <h1>Vos Réservations</h1>
@@ -10,12 +10,11 @@
     </div>
 
     <div class="col-12 mt-5">
-      <ngb-accordion [closeOthers]="true" activeIds="static-2">
+      <ngb-accordion [closeOthers]="true" activeIds="static-1">
         <ngb-panel id="static-1" title="Covoiturage">
           <ng-template ngbPanelContent>
 
-            <h1>LE COMPONENT DE JULES</h1>
-
+            <app-list-reservation-covoiturages [col]="col"></app-list-reservation-covoiturages>
           </ng-template>
         </ngb-panel>
         <ngb-panel id="static-2" title="Véhicule de société">
