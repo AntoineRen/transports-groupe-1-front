@@ -44,7 +44,7 @@ export class VehiculesComponent implements OnInit {
       })
     ).subscribe(object => this.filterVehicule = object);
    }
-
+   
   ngOnInit(): void {
     this.vehiculesService.requestGetVehicules()
     .subscribe(listeVehicule =>{
