@@ -9,12 +9,13 @@ import { CovoitAnnonce } from '../list-reservation-covoiturages/models/CovoitAnn
 import { ReserverUnCovoitModalComponent } from './modalComponnent/reserver-un-covoit-modal/reserver-un-covoit-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
+import { Annonce } from '../pub-annonce/annonce';
 @Component({
   selector: 'app-reserver-covoiturage',
   templateUrl: './reserver-covoiturage.component.html',
   styleUrls: ['./reserver-covoiturage.component.scss']
 })
-export class ReserverCovoiturageComponent implements OnInit, OnDestroy {
+export class ReserverCovoiturageComponent implements OnInit {
 
 
   subCovoitAnnonce: Subscription;
@@ -24,9 +25,9 @@ export class ReserverCovoiturageComponent implements OnInit, OnDestroy {
   isLoading = false;
 
   //list annonce en cours réccupéré du CovoitAnnonceServer
-  listAnnoncesCovoit: CovoitAnnonce[] = [];
+  listAnnoncesCovoit: Annonce[] = [];
   //List filtre rempli par la méthode filtreLieuDepartCovoit()
-  listFiltreLieuDepart: CovoitAnnonce[] = [];
+  listFiltreLieuDepart: Annonce[] = [];
 
   //Verifications
   erreurGetAnnoncesCovoit = false;
@@ -46,7 +47,7 @@ export class ReserverCovoiturageComponent implements OnInit, OnDestroy {
   //Constructeur
 
   constructor(private adresseService: AdresseService,
-    private annoncesCovoit: AnnonceCovoitService, private modalService: NgbModal) {
+    private annoncesCovoit: AnnonceCovoitService, private modalService: NgbModal, private servicePut: AnnonceCovoitService) {
 
     //Récuperation Adresse Lieu de depart via bakcend
     this.reservationCovoitForm.get('lieuDepart').valueChanges
@@ -76,12 +77,18 @@ export class ReserverCovoiturageComponent implements OnInit, OnDestroy {
 
   //récuperation de toutes les annonces en cours grace au services getAnnonceCovoit
   public getAllAnnonceCovoit() {
-    this.annoncesCovoit.getAllAnnonceCovoitEnCourse().subscribe(
-      annoncesCovoitServer => this.listAnnoncesCovoit = annoncesCovoitServer
-        .map(annoncesCovoitServer => new CovoitAnnonce(annoncesCovoitServer)),
-      error => this.erreurGetAnnoncesCovoit = true,
-    )
+    this.annoncesCovoit.getAllAnnonceCovoitEnCourse()
+    .subscribe(
+      data => { this.listAnnoncesCovoit = data
+      .map(CovoitAnnonceServer => new Annonce(CovoitAnnonceServer));
+      this.erreurGetAnnoncesCovoit = this.listAnnoncesCovoit.length === 0;
+      },
+      err => {
+        this.erreurGetAnnoncesCovoit = true;
+      },
+    );
   }
+
 
   AdresseVaidator(control: AbstractControl) {
     const selection: any = control.value;
@@ -93,7 +100,7 @@ export class ReserverCovoiturageComponent implements OnInit, OnDestroy {
   dateVaidator(control: AbstractControl) {
     const date1 = moment(control.value).format('YYYY-MM-DD');
     const date2 = moment().add(1, 'M').format('YYYY-MM-DD');
-    if (date2 == date1) {
+    if (date2 === date1) {
       return { dateAujVaidator: true };
     } else if (date1 < date2) {
       return { dateVaidator: true };
@@ -108,18 +115,50 @@ export class ReserverCovoiturageComponent implements OnInit, OnDestroy {
   //methode pour filtrer annonce en fonction du lieu de depart, seul les lieu de depart complet sont acceptés
 
   filtreLieuDepartCovoit(unLieuDepart) {
-    this.listFiltreLieuDepart = this.listAnnoncesCovoit.filter(annonce => annonce.lieuDepart === unLieuDepart);
+
+    this.getAllAnnonceCovoit();
+    console.log(this.listAnnoncesCovoit.length);
+
+    console.log(unLieuDepart);
+    this.listFiltreLieuDepart.length = 0;
+    if (typeof unLieuDepart === 'object' && unLieuDepart != null) {
+      for (let i = 0; i < this.listAnnoncesCovoit.length; i++) {
+        if (this.listAnnoncesCovoit[i].lieuDepart === this.adresseFn(unLieuDepart)) {
+          this.listFiltreLieuDepart.push(this.listAnnoncesCovoit[i]);
+          console.log(this.listFiltreLieuDepart.length);
+        }
+      }
+    }
   }
   //doit ouvrir modal pour réservation
-  reserver(reservationCovoit: ReserverUnCovoitModalComponent) {
-    /* l'instantce de NgbModal utilise le methode reserver qui prend en paramettre le composant fenetre modal*/
-    const modalRef = this.modalService.open(ReserverUnCovoitModalComponent);
-    /*Champ "annonce " (présent en input du composant fenetre modal) est remplis avec l'annonceRecup */
-    modalRef.componentInstance.annonce = reservationCovoit;
+  reserver(reservationCovoit: Annonce) {
+
+
+      this.servicePut.putReservation(reservationCovoit.id)
+        .subscribe((annonce) => {
+console.log(annonce)
+          this.refrech();
+        },
+       );
+
   }
 
+  refrech(){
+    this.annoncesCovoit.getAllAnnonceCovoitEnCourse().subscribe(
+      data => { this.listFiltreLieuDepart = data
+        .map(CovoitAnnonceServer => new Annonce(CovoitAnnonceServer));
+        this.erreurGetAnnoncesCovoit = this.listAnnoncesCovoit.length === 0;
+        },
+        err => {
+          this.erreurGetAnnoncesCovoit = true;
+        },
+
+    )
+  }
+
+
   ngOnInit(): void {
-    this.getAllAnnonceCovoit();
+
     /*
     //tentative de subject
     this.subCovoitAnnonce = this.annoncesCovoit.observableCovoitAnnonceServer.subscribe(
@@ -131,9 +170,7 @@ export class ReserverCovoiturageComponent implements OnInit, OnDestroy {
     );*/
 
   }
-  ngOnDestroy(): void {
-    this.subCovoitAnnonce.unsubscribe();
-  }
+
 }
 
 
