@@ -5,3 +5,25 @@ mwl-calendar-day-view {
 mwl-calendar-week-view {
   width: 100%;
 }
+
+
+div.cal-hour-segment.cal-after-hour-start {
+  background-color: white !important;
+  border: none !important;
+}
+div.cal-hour-segment.cal-hour-start {
+  background-color: #7c8d88 !important;
+  border: none !important;
+}
+
+div.cal-current-time-marker{
+  background-color: none !important;
+  border: none !important;
+  color: none !important;
+}
+
+.card{
+  border: 2px solid #004F2F;
+  background-color: #408874;
+  color: #F8FFB9;
+}

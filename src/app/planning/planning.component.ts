@@ -4,22 +4,6 @@ import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons
 import { Subject } from 'rxjs';
 import { ReservationChauffeurService } from './service/reservation-chauffeur.service';
 
-const colors: any = {
-  red: {
-    primary: '#ad2121',
-    secondary: '#FAE3E3',
-  },
-  blue: {
-    primary: '#1e90ff',
-    secondary: '#D1E8FF',
-  },
-  yellow: {
-    primary: '#e3bc08',
-    secondary: '#FDF1BA',
-  },
-};
-
-
 @Component({
   selector: 'app-planning',
   templateUrl: './planning.component.html',
@@ -54,6 +38,25 @@ export class PlanningComponent implements OnInit {
   public jourPrecedent() {
     this.viewDate.setDate(this.viewDate.getDate() - 1);
     this.refresh.next();
+  }
+
+  /** Update une réservation en attente de chauffeur, update son statut à avec_chauffeur et lui ajoute le chauffeur courant */
+  public updateReservation(eventAccepte: CalendarEvent){
+
+    this.serviceReservationChauffeur.AcceptReservation(eventAccepte.meta.id).subscribe(
+      ((eventModifie) => {
+        let i = 0;
+        while (i < this.events.length){
+          if (this.events[i].meta.id === eventModifie.meta.id){
+            this.events[i] = eventModifie;
+            i = this.events.length;
+          }
+          i++;
+        }
+        this.refresh.next();
+      }),
+      () => console.log('erreur'),
+    );
   }
 
   ngOnInit(): void {

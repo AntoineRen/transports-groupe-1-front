@@ -16,18 +16,20 @@
   </div>
 
   <!-- Calendar -->
-  <mwl-calendar-day-view [viewDate]="viewDate" [events]="events" [refresh]="refresh"
-    [eventTemplate]="customEventTemplate" [hourSegmentTemplate]="heure">
+  <mwl-calendar-day-view class="rounded" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
+    [eventTemplate]="customEventTemplate" [hourSegmentTemplate]="heure" [currentTimeMarkerTemplate]="customCurrentTimeMarker">
   </mwl-calendar-day-view>
 
 
 </div>
 
+<!-- current time marker-->
+<ng-template #customCurrentTimeMarker></ng-template>
 <!-- Template Heure -->
 <ng-template #heure let-segment="segment" let-locale="locale" let-segmentHeight="segmentHeight">
   <div class="cal-hour-segment" [style.height.px]="segmentHeight" [class.cal-hour-start]="segment.isStart"
     [class.cal-after-hour-start]="!segment.isStart" [ngClass]="segment.cssClass">
-    <div class="cal-time">
+    <div class="cal-time text-light">
       {{ step(segment.date.getHours()) }}h{{ step(segment.date.getMinutes())}}
     </div>
   </div>
@@ -36,10 +38,15 @@
 <!-- Event Template-->
 <ng-template #customEventTemplate let-weekEvent="weekEvent">
 
-  <div class="card border-dark text-light" style="width: 100%; background-color:#004F2F;">
+  <div class="card border-dark" style="width: 100%;"
+    [style.background-color]="weekEvent.event.meta.statut == 'EN_ATTENTE' ? 'white' : '#408874'"
+    [style.color]="weekEvent.event.meta.statut == 'EN_ATTENTE' ? 'black' : '#F8FFB9'">
+
+    <h2 class="card-title">{{weekEvent.event.start.toLocaleString()}} - {{weekEvent.event.end.toLocaleString()}}
+    </h2>
+
     <div class="card-body">
-      <h2 class="card-title">{{weekEvent.event.start.toLocaleString()}} - {{weekEvent.event.end.toLocaleString()}}</h2>
-      <p class="card-text">
+
       <div class="row">
         <div class="col-4 text-right">
           Responsable :
@@ -62,19 +69,20 @@
         <div class="col-4 text-right">
           Véhicule :
         </div>
-        <div class="col-6">
+        <div class="col-6 mb-2">
           {{weekEvent.event.meta.vehicule.immatriculation}}
         </div>
 
       </div>
       <ng-container *ngIf="weekEvent.event.meta.statut === 'EN_ATTENTE'; else elseBlockStatut">
 
-          <button class="btn btn-outline-light float-right">Accepter la demande</button>
+        <button class="btn btn-outline-dark float-right" (click)="updateReservation(weekEvent.event)">Accepter la
+          demande</button>
 
       </ng-container>
       <ng-template #elseBlockStatut>
 
-          <span class="float-right">Reservation Accepté</span>
+        <span class="float-right">Reservation Accepté</span>
 
       </ng-template>
     </div>

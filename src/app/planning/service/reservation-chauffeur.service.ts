@@ -33,6 +33,15 @@ export class ReservationChauffeurService {
     );
   }
 
+  /** Update une réservation en attente de chauffeur, update son statut à avec_chauffeur et lui ajoute le chauffeur courant */
+  public AcceptReservation(id: number): Observable<CalendarEvent>{
+
+    return this.http.put<ReservationServeur>(`${URL_BACKEND}?id=${id}`, null)
+    .pipe(
+      map(reservation => this.reservationServeurToCalendarEvent(reservation))
+    );
+  }
+
   /** Transforme une reservation réceptionné du serveur en objet CalendarEvent */
   private reservationServeurToCalendarEvent(reservation: ReservationServeur): CalendarEvent{
 
@@ -41,11 +50,13 @@ export class ReservationChauffeurService {
       end: new Date(reservation.dateArrivee),
       title: `reservation n° ${reservation.id}`,
       color: null,
+      allDay: false,
       resizable: {
         beforeStart: false,
         afterEnd: false,
       },
       meta: {
+        id: reservation.id,
         statut: reservation.statutDemandeChauffeur,
         responsable: reservation.responsable,
         vehicule: reservation.vehicule,
