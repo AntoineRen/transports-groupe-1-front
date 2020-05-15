@@ -1,24 +1,39 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Vehicule } from './vehicule';
 import { VehiculesService } from './vehicules.service';
 import { FormControl, FormGroup } from '@angular/forms';
-import { switchMap, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Categorie } from './vehiculeCategorie';
+
+
 @Component({
   selector: 'app-vehicules',
   templateUrl: './vehicules.component.html',
   styleUrls: ['./vehicules.component.scss']
 })
+
 export class VehiculesComponent implements OnInit {
+  @Output() valider = new EventEmitter<void>();
 
   vehicules:Vehicule[];
   filterVehicule:Vehicule[];
+
+  immatriculation:string;
+  marque:string;
+  modele:string;
+  categorielist=Categorie;
+  catChoose:string;
+  nbPlace:number;
+  photoUrl:string;
   // erreur
   erreurVehicules=false;
   profileFormControleVehicule = new FormGroup({
     ReactiveFormControleVehiculeImat : new FormControl(''),
     ReactiveFormControleVehiculeModel : new FormControl('')
   });
-  constructor(private vehiculesService : VehiculesService) {
+  constructor(private vehiculesService : VehiculesService , private modalService: NgbModal) {
     this.profileFormControleVehicule.valueChanges.pipe(
       map( ()=>{
         let filterVehiculeTemp:Vehicule[];
@@ -51,5 +66,13 @@ export class VehiculesComponent implements OnInit {
     console.log("marque");
     console.log(tempFilterArray);
     return tempFilterArray;
+  }
+  AjoutVehicule(){
+    this.vehiculesService.requestPostVehicule(this.immatriculation, this.marque, this.modele, this.catChoose, this.nbPlace, this.photoUrl)
+    .subscribe( ()=>{
+      this.valider.emit();
+    },(error:HttpErrorResponse)=>{
+      console.log(error);
+    });
   }
 }

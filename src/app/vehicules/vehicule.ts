@@ -20,6 +20,7 @@ export class Vehicule {
       this.categorie = leVehicule.categorie;
       this.statut = leVehicule.statut;
       this.nbPlace = leVehicule.nbPlace;
+      this.photoUrl = leVehicule.photoUrl
   }
 
 }

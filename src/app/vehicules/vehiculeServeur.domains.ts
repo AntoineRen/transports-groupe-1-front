@@ -6,4 +6,5 @@ export interface  VehiculeServeur {
     categorie: string;
     nbPlace: number;
     statut: string;
+    photoUrl:string;
 }
