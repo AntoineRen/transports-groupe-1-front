@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import {TechComponent} from './tech/tech.component';
 import {StatutConnecteService} from './auth/statut-connecte.service';
 import {AuthComponent} from './auth/auth.component';
-import { ListReservationCovoituragesComponent } from './list-reservation-covoiturages/list-reservation-covoiturages.component';
 import { CollaborateurComponent } from './collaborateur/collaborateur.component';
 import { ChauffeurComponent } from './chauffeur/chauffeur.component';
 import { AdministrateurComponent } from './administrateur/administrateur.component';
@@ -13,6 +12,7 @@ import { VosReservationsComponent } from './vos-reservations/vos-reservations.co
 import { ReserverUnVehiculeComponent } from './reserver-un-vehicule/reserver-un-vehicule.component';
 import { PubAnnonceComponent } from './pub-annonce/pub-annonce.component';
 import { PlanningComponent } from './planning/planning.component';
+import { ReserverCovoiturageComponent } from './reserver-covoiturage/reserver-covoiturage.component';
 import { AnnoncesComponent } from './annonces/annonces.component';
 
 
@@ -31,7 +31,9 @@ const routes: Routes =  [
   { path: 'chauffeur', component: ChauffeurComponent, canActivate: [StatutConnecteService, StatutChauffeurService]},
   { path: 'chauffeur/planning', component: PlanningComponent, canActivate: [StatutConnecteService, StatutChauffeurService]},
   // route administrateur, seulement si connecté
-  { path: 'administrateur', component: AdministrateurComponent, canActivate: [StatutConnecteService, StatutAdminService]}
+  { path: 'administrateur', component: AdministrateurComponent, canActivate: [StatutConnecteService, StatutAdminService]},
+  //a supprimer  juste pour visu
+  { path: 'collaborateur/reservations/creerCovoit', component: ReserverCovoiturageComponent, canActivate: [StatutConnecteService]}
 ];
 
 

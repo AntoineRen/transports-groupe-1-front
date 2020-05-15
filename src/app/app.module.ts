@@ -20,6 +20,7 @@ import { CollaborateurComponent } from './collaborateur/collaborateur.component'
 import { AdministrateurComponent } from './administrateur/administrateur.component';
 import { CovoitAnnonceResume } from './list-reservation-covoiturages/modalComponnent/CovoitAnnonceResume.modal-component';
 import { VosReservationsComponent } from './vos-reservations/vos-reservations.component';
+import { ReserverCovoiturageComponent } from './reserver-covoiturage/reserver-covoiturage.component';
 import { ReserverUnVehiculeComponent } from './reserver-un-vehicule/reserver-un-vehicule.component';
 import { ReserverVehiculeSocieteComponent } from './reserver-vehicule-societe/reserver-vehicule-societe.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -29,6 +30,8 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { ReserverUnCovoitModalComponent } from './reserver-covoiturage/modalComponnent/reserver-un-covoit-modal/reserver-un-covoit-modal.component';
+import {AnnonceCovoitService} from './reserver-covoiturage/service/annonce-covoit.service';
 import { AnnoncesComponent } from './annonces/annonces.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { PlanningComponent } from './planning/planning.component';
@@ -49,10 +52,13 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     CollaborateurComponent,
     AdministrateurComponent,
     VosReservationsComponent,
+    ReserverCovoiturageComponent,
     AnnoncesComponent,
     ReserverUnVehiculeComponent,
     ReserverVehiculeSocieteComponent,
     PlanningComponent,
+    ReserverUnCovoitModalComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -80,7 +86,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     provide: HTTP_INTERCEPTORS ,
     useClass: AuthInterceptorService,
     multi: true
-  }, AdresseService
+  }, AdresseService, AnnonceCovoitService,
 ],
   bootstrap: [AppComponent]
 })

@@ -1,236 +1,252 @@
-<a class="mt-3" routerLink="/collaborateur/annonces/">&lt;&lt;Retour à la liste</a>
-<h2 class="my-3">Publier une annonce</h2>
-<form [formGroup]="annoncesForm">
-  <div class="card mb-2">
-    <div class="card-header">
-      Itinéraire
+<div class="mt-5">
+  <a class="mt-3" routerLink="/collaborateur/annonces/">&lt;&lt;Retour à la liste</a>
+  <h2 class="my-3">Publier une annonce</h2>
+  <form [formGroup]="annoncesForm">
+    <div class="card mb-2">
+      <div class="card-header">
+        Itinéraire
+      </div>
+      <div class="card-body">
+
+        <div class="form-group row">
+          <label for="staticEmail" class="col-sm-3 col-form-label">Adesse de départ *</label>
+          <div class="col-sm-9">
+            <input formControlName="lieuDepart" class="form-control" type="text" [matAutocomplete]="auto"
+              [ngClass]="{ 'is-invalid':   annoncesForm.get('lieuDepart').invalid  && (annoncesForm.get('lieuDepart').dirty || annoncesForm.get('lieuDepart').touched)}"
+              required>
+            <div
+              *ngIf="  annoncesForm.get('lieuDepart').invalid  && (annoncesForm.get('lieuDepart').dirty || annoncesForm.get('lieuDepart').touched)">
+              <mat-error *ngIf="annoncesForm.controls['lieuDepart'].hasError('required') ">
+                Veuillez renseigner l'adresse de départ
+              </mat-error>
+              <mat-error
+                *ngIf="annoncesForm.get('lieuDepart').hasError('incorrect') && !annoncesForm.controls['lieuDepart'].hasError('required')">
+                L'adresse de départ est une adresse inconnue
+              </mat-error>
+            </div>
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="adresseFn">
+              <mat-option *ngIf="isLoading" class="is-loading">
+                <mat-spinner diameter="50"></mat-spinner>
+              </mat-option>
+              <mat-option *ngIf="isLoading" class="is-loading">
+                <mat-progress-spinner diameter="50"></mat-progress-spinner>
+              </mat-option>
+              <mat-option *ngFor="let adresse of adresses" [value]="adresse">
+                {{adresseFn(adresse)}}
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="inputPassword" class="col-sm-3 col-form-label">Adresse de destination *</label>
+          <div class="col-sm-9">
+
+            <input formControlName="lieuDestination" class="form-control" type="text" [matAutocomplete]="auto"
+              [ngClass]="{ 'is-invalid':   annoncesForm.get('lieuDestination').invalid  && (annoncesForm.get('lieuDestination').dirty || annoncesForm.get('lieuDestination').touched)}"
+              required>
+            <div *ngIf="  annoncesForm.get('lieuDestination').valid && annoncesForm.get('lieuDestination').touched">
+            </div>
+            <div
+              *ngIf="  annoncesForm.get('lieuDestination').invalid  && (annoncesForm.get('lieuDestination').dirty || annoncesForm.get('lieuDestination').touched)">
+              <mat-error *ngIf="annoncesForm.controls['lieuDestination'].hasError('required') ">
+                Veuillez renseigner l'adresse de destination
+              </mat-error>
+              <mat-error
+                *ngIf="annoncesForm.get('lieuDestination').hasError('incorrect') && !annoncesForm.controls['lieuDestination'].hasError('required')">
+                L'adresse de destination est une adresse inconnue
+              </mat-error>
+            </div>
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="adresseFn">
+              <mat-option *ngIf="isLoading" class="is-loading">
+                <mat-spinner diameter="50"></mat-spinner>
+              </mat-option>
+              <mat-option *ngIf="isLoading" class="is-loading">
+                <mat-progress-spinner diameter="50"></mat-progress-spinner>
+              </mat-option>
+              <mat-option *ngFor="let adresse of adresses" [value]="adresse">
+                {{adresseFn(adresse)}}
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">Durée du trajet</label>
+          <div *ngIf="duree" class="col-sm-9">
+            <p class="form-control-plaintext">{{duree}} heures {{minute}} minutes</p>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label  class="col-sm-3 col-form-label">Distance</label>
+          <div *ngIf="distance" class="col-sm-9">
+            <p class="form-control-plaintext">{{distance}} km</p>
+          </div>
+        </div>
+
+      </div>
     </div>
-    <div class="card-body">
+    <div class="card mb-2">
+      <div class="card-header">
+        Véhicule
+      </div>
+      <div class="card-body">
 
-      <div class="form-group row">
-        <label for="staticEmail" class="col-sm-3 col-form-label">Adesse de départ *</label>
-        <div class="col-sm-9">
-          <input formControlName="lieuDepart" class="form-control" type="text" [matAutocomplete]="auto"
-            [ngClass]="{ 'is-invalid':   annoncesForm.get('lieuDepart').invalid  && (annoncesForm.get('lieuDepart').dirty || annoncesForm.get('lieuDepart').touched)}"
-            required>
-          <div *ngIf="  annoncesForm.get('lieuDepart').invalid  && (annoncesForm.get('lieuDepart').dirty || annoncesForm.get('lieuDepart').touched)">
-            <mat-error *ngIf="annoncesForm.controls['lieuDepart'].hasError('required') ">
-              Veuillez renseigner l'adresse de départ
-            </mat-error>
-            <mat-error
-              *ngIf="annoncesForm.get('lieuDepart').hasError('incorrect') && !annoncesForm.controls['lieuDepart'].hasError('required')">
-              L'adresse de départ est une adresse inconnue
-            </mat-error>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">Immatriculation *</label>
+          <div class="col-sm-9">
+
+            <input formControlName="immatriculation" class="form-control" type="text" [matAutocomplete]="auto" required>
+            <div
+              *ngIf="  annoncesForm.get('immatriculation').invalid  && (annoncesForm.get('immatriculation').dirty || annoncesForm.get('immatriculation').touched)">
+              <mat-error *ngIf="annoncesForm.controls['immatriculation'].hasError('required') ">
+                Veuillez renseigner l'immatricualtion
+              </mat-error>
+            </div>
           </div>
-          <mat-autocomplete #auto="matAutocomplete" [displayWith]="adresseFn">
-            <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="50"></mat-spinner></mat-option>
-            <mat-option *ngIf="isLoading" class="is-loading">
-              <mat-progress-spinner diameter="50"></mat-progress-spinner>
-            </mat-option>
-            <mat-option *ngFor="let adresse of adresses" [value]="adresse">
-              {{adresseFn(adresse)}}
-            </mat-option>
-          </mat-autocomplete>
         </div>
-      </div>
+        <div class="form-group row">
+          <label for="inputPassword" class="col-sm-3 col-form-label">Marque *</label>
+          <div class="col-sm-9">
 
-      <div class="form-group row">
-        <label for="inputPassword" class="col-sm-3 col-form-label">Adresse de destination *</label>
-        <div class="col-sm-9">
-
-          <input formControlName="lieuDestination" class="form-control" type="text" [matAutocomplete]="auto"
-          [ngClass]="{ 'is-invalid':   annoncesForm.get('lieuDestination').invalid  && (annoncesForm.get('lieuDestination').dirty || annoncesForm.get('lieuDestination').touched)}" required>
-          <div *ngIf="  annoncesForm.get('lieuDestination').valid && annoncesForm.get('lieuDestination').touched"></div>
-          <div *ngIf="  annoncesForm.get('lieuDestination').invalid  && (annoncesForm.get('lieuDestination').dirty || annoncesForm.get('lieuDestination').touched)">
-            <mat-error *ngIf="annoncesForm.controls['lieuDestination'].hasError('required') ">
-              Veuillez renseigner l'adresse de destination
-            </mat-error>
-            <mat-error
-              *ngIf="annoncesForm.get('lieuDestination').hasError('incorrect') && !annoncesForm.controls['lieuDestination'].hasError('required')">
-              L'adresse de destination est une adresse inconnue
-            </mat-error>
+            <input formControlName="marque" class="form-control" type="text" [matAutocomplete]="auto" required>
+            <div
+              *ngIf="  annoncesForm.get('marque').invalid  && (annoncesForm.get('marque').dirty || annoncesForm.get('marque').touched)">
+              <mat-error *ngIf="annoncesForm.controls['marque'].hasError('required') ">
+                Veuillez renseigner la marque
+              </mat-error>
+            </div>
           </div>
-          <mat-autocomplete #auto="matAutocomplete" [displayWith]="adresseFn">
-            <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="50"></mat-spinner></mat-option>
-            <mat-option *ngIf="isLoading" class="is-loading">
-              <mat-progress-spinner diameter="50"></mat-progress-spinner>
-            </mat-option>
-            <mat-option *ngFor="let adresse of adresses" [value]="adresse">
-              {{adresseFn(adresse)}}
-            </mat-option>
-          </mat-autocomplete>
         </div>
-      </div>
-      <div class="form-group row">
-        <label class="col-sm-3 col-form-label">Durée du trajet</label>
-        <div class="col-sm-9">
-          <p>{{duree}}</p>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">Modèle *</label>
+          <div class="col-sm-9">
+            <input formControlName="modele" class="form-control" type="text" [matAutocomplete]="auto" required>
+            <div
+              *ngIf="  annoncesForm.get('modele').invalid  && (annoncesForm.get('modele').dirty || annoncesForm.get('modele').touched)">
+              <mat-error *ngIf="annoncesForm.controls['modele'].hasError('required') ">
+                Veuillez renseigner le modele
+              </mat-error>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="form-group row">
-        <label  class="col-sm-3 col-form-label">Distance</label>
-        <div class="col-sm-9">
-          <p>{{distance}}</p>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">Nombre de places disponibles *</label>
+          <div class="col-sm-9">
+            <input formControlName="nbPlace" class="form-control" type="number" min="1" max="20"
+              [matAutocomplete]="auto" required>
+            <div *ngIf=" annoncesForm.get('nbPlace').invalid && annoncesForm.get('nbPlace').touched">
+              <mat-error *ngIf="annoncesForm.controls['nbPlace'].hasError('required') ">
+                Veuillez renseigner Le nombre de places disponible
+              </mat-error>
+              <mat-error
+                *ngIf="annoncesForm.get('nbPlace').hasError('max') || annoncesForm.get('nbPlace').hasError('min')">
+                Le nombre de places doit être compris entre 1 et 20
+              </mat-error>
+            </div>
+          </div>
         </div>
-      </div>
 
+      </div>
     </div>
-  </div>
-  <div class="card mb-2">
-    <div class="card-header">
-      Véhicule
-    </div>
-    <div class="card-body">
-
-      <div class="form-group row">
-        <label  class="col-sm-3 col-form-label">Immatriculation *</label>
-        <div class="col-sm-9">
-
-          <input formControlName="immatriculation" class="form-control" type="text" [matAutocomplete]="auto" required>
-          <div *ngIf="  annoncesForm.get('immatriculation').invalid  && (annoncesForm.get('immatriculation').dirty || annoncesForm.get('immatriculation').touched)">
-            <mat-error *ngIf="annoncesForm.controls['immatriculation'].hasError('required') ">
-              Veuillez renseigner l'immatricualtion
-            </mat-error>
-          </div>
-        </div>
+    <div class="card mb-4">
+      <div class="card-header">
+        Date et horaire
       </div>
-      <div class="form-group row">
-        <label for="inputPassword" class="col-sm-3 col-form-label">Marque *</label>
-        <div class="col-sm-9">
+      <div class="card-body">
 
-          <input formControlName="marque" class="form-control" type="text" [matAutocomplete]="auto" required>
-          <div *ngIf="  annoncesForm.get('marque').invalid  && (annoncesForm.get('marque').dirty || annoncesForm.get('marque').touched)">
-            <mat-error *ngIf="annoncesForm.controls['marque'].hasError('required') ">
-              Veuillez renseigner la marque
-            </mat-error>
+        <div class="form-group row">
+          <span class="col-sm-3 col-form-label inputdate">Date / heure *</span>
+          <div class="col-sm-6 input-group inputdate">
+
+            <input formControlName="dateAnn" class="form-control" id="date" ngbDatepicker #d="ngbDatepicker" name="date"
+              required>
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar " (click)="d.toggle()" type="button"></button>
+            </div>
+
+            <div class="col-lg-12"
+              *ngIf=" annoncesForm.get('dateAnn').invalid &&  (annoncesForm.get('dateAnn').dirty ||annoncesForm.get('dateAnn').touched)">
+              <mat-error *ngIf="annoncesForm.controls['dateAnn'].hasError('required') ">
+                Veuillez renseigner la date de départ antérieure à aujourd'hui
+              </mat-error>
+              <mat-error
+                *ngIf="annoncesForm.hasError('dateVaidator')  && !annoncesForm.controls['dateAnn'].hasError('required') ">
+                La date et l'heure ne peuvent être antérieure à aujourd'hui.
+              </mat-error>
+
+            </div>
+            <div class="col-lg-12">
+              <mat-error
+                *ngIf="annoncesForm.get('dateAnn').valid  && (annoncesForm.hasError('timeVaidator') || annoncesForm.hasError('dateVaidator')) ">
+                La date et l'heure ne peuvent être antérieure à aujourd'hui.
+              </mat-error>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label  class="col-sm-3 col-form-label">Modèle *</label>
-        <div class="col-sm-9">
-          <input formControlName="modele" class="form-control" type="text" [matAutocomplete]="auto" required>
-          <div *ngIf="  annoncesForm.get('modele').invalid  && (annoncesForm.get('modele').dirty || annoncesForm.get('modele').touched)">
-            <mat-error *ngIf="annoncesForm.controls['modele'].hasError('required') ">
-              Veuillez renseigner le modele
-            </mat-error>
-          </div>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label  class="col-sm-3 col-form-label">Nombre de places disponibles *</label>
-        <div class="col-sm-9">
-          <input formControlName="nbPlace" class="form-control" type="number" min="1" max="20" [matAutocomplete]="auto"
-            required>
-          <div *ngIf=" annoncesForm.get('nbPlace').invalid && annoncesForm.get('nbPlace').touched">
-            <mat-error *ngIf="annoncesForm.controls['nbPlace'].hasError('required') ">
-              Veuillez renseigner Le nombre de places disponible
-            </mat-error>
-            <mat-error
-              *ngIf="annoncesForm.get('nbPlace').hasError('max') || annoncesForm.get('nbPlace').hasError('min')">
-              Le nombre de places doit être compris entre 1 et 20
-            </mat-error>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-  <div class="card mb-4">
-    <div class="card-header">
-      Date et horaire
-    </div>
-    <div class="card-body">
-
-      <div class="form-group row">
-        <span class="col-sm-3 col-form-label inputdate">Date / heure *</span>
-        <div class="col-sm-6 input-group inputdate">
-
-          <input  formControlName="dateAnn" class="form-control" id="date" ngbDatepicker #d="ngbDatepicker" name="date"
-            required>
-          <div class="input-group-append">
-            <button class="btn btn-outline-secondary calendar " (click)="d.toggle()" type="button"></button>
-          </div>
-
-          <div class="col-lg-12" *ngIf=" annoncesForm.get('dateAnn').invalid &&  (annoncesForm.get('dateAnn').dirty ||annoncesForm.get('dateAnn').touched)">
-            <mat-error *ngIf="annoncesForm.controls['dateAnn'].hasError('required') ">
-              Veuillez renseigner la date de départ antérieure à aujourd'hui
-            </mat-error>
-            <mat-error
-              *ngIf="annoncesForm.hasError('dateVaidator')  && !annoncesForm.controls['dateAnn'].hasError('required') ">
-              La date et l'heure ne peuvent être antérieure à aujourd'hui.
-            </mat-error>
-
-           </div>
-           <div class="col-lg-12">
-           <mat-error
-           *ngIf="annoncesForm.get('dateAnn').valid  && (annoncesForm.hasError('timeVaidator') || annoncesForm.hasError('dateVaidator')) ">
-           La date et l'heure ne peuvent être antérieure à aujourd'hui.
-         </mat-error>
-        </div>
-        </div>
-        <div class="col-sm-3">
-          <ngb-timepicker formControlName="heure" [hourStep]="hourStep" [minuteStep]="minuteStep" #input8 required
-            class="changeSize"></ngb-timepicker>
+          <div class="col-sm-3">
+            <ngb-timepicker formControlName="heure" [hourStep]="hourStep" [minuteStep]="minuteStep" #input8 required
+              class="changeSize"></ngb-timepicker>
             <div *ngIf="annoncesForm.get('heure').touched">
               <mat-error *ngIf="annoncesForm.controls['heure'].hasError('required') ">
                 Veuillez renseigner l'heure de départ
               </mat-error>
             </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <ng-template #content let-modal>
-    <div class="modal-body">
-      <div class="form-group row">
-        <label class="col-sm-6 col-form-label">Départ</label>
-        <div class="col-sm-6">
-          <p>{{adresseFn(annoncesForm.get('lieuDepart').value)}}</p>
+    <ng-template #content let-modal>
+      <div class="modal-body">
+        <div class="form-group row">
+          <label class="col-sm-6 col-form-label">Départ</label>
+          <div class="col-sm-6">
+            <p>{{adresseFn(annoncesForm.get('lieuDepart').value)}}</p>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-6 col-form-label">Destination</label>
+          <div class="col-sm-6">
+            <p>{{adresseFn(annoncesForm.get('lieuDestination').value)}}</p>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-6 col-form-label">Immatriculation</label>
+          <div class="col-sm-6">
+            <p>{{annoncesForm.get('immatriculation').value}}</p>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-6 col-form-label">Marque</label>
+          <div class="col-sm-6">
+            <p>{{annoncesForm.get('marque').value}}</p>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="staticEmail" class="col-sm-6 col-form-label">Modèle</label>
+          <div class="col-sm-6">
+            <p>{{annoncesForm.get('modele').value}}</p>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="staticEmail" class="col-sm-6 col-form-label">Nb places disponible</label>
+          <div class="col-sm-6">
+            <p>{{annoncesForm.get('nbPlace').value}}</p>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="staticEmail" class="col-sm-6 col-form-label">Date/heure</label>
+          <div class="col-sm-6">
+            <p>{{dateDepartModal}}</p>
+          </div>
         </div>
       </div>
-      <div class="form-group row">
-        <label class="col-sm-6 col-form-label">Destination</label>
-        <div class="col-sm-6">
-          <p>{{adresseFn(annoncesForm.get('lieuDestination').value)}}</p>
-        </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss('Cross click')">Annuler</button>
+        <button type="button" ngbAutofocus class="btn btn-danger" (click)="modal.close('Save click')">Confirmer</button>
       </div>
-      <div class="form-group row">
-        <label class="col-sm-6 col-form-label">Immatriculation</label>
-        <div class="col-sm-6">
-          <p>{{annoncesForm.get('immatriculation').value}}</p>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label class="col-sm-6 col-form-label">Marque</label>
-        <div class="col-sm-6">
-          <p>{{annoncesForm.get('marque').value}}</p>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="staticEmail" class="col-sm-6 col-form-label">Modèle</label>
-        <div class="col-sm-6">
-          <p>{{annoncesForm.get('modele').value}}</p>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="staticEmail" class="col-sm-6 col-form-label">Nb places disponible</label>
-        <div class="col-sm-6">
-          <p>{{annoncesForm.get('nbPlace').value}}</p>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="staticEmail" class="col-sm-6 col-form-label">Date/heure</label>
-        <div class="col-sm-6">
-          <p>{{dateDepartModal}}</p>
-        </div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss('Cross click')">Annuler</button>
-      <button type="button" ngbAutofocus class="btn btn-danger" (click)="modal.close('Save click')">Confirmer</button>
-    </div>
-  </ng-template>
-  <button (click)="open(content, annoncesForm)" [disabled]="annoncesForm.invalid" class="btn btn-primary float-right">Publier</button>
-</form>
+    </ng-template>
+    <button (click)="open(content, annoncesForm)"
+      class="btn btn-primary float-right">Publier</button>
+  </form>
+</div>
+<!--[disabled]="annoncesForm.invalid"-->

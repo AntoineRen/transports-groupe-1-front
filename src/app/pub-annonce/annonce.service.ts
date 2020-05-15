@@ -20,8 +20,13 @@ export class AnnonceService {
   recupererListAnnonceEncours(): Observable<Annonce[]> {
     return this.http.get<Annonce[]>(`${URL_BACKEND}listAnnonceByResponsable`);
   }
+
   recupererListAnnonceHistorique(): Observable<Annonce[]>{
     return this.http.get<Annonce[]>(`${URL_BACKEND}listAnnonceByResponsableHistorique`);
+  }
+
+  annulerAnnonce(id): Observable<Annonce>{
+    return this.http.put<Annonce>(`${URL_BACKEND}annuler`, id);
   }
 
 }
