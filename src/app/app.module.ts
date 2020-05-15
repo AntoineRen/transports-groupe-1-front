@@ -37,6 +37,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { PlanningComponent } from './planning/planning.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { OccupationComponent } from './occupation/occupation.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     ReserverVehiculeSocieteComponent,
     PlanningComponent,
     ReserverUnCovoitModalComponent,
+    OccupationComponent,
 
   ],
   imports: [

@@ -1,0 +1,45 @@
+<div class="row">
+
+  <div class="col-12">
+    <h1>Occupation</h1>
+  </div>
+
+  <div class="col-12 mb-3">
+    Taux d'occupation moyen : 40 %
+  </div>
+
+  <!--datepicker Debut-->
+  <div class="input-group col-6">
+
+    <label for="id_dateDebut" class="col-12 col-md-3 col-form-label">Date de début </label>
+
+      <input class="form-control" name="dateDebut" [(ngModel)]="dateDebut"
+        (ngModelChange)="validerPeriode(dateDebut, dateFin)" ngbDatepicker #dDebutDP="ngbDatepicker"
+        #dDebutMod="ngModel" id="id_dateDebut">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary calendar" (click)="dDebutDP.toggle()" type="button">
+          <fa-icon [icon]="faCalendarAlt"></fa-icon>
+        </button>
+      </div>
+
+
+  </div>
+
+  <!--datepicker Fin-->
+  <div class="input-group col-6">
+
+    <label for="id_dateFin" class="col-12 col-md-3 col-form-label">Date de fin </label>
+
+    <input class="form-control" name="dateFin" [(ngModel)]="dateFin"
+      (ngModelChange)="validerPeriode(dateDebut, dateFin)" ngbDatepicker #dFinDP="ngbDatepicker" #dFinMod="ngModel"
+      id="id_dateFin">
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary calendar" (click)="dFinDP.toggle()" type="button">
+        <fa-icon [icon]="faCalendarAlt"></fa-icon>
+      </button>
+    </div>
+  </div>
+
+
+
+</div>
