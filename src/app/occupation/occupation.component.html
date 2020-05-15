@@ -14,7 +14,7 @@
     <label for="id_dateDebut" class="col-12 col-md-3 col-form-label">Date de début </label>
 
       <input class="form-control" name="dateDebut" [(ngModel)]="dateDebut"
-        (ngModelChange)="validerPeriode(dateDebut, dateFin)" ngbDatepicker #dDebutDP="ngbDatepicker"
+        (ngModelChange)="getReservationsPeriode(dateDebut,dateFin)" ngbDatepicker #dDebutDP="ngbDatepicker"
         #dDebutMod="ngModel" id="id_dateDebut">
       <div class="input-group-append">
         <button class="btn btn-outline-secondary calendar" (click)="dDebutDP.toggle()" type="button">
@@ -31,7 +31,7 @@
     <label for="id_dateFin" class="col-12 col-md-3 col-form-label">Date de fin </label>
 
     <input class="form-control" name="dateFin" [(ngModel)]="dateFin"
-      (ngModelChange)="validerPeriode(dateDebut, dateFin)" ngbDatepicker #dFinDP="ngbDatepicker" #dFinMod="ngModel"
+      (ngModelChange)="getReservationsPeriode(dateDebut,dateFin)" ngbDatepicker #dFinDP="ngbDatepicker" #dFinMod="ngModel"
       id="id_dateFin">
     <div class="input-group-append">
       <button class="btn btn-outline-secondary calendar" (click)="dFinDP.toggle()" type="button">
@@ -40,6 +40,9 @@
     </div>
   </div>
 
+  <div class="col-12 mt-5">
+    <apx-chart [series]="options.series" [chart]="options.chart" [stroke]="options.stroke"></apx-chart>
+  </div>
 
 
 </div>
