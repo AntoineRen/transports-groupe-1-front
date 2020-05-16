@@ -4,6 +4,8 @@ import { ReservationServeur } from '../domains/reservationServeur.domains';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { Periode } from '../domains/periode.domains';
+import { map } from 'rxjs/operators';
 
 const URL_BACKEND = environment.baseUrl + 'reservation/';
 
@@ -12,45 +14,18 @@ const URL_BACKEND = environment.baseUrl + 'reservation/';
 })
 export class OccupationChauffeurService {
 
-  // Map jour/seconde occupé
-  mapOccupation: Map<string, number> = new Map();
-
-  // Map jour/taux
-  mapTauxOccupation: Map<string, number> = new Map();
-
   constructor(private http: HttpClient) { }
 
-  public getReservationsPeriode(dateDebut: NgbDateStruct, dateFin: NgbDateStruct): Observable<ReservationServeur[]>{
+  /** Effectue une requete pour récupérer toutes les réservations selon une periode et les transforment en période */
+  public getReservationsPeriode(dateDebut: NgbDateStruct, dateFin: NgbDateStruct): Observable<Periode[]>{
 
-    return this.http.get<ReservationServeur[]>(`${URL_BACKEND}?debut=${this.formatDate(dateDebut)}&fin=${this.formatDate(dateFin)}`);
-  }
-
-  private fillMapOccupation(debut: Date, fin: Date){
-
-    if (debut.getDate === fin.getDate){ // si reservation un seul jour
-
-      if (this.mapOccupation.has(debut.toDateString())){ // si un jour déja présent
-       // this.mapOccupation.set
-      }
-     // this.mapOccupation.set()
-
-    } else { // si reservation plusieurs jours
-
-    }
-
-  }
-
-  private fillMapTauxOccupation(){
-
-    // parcours de chaque éléments de la map et on divise le nombre de secondes par 86 400
-
-  }
-
-  private moyenneOccupation(): number {
-
-    // somme de tous les taux de la map et division par map.length
-
-    return 0;
+    return this.http.get<ReservationServeur[]>(`${URL_BACKEND}?debut=${this.formatDate(dateDebut)}&fin=${this.formatDate(dateFin)}`)
+    .pipe(
+      map(reservations =>
+            reservations.map(
+              reservation => new Periode(new Date(reservation.dateDepart), new Date(reservation.dateArrivee))
+              )),
+    );
   }
 
   /** Ajoute un 0 devant un chiffre < 10 */

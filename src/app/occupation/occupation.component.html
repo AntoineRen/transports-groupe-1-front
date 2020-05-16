@@ -4,23 +4,26 @@
     <h1>Occupation</h1>
   </div>
 
-  <div class="col-12 mb-3">
-    Taux d'occupation moyen : 40 %
-  </div>
+  <ng-container *ngIf="!erreurPeriode && !erreurGetReservations">
+    <div class="col-12 mb-3">
+      Taux d'occupation moyen : {{moyenne}} %
+    </div>
+  </ng-container>
+
 
   <!--datepicker Debut-->
   <div class="input-group col-6">
 
     <label for="id_dateDebut" class="col-12 col-md-3 col-form-label">Date de début </label>
 
-      <input class="form-control" name="dateDebut" [(ngModel)]="dateDebut"
-        (ngModelChange)="getReservationsPeriode(dateDebut,dateFin)" ngbDatepicker #dDebutDP="ngbDatepicker"
-        #dDebutMod="ngModel" id="id_dateDebut">
-      <div class="input-group-append">
-        <button class="btn btn-outline-secondary calendar" (click)="dDebutDP.toggle()" type="button">
-          <fa-icon [icon]="faCalendarAlt"></fa-icon>
-        </button>
-      </div>
+    <input class="form-control" name="dateDebut" [(ngModel)]="dateDebut"
+      (ngModelChange)="validerPeriode(dateDebut,dateFin)" ngbDatepicker #dDebutDP="ngbDatepicker" #dDebutMod="ngModel"
+      id="id_dateDebut">
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary calendar" (click)="dDebutDP.toggle()" type="button">
+        <fa-icon [icon]="faCalendarAlt"></fa-icon>
+      </button>
+    </div>
 
 
   </div>
@@ -30,9 +33,8 @@
 
     <label for="id_dateFin" class="col-12 col-md-3 col-form-label">Date de fin </label>
 
-    <input class="form-control" name="dateFin" [(ngModel)]="dateFin"
-      (ngModelChange)="getReservationsPeriode(dateDebut,dateFin)" ngbDatepicker #dFinDP="ngbDatepicker" #dFinMod="ngModel"
-      id="id_dateFin">
+    <input class="form-control" name="dateFin" [(ngModel)]="dateFin" (ngModelChange)="validerPeriode(dateDebut,dateFin)"
+      ngbDatepicker #dFinDP="ngbDatepicker" #dFinMod="ngModel" id="id_dateFin">
     <div class="input-group-append">
       <button class="btn btn-outline-secondary calendar" (click)="dFinDP.toggle()" type="button">
         <fa-icon [icon]="faCalendarAlt"></fa-icon>
@@ -40,8 +42,21 @@
     </div>
   </div>
 
+  <ng-container *ngIf="erreurPeriode">
+    <div class="col-12">
+      <div class="alert alert-warning" role="alert">Période invalide : veuillez renseigner une date de fin postérieure à
+        la date de début.</div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="erreurGetReservations">
+    <div class="col-12">
+      <div class="alert alert-danger" role="alert">Erreur : Impossible de récupérer les données depuis le serveur.</div>
+    </div>
+  </ng-container>
+
   <div class="col-12 mt-5">
-    <apx-chart [series]="options.series" [chart]="options.chart" [stroke]="options.stroke"></apx-chart>
+    <apx-chart #chart [series]="options.series" [chart]="options.chart" [stroke]="options.stroke"></apx-chart>
   </div>
 
 
