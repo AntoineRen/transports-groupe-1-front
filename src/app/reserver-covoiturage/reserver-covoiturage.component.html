@@ -133,7 +133,7 @@
                 <td>{{annonce.chauffeurNom|uppercase}}{{annonce.chauffeurPrenom|lowercase}}</td>
                 <td>{{annonce.nbPlace}}</td>
                 <td><button type="button" class="btn btn-info" (click)="openModal(content, annonce)"
-                    [disabled]="annonce.nbPlace==0">Réserver</button></td>
+                    [disabled]="annonce.nbPlace==0 || annonce.statut == 'STATUT_ANNULE' ">Réserver</button></td>
               </tr>
             </ng-container>
           </tbody>
