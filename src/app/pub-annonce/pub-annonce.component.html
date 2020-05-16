@@ -242,11 +242,10 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss('Cross click')">Annuler</button>
-        <button type="button" ngbAutofocus class="btn btn-danger" (click)="modal.close('Save click')">Confirmer</button>
+        <button type="button" ngbAutofocus class="btn btn-danger"  (click)="modal.close('Save click')">Confirmer</button>
       </div>
     </ng-template>
     <button (click)="open(content, annoncesForm)"
-      class="btn btn-primary float-right">Publier</button>
+      class="btn btn-primary float-right" [disabled]="annoncesForm.invalid">Publier</button>
   </form>
 </div>
-<!--[disabled]="annoncesForm.invalid"-->

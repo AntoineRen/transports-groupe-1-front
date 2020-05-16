@@ -1,115 +1,133 @@
-<div class="row">
+<div class="container">
 
-  <h3>Réservations en cours</h3>
-
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col" class="col-2">Date / heure début</th>
-        <th scope="col" class="col-2">Date / heure fin</th>
-        <th scope="col" class="col-2">Immatriculation</th>
-        <th scope="col" class="col-2">Marque</th>
-        <th scope="col" class="col-2">Modèle</th>
-        <th scope="col" class="col-2">Chauffeur</th>
-      </tr>
-    </thead>
-    <tbody>
-      <ng-container *ngIf="!erreurReservationEnCours && !reservationEnCoursVide; else elseBlockEncours">
-        <tr *ngFor="let reservation of reservationsCourantes">
-          <td scope="row">{{reservation.dateDepart.toDateString()}}<br />{{reservation.dateDepart.toLocaleTimeString()}}
-          </td>
-          <td>{{reservation.dateArrivee.toDateString()}}<br />{{reservation.dateArrivee.toLocaleTimeString()}}</td>
-          <td>{{reservation.immatriculation}}</td>
-          <td>{{reservation.marque}}</td>
-          <td>{{reservation.modele}}</td>
-          <td>
-            <ng-container *ngIf="reservation.statutDemandeChauffeur === 'EN_ATTENTE'">
-              En attente
-            </ng-container>
-            <ng-container *ngIf="reservation.statutDemandeChauffeur === 'AVEC_CHAUFFEUR'">
-              {{reservation.nomChauffeur}} {{reservation.prenomChauffeur}}
-            </ng-container>
-          </td>
-        </tr>
-      </ng-container>
-    </tbody>
-  </table>
-
-  <ng-template #elseBlockEncours>
-    <div class="col-12">
-      <ng-container *ngIf="reservationEnCoursVide">
-
-        <div class="alert alert-warning" role="alert">Vous n'avez pas de réservation en cours.</div>
-
-      </ng-container>
-      <ng-container *ngIf="erreurReservationEnCours">
-        <div class="alert alert-danger" role="alert">Erreur : Impossible de récupérer la liste de vos réservations en
-          cours.</div>
-      </ng-container>
+  <div class="card mb-2">
+    <div class="card-header p-3">
+      <h3>Réservations en cours</h3>
     </div>
-  </ng-template>
 
-  <h3>Historique</h3>
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col" class="col-2">Date / heure début</th>
-        <th scope="col" class="col-2">Date / heure fin</th>
-        <th scope="col" class="col-2">Immatriculation</th>
-        <th scope="col" class="col-2">Marque</th>
-        <th scope="col" class="col-2">Modèle</th>
-        <th scope="col" class="col-2">Chauffeur</th>
-      </tr>
-    </thead>
-    <tbody>
-      <ng-container *ngIf="!erreurReservationHisto && !reservationHistoVide; else elseBlockHisto">
-        <tr *ngFor="let reservation of reservationsHistoriqueAffiche">
-          <td scope="row">{{reservation.dateDepart.toDateString()}}<br />{{reservation.dateDepart.toLocaleTimeString()}}
-          </td>
-          <td>{{reservation.dateArrivee.toDateString()}}<br />{{reservation.dateArrivee.toLocaleTimeString()}}</td>
-          <td>{{reservation.immatriculation}}</td>
-          <td>{{reservation.marque}}</td>
-          <td>{{reservation.modele}}</td>
-          <td>
-            <ng-container *ngIf="reservation.statutDemandeChauffeur === 'EN_ATTENTE'">
-              En attente
-            </ng-container>
-            <ng-container *ngIf="reservation.statutDemandeChauffeur === 'AVEC_CHAUFFEUR'">
-              {{reservation.nomChauffeur}} {{reservation.prenomChauffeur}}
-            </ng-container>
-          </td>
-        </tr>
-      </ng-container>
-    </tbody>
-  </table>
 
-  <ng-template #elseBlockHisto>
-    <div class="col-12">
-      <ng-container *ngIf="reservationHistoVide">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col" class="col-2" >Date/heure début</th>
+            <th scope="col" class="col-2">Date / heure fin</th>
+            <th scope="col" class="col-2">Immatriculation</th>
+            <th scope="col" class="col-2">Marque</th>
+            <th scope="col" class="col-2">Modèle</th>
+            <th scope="col" class="col-2">Chauffeur</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngIf="!erreurReservationEnCours && !reservationEnCoursVide; else elseBlockEncours">
+            <tr *ngFor="let reservation of reservationsCourantes">
+              <td scope="row">
+                {{reservation.dateDepart.toDateString()}}<br />{{reservation.dateDepart.toLocaleTimeString()}}
+              </td>
+              <td>{{reservation.dateArrivee.toDateString()}}<br />{{reservation.dateArrivee.toLocaleTimeString()}}</td>
+              <td>{{reservation.immatriculation}}</td>
+              <td>{{reservation.marque}}</td>
+              <td>{{reservation.modele}}</td>
+              <td>
+                <ng-container *ngIf="reservation.statutDemandeChauffeur === 'EN_ATTENTE'">
+                  En attente
+                </ng-container>
+                <ng-container *ngIf="reservation.statutDemandeChauffeur === 'AVEC_CHAUFFEUR'">
+                  {{reservation.nomChauffeur}} {{reservation.prenomChauffeur}}
+                </ng-container>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
 
-        <div class="alert alert-warning" role="alert">Vous n'avez pas d'historique de réservations.</div>
+      <ng-template #elseBlockEncours>
+        <div class="col-12">
+          <ng-container *ngIf="reservationEnCoursVide">
 
-      </ng-container>
-      <ng-container *ngIf="erreurReservationHisto">
-        <div class="alert alert-danger" role="alert">Erreur : Impossible de récupérer l'historique de vos réservations.
+            <div class="alert alert-warning" role="alert">Vous n'avez pas de réservation en cours.</div>
+
+          </ng-container>
+          <ng-container *ngIf="erreurReservationEnCours">
+            <div class="alert alert-danger" role="alert">Erreur : Impossible de récupérer la liste de vos réservations
+              en
+              cours.</div>
+          </ng-container>
         </div>
-      </ng-container>
-    </div>
-  </ng-template>
+      </ng-template>
+  </div>
 
-  <ng-container *ngIf="nombrePagemax > 1">
-    <div class="col-12">
-      <div class="float-right d-flex align-items-center">
-        <button class="btn" (click)="pagePrecedente()">
-          <fa-icon [icon]="faChevronLeft"></fa-icon>
-        </button>
-        <span>{{pageActuelle}} / {{nombrePagemax}}</span>
-        <button class="btn" (click)="pageSuivante()">
-          <fa-icon [icon]="faChevronRight"></fa-icon>
-        </button>
+  <div class="card ">
+    <div>
+      <div class="card-header p-3">
+        <h3>Historique</h3>
+      </div>
+      <div>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col" class="col-2">Date / heure début</th>
+              <th scope="col" class="col-2">Date / heure fin</th>
+              <th scope="col" class="col-2">Immatriculation</th>
+              <th scope="col" class="col-2">Marque</th>
+              <th scope="col" class="col-2">Modèle</th>
+              <th scope="col" class="col-2">Chauffeur</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngIf="!erreurReservationHisto && !reservationHistoVide; else elseBlockHisto">
+              <tr *ngFor="let reservation of reservationsHistoriqueAffiche">
+                <td scope="row">
+                  {{reservation.dateDepart.toDateString()}}<br />{{reservation.dateDepart.toLocaleTimeString()}}
+                </td>
+                <td>{{reservation.dateArrivee.toDateString()}}<br />{{reservation.dateArrivee.toLocaleTimeString()}}
+                </td>
+                <td>{{reservation.immatriculation}}</td>
+                <td>{{reservation.marque}}</td>
+                <td>{{reservation.modele}}</td>
+                <td>
+                  <ng-container *ngIf="reservation.statutDemandeChauffeur === 'EN_ATTENTE'">
+                    En attente
+                  </ng-container>
+                  <ng-container *ngIf="reservation.statutDemandeChauffeur === 'AVEC_CHAUFFEUR'">
+                    {{reservation.nomChauffeur}} {{reservation.prenomChauffeur}}
+                  </ng-container>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+
+        <ng-template #elseBlockHisto>
+          <div class="col-12">
+            <ng-container *ngIf="reservationHistoVide">
+
+              <div class="alert alert-warning" role="alert">Vous n'avez pas d'historique de réservations.</div>
+
+            </ng-container>
+            <ng-container *ngIf="erreurReservationHisto">
+              <div class="alert alert-danger" role="alert">Erreur : Impossible de récupérer l'historique de vos
+                réservations.
+              </div>
+            </ng-container>
+          </div>
+        </ng-template>
+
+        <ng-container *ngIf="nombrePagemax > 1">
+          <div class="col-12">
+            <div class="float-right d-flex align-items-center">
+              <button class="btn" (click)="pagePrecedente()">
+                <fa-icon [icon]="faChevronLeft"></fa-icon>
+              </button>
+              <span>{{pageActuelle}} / {{nombrePagemax}}</span>
+              <button class="btn" (click)="pageSuivante()">
+                <fa-icon [icon]="faChevronRight"></fa-icon>
+              </button>
+            </div>
+          </div>
+        </ng-container>
       </div>
     </div>
-  </ng-container>
-
+  </div>
 </div>

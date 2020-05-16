@@ -20,6 +20,8 @@ import { CollaborateurComponent } from './collaborateur/collaborateur.component'
 import { AdministrateurComponent } from './administrateur/administrateur.component';
 import { CovoitAnnonceResume } from './list-reservation-covoiturages/modalComponnent/CovoitAnnonceResume.modal-component';
 import { VosReservationsComponent } from './vos-reservations/vos-reservations.component';
+import { VehiculesComponent } from './vehicules/vehicules.component';
+
 import { ReserverCovoiturageComponent } from './reserver-covoiturage/reserver-covoiturage.component';
 import { ReserverUnVehiculeComponent } from './reserver-un-vehicule/reserver-un-vehicule.component';
 import { ReserverVehiculeSocieteComponent } from './reserver-vehicule-societe/reserver-vehicule-societe.component';
@@ -38,7 +40,7 @@ import { PlanningComponent } from './planning/planning.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { OccupationComponent } from './occupation/occupation.component';
-import { NgApexchartsModule } from "ng-apexcharts";
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
   declarations: [
@@ -61,6 +63,7 @@ import { NgApexchartsModule } from "ng-apexcharts";
     PlanningComponent,
     ReserverUnCovoitModalComponent,
     OccupationComponent,
+    VehiculesComponent,
 
   ],
   imports: [

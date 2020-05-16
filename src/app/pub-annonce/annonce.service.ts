@@ -18,11 +18,11 @@ export class AnnonceService {
   }
 
   recupererListAnnonceEncours(): Observable<Annonce[]> {
-    return this.http.get<Annonce[]>(`${URL_BACKEND}listAnnonceByResponsable`);
+    return this.http.get<Annonce[]>(`${URL_BACKEND}self/annonces?encours=true`);
   }
 
   recupererListAnnonceHistorique(): Observable<Annonce[]>{
-    return this.http.get<Annonce[]>(`${URL_BACKEND}listAnnonceByResponsableHistorique`);
+    return this.http.get<Annonce[]>(`${URL_BACKEND}self/annonces?encours=false`);
   }
 
   annulerAnnonce(id): Observable<Annonce>{

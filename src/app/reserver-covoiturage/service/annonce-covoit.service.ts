@@ -4,7 +4,8 @@ import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import CovoitAnnonceServer from 'src/app/list-reservation-covoiturages/models/CovoitAnnonceServer.model';
 import { environment } from 'src/environments/environment';
 import { CovoitAnnonce } from 'src/app/list-reservation-covoiturages/models/CovoitAnnonce.model';
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
+import { Annonce } from 'src/app/pub-annonce/annonce';
 
 
 const URL_BACKEND = environment.baseUrl + 'annonce/';
@@ -15,23 +16,18 @@ const URL_BACKEND = environment.baseUrl + 'annonce/';
 })
 export class AnnonceCovoitService {
 
-  private subjectCovoitAnnonceServer = new BehaviorSubject<CovoitAnnonceServer[]>(null);
+  //private subjectCovoitAnnonceServer = new BehaviorSubject<CovoitAnnonceServer[]>(null);
 
 
   constructor(private http: HttpClient) { }
 
   /** Recupère tout les annonces du serveur */
-  public getAllAnnonceCovoitEnCourse(): Observable<CovoitAnnonceServer[]> {
-
-    return this.http.get<CovoitAnnonceServer[]>(`${URL_BACKEND}listAllAnnonce`)
-      .pipe(tap(annonces => this.subjectCovoitAnnonceServer.next(annonces))
-      );
+  public getAllAnnonceCovoitEnCourse(): Observable<Annonce[]> {
+    return this.http.get<Annonce[]>(`${URL_BACKEND}annonces`)
   }
 
-  get observableCovoitAnnonceServer() : Observable<CovoitAnnonceServer[]>{
-    return this.subjectCovoitAnnonceServer.asObservable();
-  }
   public putReservation(idAnnonce: number) {
     return this.http.put(`${URL_BACKEND}reservationCovoit`, idAnnonce);
   }
+
 }
