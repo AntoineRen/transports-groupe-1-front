@@ -20,6 +20,8 @@ import { CollaborateurComponent } from './collaborateur/collaborateur.component'
 import { AdministrateurComponent } from './administrateur/administrateur.component';
 import { CovoitAnnonceResume } from './list-reservation-covoiturages/modalComponnent/CovoitAnnonceResume.modal-component';
 import { VosReservationsComponent } from './vos-reservations/vos-reservations.component';
+import { VehiculesComponent } from './vehicules/vehicules.component';
+
 import { ReserverCovoiturageComponent } from './reserver-covoiturage/reserver-covoiturage.component';
 import { ReserverUnVehiculeComponent } from './reserver-un-vehicule/reserver-un-vehicule.component';
 import { ReserverVehiculeSocieteComponent } from './reserver-vehicule-societe/reserver-vehicule-societe.component';
@@ -34,6 +36,9 @@ import { ReserverUnCovoitModalComponent } from './reserver-covoiturage/modalComp
 import {AnnonceCovoitService} from './reserver-covoiturage/service/annonce-covoit.service';
 import { AnnoncesComponent } from './annonces/annonces.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { PlanningComponent } from './planning/planning.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 @NgModule({
   declarations: [
@@ -53,7 +58,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     AnnoncesComponent,
     ReserverUnVehiculeComponent,
     ReserverVehiculeSocieteComponent,
+    PlanningComponent,
     ReserverUnCovoitModalComponent,
+    VehiculesComponent,
 
   ],
   imports: [
@@ -72,6 +79,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatProgressSpinnerModule,
     MatAutocompleteModule,
     MatCheckboxModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
 
   ],
   providers: [{

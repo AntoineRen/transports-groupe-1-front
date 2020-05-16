@@ -1,0 +1,24 @@
+.needs-validation{
+    
+    .ng-invalid.ng-touched , .ng-invalid.ng-dirty{ 
+        border: 3px solid #A80D1D;
+    }
+}
+.input-group-text{
+    background-color: #408874;
+    color: #F8FFB9;
+}
+.form-control{
+    border: 2px solid #004F2F;
+}
+.card-body{
+    border: 2px solid #004F2F;
+    background-color: #408874;
+    color: #F8FFB9;
+}
+.card-body{
+    img{
+        width: 18rem;
+        border: 3px solid #004F2F;
+    }
+}
