@@ -4,7 +4,7 @@ import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import CovoitAnnonceServer from 'src/app/list-reservation-covoiturages/models/CovoitAnnonceServer.model';
 import { environment } from 'src/environments/environment';
 import { CovoitAnnonce } from 'src/app/list-reservation-covoiturages/models/CovoitAnnonce.model';
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 import { Annonce } from 'src/app/pub-annonce/annonce';
 
 
@@ -24,7 +24,7 @@ export class AnnonceCovoitService {
   /** Recupère tout les annonces du serveur */
   public getAllAnnonceCovoitEnCourse(): Observable<Annonce[]> {
 
-    return this.http.get<Annonce[]>(`${URL_BACKEND}listAnnonceEnCours`)
+    return this.http.get<Annonce[]>(`${URL_BACKEND}annonces`)
       //.pipe(tap(annonces => this.subjectCovoitAnnonceServer.next(annonces)));
   }
 
@@ -33,4 +33,5 @@ export class AnnonceCovoitService {
   public putReservation(idAnnonce: number) {
     return this.http.put(`${URL_BACKEND}reservationCovoit`, idAnnonce);
   }
+
 }

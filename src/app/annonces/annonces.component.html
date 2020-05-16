@@ -1,16 +1,21 @@
-<h1 class="my-3">Vos annonces</h1>
+<div class="mt-5">
+
+  <div class="col-12">
+    <h1 class="mt-3">Vos annonces</h1>
+  </div>
+
 
 <ng-container *ngIf="!error; else elseBlock">
-  <div class="col-12 my-5">
+  <div class="col-12 mb-5">
     <div class="text-right">
-      <button class="btn btn-primary" routerLink="/collaborateur/annonces/creer">Creer une nouvelle
-        annonce</button>
+      <a class="btn btn-primary" routerLink="/collaborateur/annonces/creer">Creer une nouvelle
+        annonce</a>
     </div>
   </div>
 </ng-container>
 <div class="card my-2">
   <div class="card-header p-3">
-    Annonces en cours
+    <h3>Annonces en cours</h3>
   </div>
   <div>
 
@@ -35,7 +40,7 @@
             <td>{{annonce.nbVoyageurs}}</td>
             <div *ngIf="annonce.statut == 'STATUT_EN_COURS'; else elseBlock">
               <td style="text-align: center">
-                <button ngbButton class="gdp-button5 btn-danger" (click)="open(content,annonce.id)">Annuler </button>
+                <button ngbButton class="btn btn-danger" (click)="open(content,annonce.id)">Annuler </button>
               </td>
             </div>
             <ng-template #elseBlock>
@@ -71,7 +76,7 @@
 <div class="card">
   <div>
     <div class="card-header p-3">
-      Historique
+     <h3 >Historique</h3>
     </div>
     <div>
 
@@ -148,4 +153,5 @@
     </div>
   </ng-template>
 
+</div>
 </div>

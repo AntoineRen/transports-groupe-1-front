@@ -9,34 +9,35 @@
         <div class=" col-sm-3">
 
           <!--Champ de L'adresse de départ-->
-          <label for="staticEmail" class=" col-form-label">Adesse de départ * </label>
-          <input formControlName="lieuDepart" class="form-control" type="text" [matAutocomplete]="auto"
-            [ngClass]="{ 'is-invalid':   reservationCovoitForm.get('lieuDepart').invalid  && (reservationCovoitForm.get('lieuDepart').dirty || reservationCovoitForm.get('lieuDepart').touched)}"
-            required>
-          <div
-            *ngIf="  reservationCovoitForm.get('lieuDepart').invalid  && (reservationCovoitForm.get('lieuDepart').dirty || reservationCovoitForm.get('lieuDepart').touched)">
-            <mat-error *ngIf="reservationCovoitForm.controls['lieuDepart'].hasError('required') ">
-              Veuillez renseigner l'adresse de départ
-            </mat-error>
-            <mat-error
-              *ngIf="reservationCovoitForm.get('lieuDepart').hasError('incorrect') && !reservationCovoitForm.controls['lieuDepart'].hasError('required')">
-              L'adresse de départ est une adresse inconnue
-            </mat-error>
+          <div class=" mb-5">
+            <label for="staticEmail" class=" col-form-label">Adesse de départ * </label>
+            <input formControlName="lieuDepart" class="form-control " type="text" [matAutocomplete]="auto"
+              [ngClass]="{ 'is-invalid':   reservationCovoitForm.get('lieuDepart').invalid  && (reservationCovoitForm.get('lieuDepart').dirty || reservationCovoitForm.get('lieuDepart').touched)}"
+              required>
+            <div
+              *ngIf="  reservationCovoitForm.get('lieuDepart').invalid  && (reservationCovoitForm.get('lieuDepart').dirty || reservationCovoitForm.get('lieuDepart').touched)">
+              <mat-error *ngIf="reservationCovoitForm.controls['lieuDepart'].hasError('required') ">
+                Veuillez renseigner l'adresse de départ
+              </mat-error>
+              <mat-error
+                *ngIf="reservationCovoitForm.get('lieuDepart').hasError('incorrect') && !reservationCovoitForm.controls['lieuDepart'].hasError('required')">
+                L'adresse de départ est une adresse inconnue
+              </mat-error>
+            </div>
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="adresseFn">
+              <mat-option *ngIf="isLoading" class="is-loading">
+                <mat-spinner diameter="50"></mat-spinner>
+              </mat-option>
+              <mat-option *ngIf="isLoading" class="is-loading">
+                <mat-progress-spinner diameter="50"></mat-progress-spinner>
+              </mat-option>
+              <mat-option *ngFor="let adresse of adresses" [value]="adresse">
+                {{adresseFn(adresse)}}
+              </mat-option>
+            </mat-autocomplete>
           </div>
-          <mat-autocomplete #auto="matAutocomplete" [displayWith]="adresseFn">
-            <mat-option *ngIf="isLoading" class="is-loading">
-              <mat-spinner diameter="50"></mat-spinner>
-            </mat-option>
-            <mat-option *ngIf="isLoading" class="is-loading">
-              <mat-progress-spinner diameter="50"></mat-progress-spinner>
-            </mat-option>
-            <mat-option *ngFor="let adresse of adresses" [value]="adresse">
-              {{adresseFn(adresse)}}
-            </mat-option>
-          </mat-autocomplete>
-
           <!--Champ de la date de départ-->
-          <span class="col-form-label inputdate p-2">Date de Départ</span>
+          <span class="col-form-label inputdate">Date de Départ</span>
           <div class="input-group inputdate ">
             <input formControlName="dateAnn" class="form-control" id="date" ngbDatepicker #d="ngbDatepicker" name="date"
               required>
@@ -88,17 +89,18 @@
         </div>
 
         <!--Champ de Durée du trajet -> auto rempli-->
-        <div class="form-group offset-1 col-sm-3 ">
-          <label for="staticEmail" class=" col-form-label">Durée du trajet</label>
-          <div class="col-sm-9">
-            <input formControlName="dureeTrajet" type="text" readonly class="form-control-plaintext"
-              name="duree_trajet">
+        <div class="form-group  ml-5">
+          <div class="form-group row mb-5">
+            <label  class="col col-form-label">Durée du trajet</label>
+            <div *ngIf="duree" class="col">
+              <p class="form-control-plaintext">{{duree}} h {{minute}} mn</p>
+            </div>
           </div>
-        <!--Champ de Distance du trajet -> auto rempli-->
-          <div class="form-group ">
-            <label class="col-form-label">Distance</label>
-            <div class="offset-1 col-sm-3">
-              <input formControlName="distance" type="text" readonly class="form-control-plaintext" name="distance">
+          <!--Champ de Distance du trajet -> auto rempli-->
+          <div class="form-group row">
+            <label class="col col-form-label">Distance</label>
+            <div *ngIf="distance" class="col">
+              <p class="form-control-plaintext">{{distance}} km</p>
             </div>
           </div>
         </div>
@@ -130,7 +132,7 @@
                 <td>{{annonce.vehiculeMarque}}<br />{{annonce.vehiculeModel}}</td>
                 <td>{{annonce.chauffeurNom|uppercase}}{{annonce.chauffeurPrenom|lowercase}}</td>
                 <td>{{annonce.nbPlace}}</td>
-                <td><button type="button" class="btn btn-info" (click)="reserver(annonce)"
+                <td><button type="button" class="btn btn-info" (click)="openModal(content, annonce)"
                     [disabled]="annonce.nbPlace==0">Réserver</button></td>
               </tr>
             </ng-container>
@@ -140,3 +142,37 @@
     </div>
   </div>
 </form>
+
+<ng-template #content let-modal>
+  <div class="modal-header">Réservation d'un covoiturage
+  </div>
+  <div class="modal-body">
+    <table class="table">
+      <tr>
+        <th>Départ :</th>
+        <td>{{modalRow.lieuDepart}}</td>
+      </tr>
+      <tr>
+        <th>Destination :</th>
+        <td>{{modalRow.lieuDestination}}</td>
+      </tr>
+      <tr>
+        <th>Date/heure :</th>
+        <td>{{modalRow.dateDepart.toDateString()}}<br />{{modalRow.dateDepart.toLocaleTimeString()}}</td>
+      </tr>
+      <tr>
+        <th>Vehicule</th>
+        <td>{{modalRow.vehiculeMarque|uppercase}}, {{modalRow.vehiculeModel|lowercase}}</td>
+      </tr>
+      <tr>
+        <th>Chauffeur</th>
+        <td>{{modalRow.chauffeurNom|uppercase}} {{modalRow.chauffeurPrenom|lowercase}}</td>
+      </tr>
+    </table>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss('Cross click')">Annuler</button>
+    <button type="button" ngbAutofocus class="btn btn-danger" (click)="modal.close('Save click')">Confirmer</button>
+  </div>
+</ng-template>

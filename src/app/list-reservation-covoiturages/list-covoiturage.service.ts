@@ -5,6 +5,7 @@ import { observable } from 'rxjs';
 import { Collegue } from '../auth/auth.domains';
 import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Annonce } from '../pub-annonce/annonce';
 
 
 const URL_BACKEND = environment.baseUrl + 'annonce/';
@@ -20,13 +21,15 @@ export class ListCovoiturageService {
   constructor(private http: HttpClient) { }
 
 
-  recupererListAnnonceCovoitEncours(): Observable<CovoitAnnonceServer[]> {
-    return this.http.get<CovoitAnnonceServer[]>(`${URL_BACKEND}listAnnonceEnCours`);
+  recupererListAnnonceCovoitEncours(): Observable<Annonce[]> {
+    return this.http.get<Annonce[]>(`${URL_BACKEND}self/reservations?encours=true`);
   }
-  recupererListAnnonceCovoitHistorique(): Observable<CovoitAnnonceServer[]>{
-    return this.http.get<CovoitAnnonceServer[]>(`${URL_BACKEND}listAnnonceHistorique`);
+  recupererListAnnonceCovoitHistorique(): Observable<Annonce[]>{
+    return this.http.get<Annonce[]>(`${URL_BACKEND}self/reservations?encours=false`);
   }
-  /*  getLalistAnnonce(): Observable<CovoitAnnonceServer[]> {
-      return this.transfertAnnonces.asObservable();
-  }*/
+
+  annulerReservation(id): Observable<Annonce>{
+    return this.http.put<Annonce>(`${URL_BACKEND}reservations?annuler`, id);
+  }
+
 }

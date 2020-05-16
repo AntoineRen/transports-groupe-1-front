@@ -51,7 +51,7 @@ export class PubAnnonceComponent implements OnInit {
   search(value) {
 
     value.pipe(
-      tap(value => { this.coordCalculate(value) },
+      tap(value => { this.coordCalculate(value)},
         () => { this.isLoading = true; }),
       switchMap(value => this.adresseService.search(value)
         .pipe(
@@ -136,7 +136,7 @@ export class PubAnnonceComponent implements OnInit {
     this.annoncesForm.value.lieuDepart = this.adresseFn(this.annoncesForm.value.lieuDepart);
     this.annoncesForm.value.lieuDestination = this.adresseFn(this.annoncesForm.value.lieuDestination);
     this.annoncesForm.value.dateDepart = `${this.toModelDate(this.annoncesForm.get('dateAnn').value)}T${this.toModelTime(this.annoncesForm.get('heure').value)}`;
-    const dateArr = moment(this.annoncesForm.value.dateDepart).add(this.duree, 'm').toDate();
+    const dateArr = moment(this.annoncesForm.value.dateDepart).add(this.duree, 'h').add(this.minute, 'm').toDate();
     this.annoncesForm.value.dateArrivee = dateArr;
     this.annoncesForm.value.distance = this.distance;
     this.annoncesForm.value.dureeTrajet = this.duree;
