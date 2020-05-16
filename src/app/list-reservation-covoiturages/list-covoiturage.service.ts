@@ -29,7 +29,7 @@ export class ListCovoiturageService {
   }
 
   annulerReservation(id): Observable<Annonce>{
-    return this.http.put<Annonce>(`${URL_BACKEND}reservations?annuler`, id);
+    return this.http.put<Annonce>(`${URL_BACKEND}self/reservation/annulation`, id);
   }
 
 }

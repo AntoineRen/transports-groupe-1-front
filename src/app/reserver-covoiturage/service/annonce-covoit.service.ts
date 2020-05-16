@@ -23,13 +23,9 @@ export class AnnonceCovoitService {
 
   /** Recupère tout les annonces du serveur */
   public getAllAnnonceCovoitEnCourse(): Observable<Annonce[]> {
-
     return this.http.get<Annonce[]>(`${URL_BACKEND}annonces`)
-      //.pipe(tap(annonces => this.subjectCovoitAnnonceServer.next(annonces)));
   }
 
-  //get observableCovoitAnnonceServer() : Observable<CovoitAnnonceServer[]>{
-    //return this.subjectCovoitAnnonceServer.asObservable();}
   public putReservation(idAnnonce: number) {
     return this.http.put(`${URL_BACKEND}reservationCovoit`, idAnnonce);
   }
