@@ -39,6 +39,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { PlanningComponent } from './planning/planning.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { OccupationComponent } from './occupation/occupation.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
   declarations: [
@@ -60,6 +62,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     ReserverVehiculeSocieteComponent,
     PlanningComponent,
     ReserverUnCovoitModalComponent,
+    OccupationComponent,
     VehiculesComponent,
 
   ],
@@ -83,6 +86,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
+    NgApexchartsModule,
 
   ],
   providers: [{

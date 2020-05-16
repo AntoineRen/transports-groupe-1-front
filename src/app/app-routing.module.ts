@@ -15,6 +15,7 @@ import { VehiculesComponent } from './vehicules/vehicules.component';
 import { PlanningComponent } from './planning/planning.component';
 import { ReserverCovoiturageComponent } from './reserver-covoiturage/reserver-covoiturage.component';
 import { AnnoncesComponent } from './annonces/annonces.component';
+import { OccupationComponent } from './occupation/occupation.component';
 
 
 const routes: Routes =  [
@@ -31,6 +32,7 @@ const routes: Routes =  [
   // route chauffeur et admin, seulement si connecté
   { path: 'chauffeur', component: ChauffeurComponent, canActivate: [StatutConnecteService, StatutChauffeurService]},
   { path: 'chauffeur/planning', component: PlanningComponent, canActivate: [StatutConnecteService, StatutChauffeurService]},
+  { path: 'chauffeur/occupation', component: OccupationComponent, canActivate: [StatutConnecteService, StatutChauffeurService]},
   // route administrateur, seulement si connecté
   { path: 'admin', component: AdministrateurComponent, canActivate: [StatutConnecteService, StatutAdminService]},
   { path: 'admin/vehicules', component: VehiculesComponent, canActivate: [StatutConnecteService, StatutAdminService]}

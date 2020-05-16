@@ -20,12 +20,17 @@
             <a class="nav-link" routerLink="/collaborateur/annonces">Vos annonces</a>
 
           </li>
-          <li class="nav-item"routerLinkActive="active">
-            <a class="nav-link" routerLink="/contact-create">Statistiques</a>
-          </li>
           <ng-container *ngIf="col.roles.includes('ROLE_CHAUFFEUR')">
             <li class="nav-item">
               <a class="nav-link" routerLink="/chauffeur/planning">Planning</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/chauffeur/occupation">Occupation</a>
+            </li>
+          </ng-container>
+          <ng-container *ngIf="col.roles.includes('ROLE_ADMINISTRATEUR')">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/admin/vehicules">Véhicules</a>
             </li>
           </ng-container>
         </ul>
