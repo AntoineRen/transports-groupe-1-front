@@ -14,6 +14,11 @@ export class Annonce {
   nbPlace: number;
   nbVoyageurs?: number;
   statut: string;
+  nomChauffeur: string;
+  vehiculeMarque: string;
+  vehiculeModel: string;
+  chauffeurPrenom: string;
+  chauffeurNom: string;
 
   constructor(annonceServeur: CovoitAnnonceServer) {
     this.id = annonceServeur.id;
@@ -28,6 +33,10 @@ export class Annonce {
     this.nbPlace = annonceServeur.nbPlace;
     this.nbVoyageurs = annonceServeur.listPassagers.length;
     this.statut = annonceServeur.statut;
+    this.chauffeurNom = annonceServeur.responsable.nom;
+    this.chauffeurPrenom = annonceServeur.responsable.prenom;
+    this.vehiculeMarque = annonceServeur.marque;
+    this.vehiculeModel = annonceServeur.modele;
 
   }
 }
