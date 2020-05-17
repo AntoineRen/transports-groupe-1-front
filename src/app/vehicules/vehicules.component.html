@@ -1,169 +1,152 @@
 <h1 class="mt-4">Véhicules</h1>
 <!-- Filtre liste -->
-<div class="col-sm-4" >
-    <form [formGroup]="profileFormControleVehicule" >
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text" style="width: 9rem;">immatriculation:</span>
-            </div>
-            <input type="text" class="form-control" formControlName="ReactiveFormControleVehiculeImat">
-        </div>
+<div class="col-sm-4">
+  <form [formGroup]="profileFormControleVehicule">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" style="width: 9rem;">immatriculation:</span>
+      </div>
+      <input type="text" class="form-control" formControlName="ReactiveFormControleVehiculeImat">
+    </div>
 
-        <div class="input-group mb-3">
-            <div class="input-group-prepend" >
-                <span class="input-group-text" style="width: 9rem;">marque:</span>
-            </div>
-            <input type="text" class="form-control" formControlName="ReactiveFormControleVehiculeModel">
-        </div>
-    </form>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" style="width: 9rem;">marque:</span>
+      </div>
+      <input type="text" class="form-control" formControlName="ReactiveFormControleVehiculeModel">
+    </div>
+  </form>
 </div>
 <div class="row">
-    <div class="col-sm-12 ">
-        <!-- Button modal -->
-        <button type="button" class="btn float-right"
-        data-toggle="modal" data-target="#exampleModalCenter"style="background-color:#004F2F;color:#F8FFB9;">
-            Ajouter un véhicule
-        </button>
-    </div>
+  <div class="col-sm-12 ">
+    <!-- Button modal -->
+    <button type="button" class="btn float-right" data-toggle="modal" data-target="#exampleModalCenter"
+      style="background-color:#004F2F;color:#F8FFB9;">
+      Ajouter un véhicule
+    </button>
+  </div>
 
-    <div class="col-sm-12 ">
-        <!-- liste Véhicules -->
-        <ng-container>
-            <div class="row">
-                <div class="card text-center" *ngFor="let Vehicule of filterVehicule" style="width: 22rem; margin: 10px;">
-                    <div class="card-body">
-                        <img src="{{Vehicule.photoUrl}}" onerror="this.src='https://cdn.discordapp.com/attachments/705412725098020906/709174770247401563/imgNotLoad.png'" alt="Photo véhicule {{Vehicule.id}}">
-                        <p class="card-text">
-                            {{Vehicule.immatriculation}}<br/>
-                            {{Vehicule.marque}} - {{Vehicule.modele}}<br/>
-                            {{Vehicule.categorie}}<br/>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </ng-container>
-    </div>
+  <div class="col-sm-12 ">
+    <!-- liste Véhicules -->
+    <ng-container>
+      <div class="row">
+        <div class="card text-center" *ngFor="let Vehicule of filterVehicule" style="width: 22rem; margin: 10px;">
+
+          <a class="card-body" routerLink="/admin/vehicules/{{Vehicule.immatriculation}}">
+            <img class="btn img-fluid" src="{{Vehicule.photoUrl}}"
+              onerror="this.src='https://cdn.discordapp.com/attachments/705412725098020906/709174770247401563/imgNotLoad.png'"
+              alt="Photo véhicule {{Vehicule.id}}">
+            <p class="card-text">
+              {{Vehicule.immatriculation}}<br />
+              {{Vehicule.marque}} - {{Vehicule.modele}}<br />
+              {{Vehicule.categorie}}<br />
+            </p>
+
+          </a>
+
+        </div>
+      </div>
+    </ng-container>
+  </div>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Véhicule</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <!-- Formulaire -->
-        <form class="needs-validation" action="admin/vehicules"  #vehiculeForm="ngForm" name="FormulaireVehicule"novalidate>
-            <div class="modal-body">
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" style="width: 10rem;">immatriculation:</span>
-                    </div>
-                    <input type="text" class="form-control" placeholder="AA-001-AA"
-                    name="imat"
-                    title="AA-001-AA"
-                    [(ngModel)]="immatriculation"
-                    pattern="[a-np-z]{2}-[0-9]{3}-[a-np-z]{2}"
-                    #immat="ngModel"
-                    required>
-                </div>
-                <div *ngIf="immat.invalid  && (immat.dirty || immat.touched)">
-                    Immatriculation requis au format (AA-001-AA).
-                </div>
-
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" style="width: 10rem;">Marque:</span>
-                    </div>
-                    <input type="text" class="form-control" placeholder="Marque du véhicule"
-                    name="marque"
-                    [(ngModel)]="marque"
-                    #marq="ngModel"
-                    required>
-                </div>
-                <div *ngIf="marq.invalid  && (marq.dirty || marq.touched)">
-                    Marque requis.
-                </div>
-
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" style="width: 10rem;">Modèle:</span>
-                    </div>
-                    <input type="text" class="form-control"
-                    placeholder="Modèle du véhicule"
-                    name="modele"
-                    [(ngModel)]="modele"
-                    #model="ngModel"
-                    required>
-                </div>
-                <div *ngIf="model.invalid  && (model.dirty || model.touched)">
-                     Modèle requis.
-                </div>
-
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" style="width: 10rem;">Catégorie:</span>
-                    </div>
-                    <select class="form-control" id="SelectVehicule"
-                    name="categorie"
-                    [(ngModel)]="catChoose"
-                    #cat="ngModel"
-                    required>
-                        <option>{{ categorielist.CATEGORIE_MU }}</option>
-                        <option>{{ categorielist.CATEGORIE_MP }}</option>
-                        <option>{{ categorielist.CATEGORIE_CP }}</option>
-                        <option>{{ categorielist.CATEGORIES_C }}</option>
-                        <option>{{ categorielist.CATEGORIE_BTS }}</option>
-                        <option>{{ categorielist.CATEGORIE_BTM }}</option>
-                        <option>{{ categorielist.CATEGORIE_BTL }}</option>
-                        <option>{{ categorielist.CATEGORIE_SUV }}</option>
-                    </select>
-                </div>
-                <div *ngIf="cat.invalid  && (cat.dirty || cat.touched)">
-                    Catégorie requis.
-                </div>
-
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" style="width: 10rem;">Nombre de places:</span>
-                    </div>
-                    <input type="number" class="form-control" placeholder="Nombre de places"
-                    min="1" max="80"
-                    name="nbPlace"
-                    [(ngModel)]="nbPlace"
-                    #nbPl="ngModel"
-                     required>
-                </div>
-                <div *ngIf="nbPl.invalid  && (nbPl.dirty || nbPl.touched)">
-                    Un nombre de place est requis.
-                </div>
-
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" style="width: 10rem;">Photo:</span>
-                    </div>
-                    <input type="url" class="form-control" placeholder="URL de la photo"
-                    pattern="https://.*|http://"
-                    name="photoUrl"
-                    [(ngModel)]="photoUrl"
-                    #urlP="ngModel"
-                    required>
-                </div>
-                <div *ngIf="urlP.invalid  && (urlP.dirty || urlP.touched)">
-                    Une URL doit commencer par " http:// " ou " https:// "
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn" data-dismiss="modal"
-                style="background-color:#A80D1D;color:#F8FFB9">Annuler</button>
-                <button type="button" class="btn"
-
-                style="background-color:#004F2F;color:#F8FFB9" [disabled]="vehiculeForm.invalid" (click)="AjoutVehicule()">Ajouter</button>
-            </div>
-        </form>
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Véhicule</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
+      <!-- Formulaire -->
+      <form class="needs-validation" action="admin/vehicules" #vehiculeForm="ngForm" name="FormulaireVehicule"
+        novalidate>
+        <div class="modal-body">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" style="width: 10rem;">immatriculation:</span>
+            </div>
+            <input type="text" class="form-control" placeholder="AA-001-AA" name="imat" title="AA-001-AA"
+              [(ngModel)]="immatriculation" pattern="[a-np-z]{2}-[0-9]{3}-[a-np-z]{2}" #immat="ngModel" required>
+          </div>
+          <div *ngIf="immat.invalid  && (immat.dirty || immat.touched)">
+            Immatriculation requis au format (AA-001-AA).
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" style="width: 10rem;">Marque:</span>
+            </div>
+            <input type="text" class="form-control" placeholder="Marque du véhicule" name="marque" [(ngModel)]="marque"
+              #marq="ngModel" required>
+          </div>
+          <div *ngIf="marq.invalid  && (marq.dirty || marq.touched)">
+            Marque requis.
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" style="width: 10rem;">Modèle:</span>
+            </div>
+            <input type="text" class="form-control" placeholder="Modèle du véhicule" name="modele" [(ngModel)]="modele"
+              #model="ngModel" required>
+          </div>
+          <div *ngIf="model.invalid  && (model.dirty || model.touched)">
+            Modèle requis.
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" style="width: 10rem;">Catégorie:</span>
+            </div>
+            <select class="form-control" id="SelectVehicule" name="categorie" [(ngModel)]="catChoose" #cat="ngModel"
+              required>
+              <option>{{ categorielist.CATEGORIE_MU }}</option>
+              <option>{{ categorielist.CATEGORIE_MP }}</option>
+              <option>{{ categorielist.CATEGORIE_CP }}</option>
+              <option>{{ categorielist.CATEGORIES_C }}</option>
+              <option>{{ categorielist.CATEGORIE_BTS }}</option>
+              <option>{{ categorielist.CATEGORIE_BTM }}</option>
+              <option>{{ categorielist.CATEGORIE_BTL }}</option>
+              <option>{{ categorielist.CATEGORIE_SUV }}</option>
+            </select>
+          </div>
+          <div *ngIf="cat.invalid  && (cat.dirty || cat.touched)">
+            Catégorie requis.
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" style="width: 10rem;">Nombre de places:</span>
+            </div>
+            <input type="number" class="form-control" placeholder="Nombre de places" min="1" max="80" name="nbPlace"
+              [(ngModel)]="nbPlace" #nbPl="ngModel" required>
+          </div>
+          <div *ngIf="nbPl.invalid  && (nbPl.dirty || nbPl.touched)">
+            Un nombre de place est requis.
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" style="width: 10rem;">Photo:</span>
+            </div>
+            <input type="url" class="form-control" placeholder="URL de la photo" pattern="https://.*|http://"
+              name="photoUrl" [(ngModel)]="photoUrl" #urlP="ngModel" required>
+          </div>
+          <div *ngIf="urlP.invalid  && (urlP.dirty || urlP.touched)">
+            Une URL doit commencer par " http:// " ou " https:// "
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn" data-dismiss="modal"
+            style="background-color:#A80D1D;color:#F8FFB9">Annuler</button>
+          <button type="button" class="btn" style="background-color:#004F2F;color:#F8FFB9"
+            [disabled]="vehiculeForm.invalid" (click)="AjoutVehicule()">Ajouter</button>
+        </div>
+      </form>
     </div>
   </div>
+</div>
