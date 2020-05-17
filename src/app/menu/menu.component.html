@@ -28,6 +28,11 @@
               <a class="nav-link" routerLink="/chauffeur/planning">Planning</a>
             </li>
           </ng-container>
+          <ng-container *ngIf="col.roles.includes('ROLE_ADMINISTRATEUR')">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/admin/vehicules">Véhicules</a>
+            </li>
+          </ng-container>
         </ul>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item dropdown">
