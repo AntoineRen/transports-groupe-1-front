@@ -68,7 +68,7 @@ export class VehiculesComponent implements OnInit {
     return tempFilterArray;
   }
   AjoutVehicule(){
-    this.vehiculesService.requestPostVehicule(this.immatriculation, this.marque, this.modele, this.catChoose, this.nbPlace, this.photoUrl)
+    this.vehiculesService.requestPostVehicule(this.immatriculation.toLocaleUpperCase(), this.marque.toLocaleUpperCase(), this.modele.toLocaleLowerCase(), this.catChoose, this.nbPlace, this.photoUrl)
     .subscribe( ()=>{
       this.valider.emit();
     },(error:HttpErrorResponse)=>{
