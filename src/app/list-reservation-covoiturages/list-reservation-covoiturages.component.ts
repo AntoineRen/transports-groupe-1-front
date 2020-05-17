@@ -2,9 +2,10 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Collegue } from '../auth/auth.domains';
 import { ListCovoiturageService } from './list-covoiturage.service';
 import { CovoitAnnonce } from './models/CovoitAnnonce.model';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { CovoitAnnonceResume } from './modalComponnent/CovoitAnnonceResume.modal-component';
 import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { Annonce } from '../pub-annonce/annonce';
 
 
 
@@ -19,9 +20,9 @@ export class ListReservationCovoituragesComponent implements OnInit {
   //input reccuperé du composant general
   @Input() col: Collegue;
 
-  listAnnoncesEncours: CovoitAnnonce[];
-  listAnnoncesHistorique: CovoitAnnonce[];
-  listAnnoncesHistoriqueAffichage: CovoitAnnonce[];
+  listAnnoncesEncours: Annonce[];
+  listAnnoncesHistorique: Annonce[];
+  listAnnoncesHistoriqueAffichage: Annonce[];
 
   // pagination
   nbAnnoncesParPages = 3;
@@ -40,6 +41,9 @@ export class ListReservationCovoituragesComponent implements OnInit {
   annonceHistoVide = false;
   erreurAnnonceHisto = false;
 
+  closeResult = '';
+  annuler;
+  statut;
 
   constructor(private covoitServices: ListCovoiturageService, private modalService: NgbModal) { }
 
@@ -48,7 +52,7 @@ export class ListReservationCovoituragesComponent implements OnInit {
     this.covoitServices.recupererListAnnonceCovoitEncours()
       .subscribe(listeAnnonceServer => {
         this.listAnnoncesEncours = listeAnnonceServer
-          .map(covoiturageAnnonces => new CovoitAnnonce(covoiturageAnnonces));
+          .map(covoiturageAnnonces => new Annonce(covoiturageAnnonces));
         this.annonceEnCoursVide = this.listAnnoncesEncours.length === 0;
       },
         err => {
@@ -61,7 +65,7 @@ export class ListReservationCovoituragesComponent implements OnInit {
     this.covoitServices.recupererListAnnonceCovoitHistorique()
       .subscribe(listeAnnonceServer => {
         this.listAnnoncesHistorique = listeAnnonceServer
-          .map(covoiturageAnnonces => new CovoitAnnonce(covoiturageAnnonces));
+          .map(covoiturageAnnonces => new Annonce(covoiturageAnnonces));
 
         this.nombrePagemax = Math.ceil(this.listAnnoncesHistorique.length / this.nbAnnoncesParPages);
 
@@ -95,9 +99,29 @@ export class ListReservationCovoituragesComponent implements OnInit {
     this.listAnnoncesHistoriqueAffichage = this.listAnnoncesHistorique.slice(this.start, this.end);
   }
 
+  /*Annulation des Reservations */
+    annulerReservation(id){
+      this.covoitServices.annulerReservation(id).subscribe(() => this.subListAnnoncesEnCour());
+    }
 
 
+  openAnn(content, id) {
+    this.modalService.open(content).result.then(() => {
+    this.annulerReservation(id);
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
 
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
 
 
 
