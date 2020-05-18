@@ -20,6 +20,6 @@ export class LesChauffeursService {
   }
 
   getAllChauffeur(): Observable<Chauffeur[]> {
-    return this.httpClient.get<Chauffeur[]>(URL_BACKEND + '/allChauffeurs');
+    return this.httpClient.get<Chauffeur[]>(URL_BACKEND + '/chauffeurs');
   }
 }
