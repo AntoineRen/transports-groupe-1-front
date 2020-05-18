@@ -60,11 +60,7 @@ export class VehiculesComponent implements OnInit {
   FilterVehiculeFunctionimmat(immatriculation:string, marque:string):Vehicule[]{
     let tempFilterArray:Vehicule[];
     tempFilterArray = this.vehicules.filter( vehicule=> vehicule.immatriculation.toUpperCase().includes(immatriculation.toLocaleUpperCase()))
-    console.log("immat");
-    console.log(tempFilterArray);
     tempFilterArray = tempFilterArray.filter( vehicule=> vehicule.marque.toLocaleLowerCase().includes(marque.toLocaleLowerCase()));
-    console.log("marque");
-    console.log(tempFilterArray);
     return tempFilterArray;
   }
   AjoutVehicule(){

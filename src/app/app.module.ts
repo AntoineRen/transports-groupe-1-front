@@ -39,6 +39,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { PlanningComponent } from './planning/planning.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { LesChauffeursComponent } from './les-chauffeurs/les-chauffeurs.component';
+import {MatCardModule} from '@angular/material/card';
 import { OccupationComponent } from './occupation/occupation.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { DetailsVehiculeComponent } from './details-vehicule/details-vehicule.component';
@@ -65,6 +67,7 @@ import { DetailsVehiculeComponent } from './details-vehicule/details-vehicule.co
     ReserverUnCovoitModalComponent,
     OccupationComponent,
     VehiculesComponent,
+    LesChauffeursComponent,
     DetailsVehiculeComponent,
 
   ],
@@ -88,6 +91,7 @@ import { DetailsVehiculeComponent } from './details-vehicule/details-vehicule.co
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
+    MatCardModule,
     NgApexchartsModule,
 
   ],

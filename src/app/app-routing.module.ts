@@ -15,6 +15,7 @@ import { VehiculesComponent } from './vehicules/vehicules.component';
 import { PlanningComponent } from './planning/planning.component';
 import { ReserverCovoiturageComponent } from './reserver-covoiturage/reserver-covoiturage.component';
 import { AnnoncesComponent } from './annonces/annonces.component';
+import { LesChauffeursComponent } from './les-chauffeurs/les-chauffeurs.component';
 import { OccupationComponent } from './occupation/occupation.component';
 import { DetailsVehiculeComponent } from './details-vehicule/details-vehicule.component';
 
@@ -37,6 +38,7 @@ const routes: Routes =  [
   // route administrateur, seulement si connecté
   { path: 'admin', component: AdministrateurComponent, canActivate: [StatutConnecteService, StatutAdminService]},
   { path: 'admin/vehicules', component: VehiculesComponent, canActivate: [StatutConnecteService, StatutAdminService]},
+  { path: 'admin/chauffeurs', component: LesChauffeursComponent, canActivate: [StatutConnecteService, StatutAdminService]},
   { path: 'admin/vehicules/:immatriculation', component: DetailsVehiculeComponent, canActivate: [StatutConnecteService, StatutAdminService]}
 ];
 
