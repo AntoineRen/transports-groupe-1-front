@@ -45,9 +45,12 @@ export class ReservationChauffeurService {
   /** Transforme une reservation réceptionné du serveur en objet CalendarEvent */
   private reservationServeurToCalendarEvent(reservation: ReservationServeur): CalendarEvent{
 
+    const debut = new Date(reservation.dateDepart);
+    const fin = new Date(reservation.dateArrivee);
+
     const calendarEvent = {
-      start: new Date(reservation.dateDepart),
-      end: new Date(reservation.dateArrivee),
+      start: debut,
+      end: fin,
       title: `reservation n° ${reservation.id}`,
       color: null,
       allDay: false,
@@ -63,6 +66,10 @@ export class ReservationChauffeurService {
       },
       draggable: false
     };
+
+    if (debut.getDate() !== fin.getDate() || debut.getMonth() !== fin.getMonth() || debut.getFullYear() !== fin.getFullYear()){
+      calendarEvent.allDay = true;
+    }
 
     return calendarEvent;
 
