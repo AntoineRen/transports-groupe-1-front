@@ -6,6 +6,8 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { CovoitAnnonceResume } from './modalComponnent/CovoitAnnonceResume.modal-component';
 import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { Annonce } from '../pub-annonce/annonce';
+import { error } from 'protractor';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -45,7 +47,7 @@ export class ListReservationCovoituragesComponent implements OnInit {
   annuler;
   statut;
 
-  constructor(private covoitServices: ListCovoiturageService, private modalService: NgbModal) { }
+  constructor(private covoitServices: ListCovoiturageService, private modalService: NgbModal, private toastr: ToastrService) { }
 
   /*Reccuperation de la liste des annonces au statue en cours*/
   subListAnnoncesEnCour(): void {
@@ -71,10 +73,6 @@ export class ListReservationCovoituragesComponent implements OnInit {
             statut: `Terminé`
           })),
           console.log(this.listAnnoncesHistoriqueAffichage)
-
-
-
-
       })
   }
 
@@ -101,7 +99,10 @@ export class ListReservationCovoituragesComponent implements OnInit {
 
   /*Annulation des Reservations */
   annulerReservation(id) {
-    this.covoitServices.annulerReservation(id).subscribe(() => this.subListAnnoncesEnCour());
+    this.covoitServices.annulerReservation(id).subscribe(() =>
+    {this.subListAnnoncesEnCour();
+      this.toastr.success('Votre réservation a été annulé', 'Réservation')},
+      error => this.toastr.error("une erreur s'est produite lors de l'annulation' de réservations ", 'Réservation'))
   }
 
 

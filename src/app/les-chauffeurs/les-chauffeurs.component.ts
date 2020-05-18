@@ -4,6 +4,7 @@ import { Chauffeur } from './chauffeur';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { LesChauffeursService } from './les-chauffeurs.service';
 import { map } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-les-chauffeurs',
@@ -26,7 +27,7 @@ export class LesChauffeursComponent implements OnInit {
     matriculee: new FormControl('', [Validators.required])
   });
 
-  constructor(private modalService: NgbModal, private leschauffeur: LesChauffeursService) {
+  constructor(private modalService: NgbModal, private leschauffeur: LesChauffeursService, private toastr: ToastrService) {
     this.formChauffeur.valueChanges.pipe(
       map(() => {
         let filterChauffeurTemp: Chauffeur[];
@@ -66,7 +67,12 @@ export class LesChauffeursComponent implements OnInit {
   }
 
   creerChauffeur(mat) {
-    this.leschauffeur.creerChauffeur(mat).subscribe();
+    this.leschauffeur.creerChauffeur(mat).subscribe(res =>
+      this.toastr.success('Le chauffeur a été créée avec succès', 'Chauffeur'),
+      error =>
+        this.toastr.error("une erreur s'est produite lors de la création d'un chauffeur ", 'Chauffeur')
+
+      );
   }
 
   ngOnInit(): void {

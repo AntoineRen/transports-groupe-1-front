@@ -6,6 +6,7 @@ import { AdresseService } from './adresse.service';
 import { switchMap, tap, finalize } from 'rxjs/operators';
 import { FeatureGeocodeJSON } from './geocode-json-response';
 import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-pub-annonce',
@@ -43,7 +44,7 @@ export class PubAnnonceComponent implements OnInit {
   );
 
   // tslint:disable-next-line:max-line-length
-  constructor(private annonceService: AnnonceService, private adresseService: AdresseService, private modalService: NgbModal) {
+  constructor(private annonceService: AnnonceService, private adresseService: AdresseService, private modalService: NgbModal, private toastr: ToastrService) {
     this.search(this.annoncesForm.get('lieuDepart').valueChanges);
     this.search(this.annoncesForm.get('lieuDestination').valueChanges);
   }
@@ -143,12 +144,13 @@ export class PubAnnonceComponent implements OnInit {
     delete this.annoncesForm.value.heure;
     delete this.annoncesForm.value.dateAnn;
     this.annonceService.creerAnnonceCovoiturage(formAnn.value).subscribe(() => {
+      this.toastr.success('Votre annonce a été créée avec succès', 'Annonce');
       formAnn.reset();
       this.distance = '';
       this.duree = '';
     },
       error => {
-        console.log('Nok');
+        this.toastr.error("une erreur s'est produite lors de la création d'une annonce ", 'Annonce');
       });
   }
 
