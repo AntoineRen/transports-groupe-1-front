@@ -1,5 +1,9 @@
 <div class="mt-4" style="text-align: center;">
-  <img src = "https://cdn.discordapp.com/attachments/705412725098020906/707149807038496778/logo.png" class = "img-fluid" id = "logo_societe" style="width:30%;">
+  <div id="lesimg">
+    <img src = "https://cdn.discordapp.com/attachments/705412725098020906/711937924790222918/logo_connection_base.png" class = "img-fluid" id = "logo_societe">
+    <img src = "https://cdn.discordapp.com/attachments/705412725098020906/711924202063527937/logo_connection2.png" class = "img-fluid" id = "logo_societe2">
+  </div>
+
   <h3>GDT</h3>
   <h5>Gestion du transport</h5>
 </div>
@@ -15,8 +19,30 @@
     <input type="password" name="pass" [(ngModel)]="collegue.motDePasse"  class="form-control" id="exampleInputPassword1"  aria-describedby="passwordHelp">
     <small id="passwordHelp" class="form-text text-muted">superpass</small>
   </div>
-  <button type="submit" class="btn" (click)="connecter()" style="background-color:#004F2F;color:#F8FFB9"><fa-icon [icon]="iconeConnected"></fa-icon> Se connecter</button>
+  <button id="btn_login" type="submit" class="btn" (click)="connecter()" style="background-color:#004F2F;color:#F8FFB9"><fa-icon [icon]="iconeConnected"></fa-icon> Se connecter</button>
   <div *ngIf="err" class="alert mt-1" role="alert" style="background-color:#A80D1D;color:#F8FFB9">
     Vos informations d'authentification sont invalides.
   </div>
 </form>
+<style>
+  #lesimg {
+    position:relative;
+  }
+    #logo_societe{
+    width:30%;
+    left:0px;
+    top:0px;
+  }
+  #logo_societe2{
+    width:31%;
+    position: absolute;
+    animation-name: example;
+    animation-duration: 2s;
+    left:34%; top:-1.5%;
+   
+  }
+  @keyframes example {
+  0%   {left:-100%; top:-175%;}
+  100% {left:34%; top:-1.5%;}
+}
+</style>
