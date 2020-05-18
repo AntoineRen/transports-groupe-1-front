@@ -1,0 +1,97 @@
+<ng-container *ngIf="vehicule">
+  <h1 class="mt-4">Véhicules : {{vehicule.immatriculation}}</h1>
+</ng-container>
+<!-- Recap Vehicule-->
+<div class="row">
+  <ng-container *ngIf="vehicule">
+    <div class="row col">
+      <div class="col-auto"style="padding:0;margin:0;">
+        <img class="btn " src="{{vehicule.photoUrl}}"
+          onerror="this.src='https://cdn.discordapp.com/attachments/705412725098020906/709174770247401563/imgNotLoad.png'"
+          alt="Photo véhicule {{vehicule.id}}" style="width: 18rem;">
+      </div>
+      <div class="col "style="padding:0;margin:0;">
+        <p class="card-text "
+        style="font-size: 18px;line-height: 1.6;">
+          Marque: {{vehicule.marque}}<br />
+          Modèle: {{vehicule.modele}}<br />
+          Catégorie: {{vehicule.categorie}}<br />
+          statut: {{vehicule.statut}}<br />
+        </p>
+      </div>
+    </div>
+    <div class="col-md-3 ">
+      <button type="button" class="btn float-right btn-block" 
+      style="background-color:#004F2F;color:#F8FFB9;">
+      Ajouter un véhicule
+    </button>
+    <button type="button" class="btn float-right btn-block" 
+      style="background-color:#004F2F;color:#F8FFB9;">
+      Mettre en service
+    </button>
+    <button type="button" class="btn float-right btn-block" 
+    style="background-color:#A80D1D;color:#F8FFB9">
+      Hors service
+    </button>
+    </div>
+  </ng-container>
+</div>
+
+
+<!--Rubrique reservation en cours-->
+<div class="card mb-2">
+  <div class="card-header p-3">
+    <h3>Prochaines réservation</h3>
+  </div>
+  <div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Date/heure Début</th>
+          <th scope="col">Date/heure fin</th>
+          <th scope="col">Responsable</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let reservation of listProchainesReservations">
+          <td scope="row">
+            {{reservation.dateDepart.toDateString()}}<br />{{reservation.dateDepart.toLocaleTimeString()}}
+          </td>
+          <td>{{reservation.dateArrivee.toDateString()}}<br />{{reservation.dateDepart.toLocaleTimeString()}}</td>
+          <td>{{reservation.nomResponsable|uppercase}}<br />{{reservation.prenomResponsable|lowercase}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!--Rubrique reservation en cours-->
+<div class="card mb-2">
+  <div class="card-header p-3">
+    <h3>Hitorique des reservations</h3>
+  </div>
+  <div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Date/heure Début</th>
+          <th scope="col">Date/heure fin</th>
+          <th scope="col">Responsable</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let reservation of listHistoriqueReservations">
+          <td scope="row">
+            {{reservation.dateDepart.toDateString()}}<br />{{reservation.dateDepart.toLocaleTimeString()}}
+          </td>
+          <td>{{reservation.dateArrivee.toDateString()}}<br />{{reservation.dateDepart.toLocaleTimeString()}}</td>
+          <td>{{reservation.nomResponsable|uppercase}}<br />{{reservation.prenomResponsable|lowercase}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

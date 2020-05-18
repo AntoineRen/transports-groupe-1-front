@@ -11,7 +11,7 @@ export class Vehicule {
   nbPlace:number;
   statut: string;
   photoUrl: string;
-  
+
   constructor(leVehicule:VehiculeServeur){
       this.id = leVehicule.id;
       this.immatriculation = leVehicule.immatriculation;

@@ -12,7 +12,7 @@ import { keyframes, style } from '@angular/animations';
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
-  styles: []
+  styleUrls: ['./auth.components.scss']
 })
 
 export class AuthComponent implements OnInit {
