@@ -5,84 +5,24 @@
   </div>
 
 
-<ng-container *ngIf="!error; else elseBlock">
-  <div class="col-12 mb-5">
-    <div class="text-right">
-      <a class="btn btn-primary" routerLink="/collaborateur/annonces/creer">Creer une nouvelle
-        annonce</a>
-    </div>
-  </div>
-</ng-container>
-<div class="card my-2">
-  <div class="card-header p-3">
-    <h3>Annonces en cours</h3>
-  </div>
-  <div>
-
-    <!--Rubrique annonces en cours-->
-
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Date/heure de départ</th>
-          <th scope="col">Lieu de départ</th>
-          <th scope="col">Lieu de destination</th>
-          <th scope="col">Nombre de voyageurs</th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <ng-container *ngIf="!erreurAnnonceEnCours && !annonceEnCoursVide; else elseBlockEncours">
-          <tr *ngFor="let annonce of listAnnoncesEncours">
-            <td scope="row">{{annonce.dateDepart.toDateString()}}<br />{{annonce.dateDepart.toLocaleTimeString()}}</td>
-            <td>{{annonce.lieuDepart}}</td>
-            <td>{{annonce.lieuDestination}}</td>
-            <td>{{annonce.nbVoyageurs}}</td>
-            <div *ngIf="annonce.statut == 'STATUT_EN_COURS'; else elseBlock">
-              <td style="text-align: center">
-                <button ngbButton class="btn btn-danger" (click)="open(content,annonce.id)">Annuler </button>
-              </td>
-            </div>
-            <ng-template #elseBlock>
-              <td style="text-align: left; color: red;">
-                Annulé
-              </td>
-            </ng-template>
-
-          </tr>
-        </ng-container>
-      </tbody>
-    </table>
-
-    <!--Block d'erreur si la list vide-->
-    <ng-template #elseBlockEncours>
-      <div class="col-12">
-        <ng-container *ngIf="annonceEnCoursVide">
-          <div class="alert alert-warning" role="alert">Vous n'avez pas d'annonce en cours.</div>
-        </ng-container>
-
-        <!--Block d'erreur si la list non récupperé -->
-        <ng-container *ngIf="erreurAnnonceEnCours">
-          <div class="alert alert-danger" role="alert">Erreur : Impossible de récupérer la liste de vos covoiturrage
-            en
-            cours.</div>
-        </ng-container>
+  <ng-container *ngIf="!error; else elseBlock">
+    <div class="col-12 mb-5">
+      <div class="text-right">
+        <a class="btn btn-primary" routerLink="/collaborateur/annonces/creer">Creer une nouvelle
+          annonce</a>
       </div>
-    </ng-template>
-  </div>
-</div>
-<!--Rubrique Historique des annonces-->
-
-<div class="card">
-  <div>
+    </div>
+  </ng-container>
+  <div class="card my-2">
     <div class="card-header p-3">
-     <h3 >Historique</h3>
+      <h3>Annonces en cours</h3>
     </div>
     <div>
 
+      <!--Rubrique annonces en cours-->
+
       <table class="table">
         <thead>
-          <tr>
           <tr>
             <th scope="col">Date/heure de départ</th>
             <th scope="col">Lieu de départ</th>
@@ -92,66 +32,127 @@
           </tr>
         </thead>
         <tbody>
-          <ng-container *ngIf="!erreurAnnonceHisto && !annonceHistoVide; else elseBlockHisto">
-            <tr *ngFor="let annonce of listAnnoncesHistoriqueAffichage">
+          <ng-container *ngIf="!erreurAnnonceEnCours && !annonceEnCoursVide; else elseBlockEncours">
+            <tr *ngFor="let annonce of listAnnoncesEncours">
               <td scope="row">{{annonce.dateDepart.toDateString()}}<br />{{annonce.dateDepart.toLocaleTimeString()}}
               </td>
               <td>{{annonce.lieuDepart}}</td>
               <td>{{annonce.lieuDestination}}</td>
               <td>{{annonce.nbVoyageurs}}</td>
+              <div *ngIf="annonce.statut == 'STATUT_EN_COURS'; else elseBlock">
+                <td style="text-align: center">
+                  <button ngbButton class="btn btn-danger" (click)="open(content,annonce.id)">Annuler </button>
+                </td>
+              </div>
+              <ng-template #elseBlock>
+                <td style="text-align: left; color: red;">
+                  Annulé
+                </td>
+              </ng-template>
+
             </tr>
           </ng-container>
         </tbody>
       </table>
 
-      <ng-template #elseBlockHisto>
+      <!--Block d'erreur si la list vide-->
+      <ng-template #elseBlockEncours>
         <div class="col-12">
-          <ng-container *ngIf="annonceHistoVide">
-            <div class="alert alert-warning" role="alert">
-              Vous n'avez pas de réservation de covoiturage en cours.</div>
+          <ng-container *ngIf="annonceEnCoursVide">
+            <div class="alert alert-warning" role="alert">Vous n'avez pas d'annonce en cours.</div>
           </ng-container>
-          <ng-container *ngIf="erreurAnnonceHisto">
-            <div class="alert alert-danger" role="alert">
-              Erreur : Impossible de récupérer la liste de vos covoiturrage en cours.
-            </div>
+
+          <!--Block d'erreur si la list non récupperé -->
+          <ng-container *ngIf="erreurAnnonceEnCours">
+            <div class="alert alert-danger" role="alert">Erreur : Impossible de récupérer la liste de vos covoiturrage
+              en
+              cours.</div>
           </ng-container>
         </div>
       </ng-template>
-      <ng-container *ngIf="nombrePagemax > 1">
-        <div class="col-12">
-          <div class="float-right d-flex align-items-center">
-            <button class="btn" (click)="pagePrecedente()">
-              <fa-icon [icon]="faChevronLeft"></fa-icon>
-            </button>
-            <span>{{pageActuelle}} / {{nombrePagemax}}</span>
-            <button class="btn" (click)="pageSuivante()">
-              <fa-icon [icon]="faChevronRight"></fa-icon>
-            </button>
-          </div>
-        </div>
-      </ng-container>
-
-
     </div>
   </div>
-  <ng-template #elseBlock>
-    <div class="col-12">
-    <div class="alert alert-danger" role="alert">Erreur : Vous n'êtes pas connecté.</div>
-    </div>
-  </ng-template>
+  <!--Rubrique Historique des annonces-->
 
-  <ng-template #content let-modal>
-    <div class="modal-body">
-      <div class="">
-        Etes-vous sûr de vouloir annuler cette annonce ?
+  <div class="card">
+    <div>
+      <div class="card-header p-3">
+        <h3>Historique</h3>
       </div>
+      <div>
+
+        <table class="table">
+          <thead>
+            <tr>
+            <tr>
+              <th scope="col">Date/heure de départ</th>
+              <th scope="col">Lieu de départ</th>
+              <th scope="col">Lieu de destination</th>
+              <th scope="col">Nombre de voyageurs</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngIf="!erreurAnnonceHisto && !annonceHistoVide; else elseBlockHisto">
+              <tr *ngFor="let annonce of listAnnoncesHistoriqueAffichage">
+                <td scope="row">{{annonce.dateDepart.toDateString()}}<br />{{annonce.dateDepart.toLocaleTimeString()}}
+                </td>
+                <td>{{annonce.lieuDepart}}</td>
+                <td>{{annonce.lieuDestination}}</td>
+                <td>{{annonce.nbVoyageurs}}</td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+
+        <ng-template #elseBlockHisto>
+          <div class="col-12">
+            <ng-container *ngIf="annonceHistoVide">
+              <div class="alert alert-warning" role="alert">
+                Vous n'avez pas de réservation de covoiturage en cours.</div>
+            </ng-container>
+            <ng-container *ngIf="erreurAnnonceHisto">
+              <div class="alert alert-danger" role="alert">
+                Erreur : Impossible de récupérer la liste de vos covoiturrage en cours.
+              </div>
+            </ng-container>
+          </div>
+        </ng-template>
+        <ng-container *ngIf="nombrePagemax > 1">
+          <div class="col-12">
+            <div class="float-right d-flex align-items-center">
+              <button class="btn" (click)="pagePrecedente()">
+                <fa-icon [icon]="faChevronLeft"></fa-icon>
+              </button>
+              <span>{{pageActuelle}} / {{nombrePagemax}}</span>
+              <button class="btn" (click)="pageSuivante()">
+                <fa-icon [icon]="faChevronRight"></fa-icon>
+              </button>
+            </div>
+          </div>
+        </ng-container>
+
 
       </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss('Cross click')">Annuler</button>
-      <button type="button" ngbAutofocus class="btn btn-danger" (click)="modal.close('Save click')">Confirmer</button>
     </div>
-  </ng-template>
+    <ng-template #elseBlock>
+      <div class="col-12">
+        <div class="alert alert-danger" role="alert">Erreur : Vous n'êtes pas connecté.</div>
+      </div>
+    </ng-template>
 
-</div>
+    <ng-template #content let-modal>
+      <div class="modal-body">
+        <div class="">
+          Etes-vous sûr de vouloir annuler cette annonce ?
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss('Cross click')">Annuler</button>
+        <button type="button" ngbAutofocus class="btn btn-danger" (click)="modal.close('Save click')">Confirmer</button>
+      </div>
+    </ng-template>
+
+  </div>
 </div>

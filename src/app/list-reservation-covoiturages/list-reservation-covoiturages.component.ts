@@ -64,18 +64,18 @@ export class ListReservationCovoituragesComponent implements OnInit {
   subAnnoncesHistorique(): void {
     this.covoitServices.recupererListAnnonceCovoitHistorique()
       .subscribe(listeAnnonceServer => {
-        this.listAnnoncesHistorique = listeAnnonceServer
-          .map(covoiturageAnnonces => new Annonce(covoiturageAnnonces));
+        this.listAnnoncesHistoriqueAffichage = listeAnnonceServer
+          .map(covoiturageAnnonces => new Annonce(covoiturageAnnonces))
+          .map(listeAnnonceServer => ({
+            ...listeAnnonceServer,
+            statut: `Terminé`
+          })),
+          console.log(this.listAnnoncesHistoriqueAffichage)
 
-        this.nombrePagemax = Math.ceil(this.listAnnoncesHistorique.length / this.nbAnnoncesParPages);
-
-        this.listAnnoncesHistoriqueAffichage = this.listAnnoncesHistorique.slice(this.start, this.end);
-
-        this.annonceHistoVide = this.listAnnoncesHistorique.length === 0;
 
 
-      },
-        err => this.erreurAnnonceHisto = true);
+
+      })
   }
 
   /*Methode de pagination pour historique des annonce de covoiturage*/
@@ -100,14 +100,14 @@ export class ListReservationCovoituragesComponent implements OnInit {
   }
 
   /*Annulation des Reservations */
-    annulerReservation(id){
-      this.covoitServices.annulerReservation(id).subscribe(() => this.subListAnnoncesEnCour());
-    }
+  annulerReservation(id) {
+    this.covoitServices.annulerReservation(id).subscribe(() => this.subListAnnoncesEnCour());
+  }
 
 
   openAnn(content, id) {
     this.modalService.open(content).result.then(() => {
-    this.annulerReservation(id);
+      this.annulerReservation(id);
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });

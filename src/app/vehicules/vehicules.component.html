@@ -1,17 +1,17 @@
-<h2>Véhicules</h2>
+<h3>Véhicules</h3>
 <!-- Filtre liste -->
 <div class="col-sm-4" >
     <form [formGroup]="profileFormControleVehicule" >
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <span class="input-group-text" style="width: 9rem;">immatriculation:</span>
+                <span class="input-group-text" style="width: 9rem;">Immatriculation:</span>
             </div>
             <input type="text" class="form-control" formControlName="ReactiveFormControleVehiculeImat">
         </div>
-    
+
         <div class="input-group mb-3">
             <div class="input-group-prepend" >
-                <span class="input-group-text" style="width: 9rem;">marque:</span>
+                <span class="input-group-text" style="width: 9rem;">Marque:</span>
             </div>
             <input type="text" class="form-control" formControlName="ReactiveFormControleVehiculeModel">
         </div>
@@ -20,12 +20,12 @@
 <div class="row">
     <div class="col-sm-12 ">
         <!-- Button modal -->
-        <button type="button" class="btn float-right" 
+        <button type="button" class="btn float-right"
         data-toggle="modal" data-target="#exampleModalCenter"style="background-color:#004F2F;color:#F8FFB9;">
             Ajouter un véhicule
         </button>
     </div>
-    
+
     <div class="col-sm-12 ">
         <!-- liste Véhicules -->
         <ng-container>
@@ -78,7 +78,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" style="width: 10rem;">Marque:</span>
                     </div>
-                    <input type="text" class="form-control" placeholder="Marque du véhicule" 
+                    <input type="text" class="form-control" placeholder="Marque du véhicule"
                     name="marque"
                     [(ngModel)]="marque"
                     #marq="ngModel"
@@ -92,9 +92,9 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" style="width: 10rem;">Modèle:</span>
                     </div>
-                    <input type="text" class="form-control" 
+                    <input type="text" class="form-control"
                     placeholder="Modèle du véhicule"
-                    name="modele" 
+                    name="modele"
                     [(ngModel)]="modele"
                     #model="ngModel"
                     required>
@@ -145,8 +145,8 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" style="width: 10rem;">Photo:</span>
                     </div>
-                    <input type="url" class="form-control" placeholder="URL de la photo" 
-                    pattern="https://.*|http://"
+                    <input type="url" class="form-control" placeholder="URL de la photo"
+                    pattern="https://.*|http://.*"
                     name="photoUrl"
                     [(ngModel)]="photoUrl"
                     #urlP="ngModel"
@@ -160,10 +160,10 @@
                 <button type="button" class="btn" data-dismiss="modal"
                 style="background-color:#A80D1D;color:#F8FFB9">Annuler</button>
                 <button type="button" class="btn"
-                
+
                 style="background-color:#004F2F;color:#F8FFB9" [disabled]="vehiculeForm.invalid" (click)="AjoutVehicule()">Ajouter</button>
             </div>
-        </form> 
+        </form>
       </div>
     </div>
   </div>

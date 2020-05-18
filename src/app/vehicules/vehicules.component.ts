@@ -44,7 +44,7 @@ export class VehiculesComponent implements OnInit {
       })
     ).subscribe(object => this.filterVehicule = object);
    }
-   
+
   ngOnInit(): void {
     this.vehiculesService.requestGetVehicules()
     .subscribe(listeVehicule =>{
@@ -56,15 +56,11 @@ export class VehiculesComponent implements OnInit {
     },error=>this.erreurVehicules=true,
     );
   }
-  
+
   FilterVehiculeFunctionimmat(immatriculation:string, marque:string):Vehicule[]{
     let tempFilterArray:Vehicule[];
     tempFilterArray = this.vehicules.filter( vehicule=> vehicule.immatriculation.toUpperCase().includes(immatriculation.toLocaleUpperCase()))
-    console.log("immat");
-    console.log(tempFilterArray);
     tempFilterArray = tempFilterArray.filter( vehicule=> vehicule.marque.toLocaleLowerCase().includes(marque.toLocaleLowerCase()));
-    console.log("marque");
-    console.log(tempFilterArray);
     return tempFilterArray;
   }
   AjoutVehicule(){
