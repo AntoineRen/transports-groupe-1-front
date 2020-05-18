@@ -3,15 +3,18 @@ import {Collegue} from './auth.domains';
 import {AuthService} from './auth.service';
 import {Router} from '@angular/router';
 import {faRoad} from '@fortawesome/free-solid-svg-icons';
+import { keyframes, style } from '@angular/animations';
 
 /**
  * Formulaire d'authentification.
  */
+
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
   styles: []
 })
+
 export class AuthComponent implements OnInit {
 
   iconeConnected= faRoad;
@@ -25,6 +28,7 @@ export class AuthComponent implements OnInit {
   }
 
   connecter() {
+    
     this.authSrv.connecter(this.collegue.email, this.collegue.motDePasse)
       .subscribe(
         // en cas de succès, redirection vers la page collaborateur,chauffeur ou administrateur en fonction du rôle
