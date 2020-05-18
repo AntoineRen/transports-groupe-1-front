@@ -41,6 +41,9 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { LesChauffeursComponent } from './les-chauffeurs/les-chauffeurs.component';
 import {MatCardModule} from '@angular/material/card';
+import { OccupationComponent } from './occupation/occupation.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { DetailsVehiculeComponent } from './details-vehicule/details-vehicule.component';
 
 @NgModule({
   declarations: [
@@ -62,8 +65,10 @@ import {MatCardModule} from '@angular/material/card';
     ReserverVehiculeSocieteComponent,
     PlanningComponent,
     ReserverUnCovoitModalComponent,
+    OccupationComponent,
     VehiculesComponent,
     LesChauffeursComponent,
+    DetailsVehiculeComponent,
 
   ],
   imports: [
@@ -86,7 +91,9 @@ import {MatCardModule} from '@angular/material/card';
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
-    MatCardModule
+    MatCardModule,
+    NgApexchartsModule,
+
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS ,

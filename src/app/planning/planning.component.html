@@ -1,23 +1,24 @@
-<div class="row mt-4">
+<div class="row mt-4 card">
 
-  <div class="col-12">
+  <div class="col-12 card-title mt-3">
     <h1>Planning</h1>
   </div>
 
   <!-- Switch day -->
   <div class="col-12 text-right">
     <button class="btn" (click)="jourPrecedent()">
-      <fa-icon [icon]="faChevronLeft"></fa-icon>
+      <fa-icon [icon]="faChevronLeft" style="font-size: 25px;"></fa-icon>
     </button>
-    <span>{{viewDate.toLocaleDateString()}}</span>
+    <span style="font-size: 20px;">{{viewDate.toLocaleDateString()}}</span>
     <button class="btn" (click)="jourSuivant()">
-      <fa-icon [icon]="faChevronRight"></fa-icon>
+      <fa-icon [icon]="faChevronRight" style="font-size: 25px;"></fa-icon>
     </button>
   </div>
 
   <!-- Calendar -->
-  <mwl-calendar-day-view class="rounded" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
-    [eventTemplate]="customEventTemplate" [hourSegmentTemplate]="heure" [currentTimeMarkerTemplate]="customCurrentTimeMarker">
+  <mwl-calendar-day-view class="rounded card-body" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
+    [eventTemplate]="customEventTemplate" [hourSegmentTemplate]="heure"
+    [currentTimeMarkerTemplate]="customCurrentTimeMarker">
   </mwl-calendar-day-view>
 
 
@@ -27,9 +28,9 @@
 <ng-template #customCurrentTimeMarker></ng-template>
 <!-- Template Heure -->
 <ng-template #heure let-segment="segment" let-locale="locale" let-segmentHeight="segmentHeight">
-  <div class="cal-hour-segment" [style.height.px]="segmentHeight" [class.cal-hour-start]="segment.isStart"
+  <div class="cal-hour-segment border" [style.height.px]="segmentHeight" [class.cal-hour-start]="segment.isStart"
     [class.cal-after-hour-start]="!segment.isStart" [ngClass]="segment.cssClass">
-    <div class="cal-time text-light">
+    <div class="cal-time">
       {{ step(segment.date.getHours()) }}h{{ step(segment.date.getMinutes())}}
     </div>
   </div>
@@ -38,54 +39,68 @@
 <!-- Event Template-->
 <ng-template #customEventTemplate let-weekEvent="weekEvent">
 
-  <div class="card border-dark" style="width: 100%;"
-    [style.background-color]="weekEvent.event.meta.statut == 'EN_ATTENTE' ? 'white' : '#408874'"
-    [style.color]="weekEvent.event.meta.statut == 'EN_ATTENTE' ? 'black' : '#F8FFB9'">
+  <!-- Event allDay-->
+  <ng-container *ngIf="weekEvent.event.allDay; else oneDayBlock">
+    <div class="col-12">
+      <div ngbDropdown>
+        <div class="btn col-12 btn-light py-0" id="dropdownBasic1" ngbDropdownToggle
+        [style.border-color]="weekEvent.event.meta.statut == 'EN_ATTENTE' ? 'black' : '#408874'">
+          Demande sur plusieurs jours, du {{weekEvent.event.start.toLocaleString()}} au {{weekEvent.event.end.toLocaleString()}}</div>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1" style="background: none; border: none; width: 100%;">
 
-    <h2 class="card-title">{{weekEvent.event.start.toLocaleString()}} - {{weekEvent.event.end.toLocaleString()}}
-    </h2>
-
-    <div class="card-body">
-
-      <div class="row">
-        <div class="col-4 text-right">
-          Responsable :
+          <ng-container *ngTemplateOutlet="oneDayBlock"></ng-container>
         </div>
-        <div class="col-6">
-          {{weekEvent.event.meta.responsable.nom}} {{weekEvent.event.meta.responsable.prenom}}
-        </div>
-        <div class="col-4 text-right">
-          Téléphone :
-        </div>
-        <div class="col-6">
-          {{weekEvent.event.meta.responsable.numTelephone}}
-        </div>
-        <div class="col-4 text-right">
-          Email :
-        </div>
-        <div class="col-6">
-          {{weekEvent.event.meta.responsable.email}}
-        </div>
-        <div class="col-4 text-right">
-          Véhicule :
-        </div>
-        <div class="col-6 mb-2">
-          {{weekEvent.event.meta.vehicule.immatriculation}}
-        </div>
-
       </div>
-      <ng-container *ngIf="weekEvent.event.meta.statut === 'EN_ATTENTE'; else elseBlockStatut">
 
-        <button class="btn btn-outline-dark float-right" (click)="updateReservation(weekEvent.event)">Accepter la
-          demande</button>
-
-      </ng-container>
-      <ng-template #elseBlockStatut>
-
-        <span class="float-right">Reservation Accepté</span>
-
-      </ng-template>
     </div>
-  </div>
+  </ng-container>
+
+  <!-- Event oneDay-->
+  <ng-template #oneDayBlock>
+
+    <div class="card" style="width: 99%;"
+    [style.border-color]="weekEvent.event.meta.statut == 'EN_ATTENTE' ? 'black' : '#408874'">
+
+      <h2 class="card-header"
+      [style.border-color]="weekEvent.event.meta.statut == 'EN_ATTENTE' ? 'black' : '#408874'">
+      {{weekEvent.event.start.toLocaleString()}} au {{weekEvent.event.end.toLocaleString()}}
+      </h2>
+
+      <div class="card-body mb-2">
+
+        <div class="row">
+
+          <div class="col-auto">
+            <img src="{{weekEvent.event.meta.vehicule.photoUrl}}" class="img-fluid" style="height: 120px;">
+          </div>
+          <div class="col align-self-center">
+            <div class="col-12">
+              Responsable : {{weekEvent.event.meta.responsable.nom}} {{weekEvent.event.meta.responsable.prenom}}
+            </div>
+            <div class="col-12">
+              Téléphone : {{weekEvent.event.meta.responsable.numTelephone}}
+            </div>
+            <div class="col-12">
+              Email : {{weekEvent.event.meta.responsable.email}}
+            </div>
+            <div class="col-12">
+              Véhicule : {{weekEvent.event.meta.vehicule.immatriculation}}
+            </div>
+          </div>
+
+        </div>
+        <ng-container *ngIf="weekEvent.event.meta.statut === 'EN_ATTENTE'; else elseBlockStatut">
+
+          <button class="btn btn-outline-dark float-right" (click)="updateReservation(weekEvent.event)">Accepter la
+            demande</button>
+        </ng-container>
+        <ng-template #elseBlockStatut>
+
+          <div class="btn float-right" style="color: #408874">Demande Accepté</div>
+        </ng-template>
+      </div>
+    </div>
+  </ng-template>
+
 
 </ng-template>
