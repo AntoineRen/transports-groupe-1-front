@@ -44,7 +44,7 @@ export class VehiculesComponent implements OnInit {
       })
     ).subscribe(object => this.filterVehicule = object);
    }
-   
+
   ngOnInit(): void {
     this.vehiculesService.requestGetVehicules()
     .subscribe(listeVehicule =>{
@@ -56,7 +56,7 @@ export class VehiculesComponent implements OnInit {
     },error=>this.erreurVehicules=true,
     );
   }
-  
+
   FilterVehiculeFunctionimmat(immatriculation:string, marque:string):Vehicule[]{
     let tempFilterArray:Vehicule[];
     tempFilterArray = this.vehicules.filter( vehicule=> vehicule.immatriculation.toUpperCase().includes(immatriculation.toLocaleUpperCase()))
@@ -75,4 +75,5 @@ export class VehiculesComponent implements OnInit {
       console.log(error);
     });
   }
+
 }
