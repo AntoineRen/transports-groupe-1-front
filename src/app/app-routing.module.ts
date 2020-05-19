@@ -18,7 +18,7 @@ import { AnnoncesComponent } from './annonces/annonces.component';
 import { LesChauffeursComponent } from './les-chauffeurs/les-chauffeurs.component';
 import { OccupationComponent } from './occupation/occupation.component';
 import { DetailsVehiculeComponent } from './details-vehicule/details-vehicule.component';
-
+import { MapComponent } from './map/map.component';
 
 const routes: Routes =  [
   // /tech accessible uniquement si connecté et admin
@@ -39,7 +39,9 @@ const routes: Routes =  [
   { path: 'admin', component: AdministrateurComponent, canActivate: [StatutConnecteService, StatutAdminService]},
   { path: 'admin/vehicules', component: VehiculesComponent, canActivate: [StatutConnecteService, StatutAdminService]},
   { path: 'admin/chauffeurs', component: LesChauffeursComponent, canActivate: [StatutConnecteService, StatutAdminService]},
-  { path: 'admin/vehicules/:immatriculation', component: DetailsVehiculeComponent, canActivate: [StatutConnecteService, StatutAdminService]}
+  { path: 'admin/vehicules/geolocalisation', component: MapComponent, canActivate: [StatutConnecteService, StatutAdminService]},
+  { path: 'admin/vehicules/:immatriculation', component: DetailsVehiculeComponent, canActivate: [StatutConnecteService, StatutAdminService]},
+
 ];
 
 

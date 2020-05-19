@@ -45,6 +45,7 @@ import { OccupationComponent } from './occupation/occupation.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { DetailsVehiculeComponent } from './details-vehicule/details-vehicule.component';
 import { ToastrModule } from 'ngx-toastr';
+import { MapComponent } from './map/map.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { ToastrModule } from 'ngx-toastr';
     VehiculesComponent,
     LesChauffeursComponent,
     DetailsVehiculeComponent,
+    MapComponent,
 
 
   ],
