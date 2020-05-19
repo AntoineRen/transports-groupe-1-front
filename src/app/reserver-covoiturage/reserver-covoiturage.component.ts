@@ -6,7 +6,6 @@ import { AdresseService } from '../pub-annonce/adresse.service';
 import { switchMap, tap, finalize, filter, flatMap, map } from 'rxjs/operators';
 import { AnnonceCovoitService } from './service/annonce-covoit.service';
 import { CovoitAnnonce } from '../list-reservation-covoiturages/models/CovoitAnnonce.model';
-import { ReserverUnCovoitModalComponent } from './modalComponnent/reserver-un-covoit-modal/reserver-un-covoit-modal.component';
 import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { Annonce } from '../pub-annonce/annonce';
