@@ -74,8 +74,8 @@ export class AnnoncesComponent implements OnInit {
     annulerAnnonce(id){
       this.annonceServices.annulerAnnonce(id).subscribe(
         () => {this.subListAnnoncesEnCour(),
-               this.toastr.success('Votre annonce a été annulé', 'Annonce')},
-               error => this.toastr.error("une erreur s'est produite lors de lannulation d'annonce ", 'Annonce')
+               this.toastr.success('Votre annonce a été annulée.', 'Annonce')},
+               error => this.toastr.error("Une erreur s'est produite lors de l'annulation de l'annonce.", 'Annonce')
 
               );
     }

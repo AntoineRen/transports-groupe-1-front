@@ -68,9 +68,9 @@ export class LesChauffeursComponent implements OnInit {
 
   creerChauffeur(mat) {
     this.leschauffeur.creerChauffeur(mat).subscribe(res =>
-      this.toastr.success('Le chauffeur a été créée avec succès', 'Chauffeur'),
+      this.toastr.success('Le chauffeur a été créé avec succès.', 'Chauffeur'),
       error =>
-        this.toastr.error("une erreur s'est produite lors de la création d'un chauffeur ", 'Chauffeur')
+        this.toastr.error("Une erreur s'est produite lors de la création d'un chauffeur.", 'Chauffeur')
 
       );
   }

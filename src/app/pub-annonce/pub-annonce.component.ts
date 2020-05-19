@@ -144,13 +144,13 @@ export class PubAnnonceComponent implements OnInit {
     delete this.annoncesForm.value.heure;
     delete this.annoncesForm.value.dateAnn;
     this.annonceService.creerAnnonceCovoiturage(formAnn.value).subscribe(() => {
-      this.toastr.success('Votre annonce a été créée avec succès', 'Annonce');
+      this.toastr.success("Votre réservation a bien été créé.", 'Annonce');
       formAnn.reset();
       this.distance = '';
       this.duree = '';
     },
       error => {
-        this.toastr.error("une erreur s'est produite lors de la création d'une annonce ", 'Annonce');
+        this.toastr.error("Une erreur s'est produite lors de la création de votre annonce.", 'Annonce');
       });
   }
 

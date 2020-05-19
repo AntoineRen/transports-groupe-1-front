@@ -96,9 +96,9 @@ export class ReserverVehiculeSocieteComponent implements OnInit {
     // sauvegarde reservation
      this.reservationService.postReservation(reservation).subscribe(
         () => {this.router.navigate(['/collaborateur/reservations']);
-        this.toastr.success('Votre réservation a été créée avec succès', 'Réservation Véhicule')},
+        this.toastr.success('Votre réservation a bien été créé.', 'Réservation Véhicule')},
         () => {this.erreurReservation = true;
-        this.toastr.error("une erreur s'est produite lors de la réservation ", 'Réservation Véhicule')}
+        this.toastr.error("Une erreur s'est produite lors de votre réservation.", 'Réservation Véhicule')}
       );
   }
 

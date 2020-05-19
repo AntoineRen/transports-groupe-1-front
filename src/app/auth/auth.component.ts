@@ -49,12 +49,12 @@ export class AuthComponent implements OnInit {
               redirectionUser = '/collaborateur';
             }
           }
-          this.toastr.success('Connection successful', 'Authentification');
+          this.toastr.success('Connexion réussie.', 'Authentification');
           this.router.navigate([redirectionUser])
         },
         // en cas d'erreur, affichage d'un message d'erreur
         err => {this.err = true,
-                this.toastr.error('Connection échoué', 'Authentification');}
+                this.toastr.error('Connexion échouée.', 'Authentification');}
       );
   }
 }

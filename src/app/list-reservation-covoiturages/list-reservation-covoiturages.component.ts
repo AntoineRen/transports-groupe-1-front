@@ -101,8 +101,8 @@ export class ListReservationCovoituragesComponent implements OnInit {
   annulerReservation(id) {
     this.covoitServices.annulerReservation(id).subscribe(() =>
     {this.subListAnnoncesEnCour();
-      this.toastr.success('Votre réservation a été annulé', 'Réservation')},
-      error => this.toastr.error("une erreur s'est produite lors de l'annulation' de réservations ", 'Réservation'))
+      this.toastr.success('Votre réservation a bien été annulée.', 'Réservation')},
+      error => this.toastr.error("Une erreur s'est produite lors de l'annulation de votre réservation.", 'Réservation'))
   }
 
 

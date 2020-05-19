@@ -178,10 +178,10 @@ export class ReserverCovoiturageComponent implements OnInit {
   reserver(reservationCovoit: Annonce) {
     this.servicePut.putReservation(reservationCovoit.id)
       .subscribe((annonce) => {
-        this.toastr.success('Votre réservation a été créée avec succès', 'Réservation');
+        this.toastr.success("Votre réservation a bien été créé.", 'Réservation');
         this.router.navigate(['/collaborateur/reservations']);
       },
-      error => this.toastr.error("une erreur s'est produite lors de réservation ", 'Réservation')
+      error => this.toastr.error("Une erreur s'est produite lors de votre réservation.", 'Réservation')
       );
   }
 

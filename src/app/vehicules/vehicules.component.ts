@@ -68,9 +68,9 @@ export class VehiculesComponent implements OnInit {
     this.vehiculesService.requestPostVehicule(this.immatriculation.toLocaleUpperCase(), this.marque.toLocaleUpperCase(), this.modele.toLocaleLowerCase(), this.catChoose, this.nbPlace, this.photoUrl)
     .subscribe( ()=>{
       this.valider.emit();
-      this.toastr.success('Votre véhicule a été créée avec succès', 'Véhicule');
+      this.toastr.success('Le véhicule a été bien été créé.', 'Véhicule');
     },(error:HttpErrorResponse)=>{
-      this.toastr.error("une erreur s'est produite lors de la création d'une véhicule ", 'Véhicule');
+      this.toastr.error("Une erreur s'est produite lors de la création du véhicule.", 'Véhicule');
       console.log(error);
     });
   }
