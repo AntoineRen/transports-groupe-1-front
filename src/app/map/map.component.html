@@ -1,13 +1,24 @@
-<div class="row mb-4">
-  <div class="col-12">
-    <div class="btn btn-primary mb-5 float-right" (click)="simulationVoiture()">Click</div>
-  </div>
-</div>
+<div class="row">
 
-<div class="row mt-4">
-  <div class="map-wrapper" style="width: 700px; height: 700px;">
-    <div class="map-border">
-      <div id="map"></div>
+  <div class="col-12 mt-4">
+    <h1>Geolocalisation</h1>
+  </div>
+
+    <div class="col-12 mb-4">
+      <div class="btn float-right" id="simulation" (click)="simulator(100)">Lancer la simulation</div>
+    </div>
+
+  <div class="col-12">
+    <div class="map-wrapper" style="height: 700px;">
+      <div class="map-border rounded">
+        <div id="map"></div>
+      </div>
     </div>
   </div>
+
 </div>
+
+
+
+
+

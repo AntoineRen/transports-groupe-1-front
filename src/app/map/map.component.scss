@@ -1,18 +1,23 @@
-.map-wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: 20px;
-  margin-top: 80px;
-}
-
 .map-border {
-  border: 2px solid #408874;
+  border: 3px solid #004F2F;
   height: 100%;
 }
 
 #map {
   height: 100%;
+}
+
+.btn#simulation{
+  background-color: #004F2F;
+  border: 2px solid #337259;
+  color:#F8FFB9;
+}
+.btn#simulation:hover{
+background-color:#337259;
+border: 2px solid #004F2F;
+box-shadow: none;
+}
+
+h1 {
+  color: #004F2F;
 }

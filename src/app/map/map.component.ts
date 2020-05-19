@@ -1,7 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import * as L from 'leaflet';
 import { MapService } from './map.service';
-import { VehiculeServeur } from '../vehicules/vehiculeServeur.domains';
 
 @Component({
   selector: 'app-map',
@@ -9,22 +8,31 @@ import { VehiculeServeur } from '../vehicules/vehiculeServeur.domains';
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements AfterViewInit {
+
   map;
 
   markerLayer = L.layerGroup();
-
 
   constructor(private mapService: MapService) { }
 
   ngAfterViewInit(): void {
     this.createMap();
 
-
     this.simulationVoiture();
-
   }
 
-  simulationVoiture() {
+  simulator(i) {
+    setTimeout(() => {
+
+      this.simulationVoiture();
+
+      if (--i) {
+        this.simulator(i);
+      }
+    }, 1000);
+  }
+
+  public simulationVoiture() {
     this.mapService.simulation().subscribe(
       vehicules => {
 
