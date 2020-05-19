@@ -29,7 +29,6 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import { ReserverUnCovoitModalComponent } from './reserver-covoiturage/modalComponnent/reserver-un-covoit-modal/reserver-un-covoit-modal.component';
 import {AnnonceCovoitService} from './reserver-covoiturage/service/annonce-covoit.service';
 import { AnnoncesComponent } from './annonces/annonces.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -60,7 +59,6 @@ import { ToastrModule } from 'ngx-toastr';
     ReserverUnVehiculeComponent,
     ReserverVehiculeSocieteComponent,
     PlanningComponent,
-    ReserverUnCovoitModalComponent,
     OccupationComponent,
     VehiculesComponent,
     LesChauffeursComponent,
