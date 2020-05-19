@@ -10,7 +10,18 @@
 }
 .form-control{
     border: 2px solid #004F2F;
+    box-shadow: none;
 }
+.btn#ajout{
+    background-color: #004F2F;
+    border: 2px solid #337259;
+    color:#F8FFB9;
+}
+.btn#ajout:hover:enabled{
+  background-color:#337259;
+  border: 2px solid #004F2F;
+  box-shadow: none;
+  }
 .card-body{
     border: 2px solid #004F2F;
     background-color: #408874;

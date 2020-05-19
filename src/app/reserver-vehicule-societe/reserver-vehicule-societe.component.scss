@@ -1,0 +1,65 @@
+.card{
+    border: 2px solid #004F2F;
+}
+td{
+    border-top: 2px solid #004F2F;
+}
+input{
+    border: 2px solid #004F2F;
+    box-shadow: none;
+}
+.btn{
+    height: 38px;
+    border: 2px solid #004F2F;
+    box-shadow: none;
+  }
+  .btn:hover:enabled{
+    height: 38px;
+    border: 2px solid #004F2F;
+    background-color:#97B7AA;
+    box-shadow: none;
+  }
+  .btn#previous,.btn#after{
+    border: 0px;
+    color: #004F2F;
+}
+.btn#previous:hover,.btn#after:hover{
+    background-color: #408874;
+    color:#F8FFB9;
+}
+.btn#previous:focus,.btn#after:focus{
+    border: 2px solid #5C8E71;
+    box-shadow: none;
+}
+img{
+    padding:0px;
+    border: 3px solid #004F2F;
+}
+.alert{
+  border: 2px solid #B93D4A;
+  background-color:#A80D1D;
+  color:#F8FFB9;
+}
+.btn#annuler{
+    border: 2px solid #A80D1D;
+    background-color:#A80D1D;
+    color:#F8FFB9;
+    box-shadow: none;
+  }
+  .btn#annuler:hover:enabled{
+    border: 2px solid #A80D1D;
+    background-color:#B93D4A;
+    color:#F8FFB9;
+    box-shadow: none;
+  }
+  .btn#confirmer{
+    background-color:#004F2F;
+    color:#F8FFB9;
+    border: 2px solid #33724D;
+    box-shadow: none;
+  }
+  .btn#confirmer:hover:enabled{
+    background-color:#337259;
+    border: 2px solid #004F2F;
+    box-shadow: none;
+  }

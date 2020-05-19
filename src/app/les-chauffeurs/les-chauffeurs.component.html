@@ -29,7 +29,7 @@
   <ng-container>
     <div class="col-12 mb-5">
       <div class="text-right">
-        <button class="btn btn-primary" (click)="open(content, formChauffeurAdd)">Ajouter un
+        <button class="btn btn-primary" id="ajout" (click)="open(content, formChauffeurAdd)">Ajouter un
           chauffeur</button>
       </div>
     </div>
@@ -42,7 +42,7 @@
       <mat-card-header>
         <mat-card-title>{{chauffeur.nom}} {{chauffeur.prenom}}</mat-card-title>
       </mat-card-header>
-      <img mat-card-image src="{{chauffeur.photoUrl}}" alt="Photo de {{chauffeur.nom}} {{chauffeur.prenom}}">
+      <img id="imgChauffeur" src="{{chauffeur.photoUrl}}" alt="Photo de {{chauffeur.nom}} {{chauffeur.prenom}}">
       <mat-card-content>
         <div class="row">
           <div class="col">Nom :</div>
@@ -98,8 +98,8 @@
 
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss('Cross click')">Annuler</button>
-      <button type="button" ngbAutofocus class="btn btn-danger" (click)="modal.close('Save click')">Confirmer</button>
+      <button type="button" id="annuler" class="btn" (click)="modal.dismiss('Cross click')">Annuler</button>
+      <button type="button" id="ajout"  class="btn" (click)="modal.close('Save click')">Confirmer</button>
     </div>
   </form>
 

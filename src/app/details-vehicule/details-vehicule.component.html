@@ -5,12 +5,12 @@
 <div class="row">
   <ng-container *ngIf="vehicule">
     <div class="row col">
-      <div class="col-auto"style="padding:0;margin:0;">
+      <div class="col-auto">
         <img class="btn " src="{{vehicule.photoUrl}}"
           onerror="this.src='https://cdn.discordapp.com/attachments/705412725098020906/709174770247401563/imgNotLoad.png'"
           alt="Photo véhicule {{vehicule.id}}" style="width: 18rem;">
       </div>
-      <div class="col "style="padding:0;margin:0;">
+      <div class="col ">
         <p class="card-text "
         style="font-size: 18px;line-height: 1.6;">
           Marque: {{vehicule.marque}}<br />
@@ -21,16 +21,16 @@
       </div>
     </div>
     <div class="col-md-3 ">
-      <button type="button" class="btn float-right btn-block"
-      style="background-color:#004F2F;color:#F8FFB9;" [disabled]="vehicule.statut=='EN_REPARATION'||vehicule.statut=='En réparation'" name="btnReparation"(click)="onRefresh('enReparation')">
+      <button type="button" class="btn float-right btn-block" id="reparation"
+      [disabled]="vehicule.statut=='EN_REPARATION'||vehicule.statut=='En réparation'" name="btnReparation"(click)="onRefresh('enReparation')">
       Mettre en reparation
     </button>
-    <button type="button" class="btn float-right btn-block"
-      style="background-color:#004F2F;color:#F8FFB9;"[disabled]="vehicule.statut=='En service'||vehicule.statut=='EN_SERVICE'" name="btnenservice"(click)="onRefresh('enService')">
+    <button type="button" class="btn float-right btn-block" id="service"
+      [disabled]="vehicule.statut=='En service'||vehicule.statut=='EN_SERVICE'" name="btnenservice"(click)="onRefresh('enService')">
       Mettre en service
     </button>
-    <button type="button" class="btn float-right btn-block"
-    style="background-color:#A80D1D;color:#F8FFB9"[disabled]="vehicule.statut=='HORS_SERVICE'||vehicule.statut=='Hors service'" (click)="onRefresh('HorsService')">
+    <button type="button" class="btn float-right btn-block" id="hservice"
+    [disabled]="vehicule.statut=='HORS_SERVICE'||vehicule.statut=='Hors service'" (click)="onRefresh('HorsService')">
       Hors service
     </button>
     </div>
@@ -39,7 +39,7 @@
 
 
 <!--Rubrique reservation en cours-->
-<div class="card mb-2">
+<div class="card mb-2" id="tableau">
   <div class="card-header p-3">
     <h3>Prochaines réservation</h3>
   </div>
@@ -55,17 +55,39 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let reservation of listProchainesReservations">
-          <td scope="row">
-            {{reservation.dateDepart.toDateString()}}<br />{{reservation.dateDepart.toLocaleTimeString()}}
-          </td>
-          <td>{{reservation.dateArrivee.toDateString()}}<br />{{reservation.dateDepart.toLocaleTimeString()}}</td>
-          <td>{{reservation.nomResponsable|uppercase}}<br />{{reservation.prenomResponsable|lowercase}}</td>
-        </tr>
+        <ng-container
+          *ngIf="!reservationVehiculeEnCoursVide && !erreurreservationVehiculeEnCours; else elseBlockEncours">
+          <tr *ngFor="let reservation of listProchainesReservations">
+            <td scope="row">
+              {{reservation.dateDepart.toDateString()}}<br />{{reservation.dateDepart.toLocaleTimeString()}}
+            </td>
+            <td>{{reservation.dateArrivee.toDateString()}}<br />{{reservation.dateDepart.toLocaleTimeString()}}</td>
+            <td>{{reservation.nomResponsable|uppercase}}<br />{{reservation.prenomResponsable|lowercase}}</td>
+            <ng-template #elseBlock>
+            </ng-template>
+          </tr>
+        </ng-container>
       </tbody>
     </table>
+    <!--Block d'erreur si list vide-->
+    <ng-template #elseBlockEncours>
+      <div class="col-12">
+        <ng-container *ngIf="reservationVehiculeEnCoursVide">
+          <div class="alert alert-warning" role="alert">Aucune prochaine reservation pour ce vehicule.</div>
+        </ng-container>
+
+        <!--Block d'erreur si list non récupperé -->
+        <ng-container *ngIf="erreurreservationVehiculeEnCours">
+          <div class="alert alert-danger" role="alert">Erreur : Impossible de récupérer la liste de reservation pour ce vehicule.</div>
+        </ng-container>
+      </div>
+    </ng-template>
+
   </div>
 </div>
+
+
+
 
 <!--Rubrique reservation en cours-->
 <div class="card mb-2">
@@ -84,14 +106,30 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let reservation of listHistoriqueReservations">
-          <td scope="row">
-            {{reservation.dateDepart.toDateString()}}<br />{{reservation.dateDepart.toLocaleTimeString()}}
-          </td>
-          <td>{{reservation.dateArrivee.toDateString()}}<br />{{reservation.dateDepart.toLocaleTimeString()}}</td>
-          <td>{{reservation.nomResponsable|uppercase}}<br />{{reservation.prenomResponsable|lowercase}}</td>
-        </tr>
+        <ng-container
+          *ngIf="!reservationVehiculeHistoVide && !erreurHistoriqueReservations; else elseBlockEncours">
+          <tr *ngFor="let reservation of listHistoriqueReservations">
+            <td scope="row">
+              {{reservation.dateDepart.toDateString()}}<br />{{reservation.dateDepart.toLocaleTimeString()}}
+            </td>
+            <td>{{reservation.dateArrivee.toDateString()}}<br />{{reservation.dateDepart.toLocaleTimeString()}}</td>
+            <td>{{reservation.nomResponsable|uppercase}}<br />{{reservation.prenomResponsable|lowercase}}</td>
+          </tr>
+        </ng-container>
       </tbody>
     </table>
+    <!--Block d'erreur si list vide-->
+    <ng-template #elseBlockEncours>
+      <div class="col-12">
+        <ng-container *ngIf="reservationVehiculeHistoVide">
+          <div class="alert alert-warning" role="alert">Aucune historique de reservation pour ce vehicule.</div>
+        </ng-container>
+
+        <!--Block d'erreur si list non récupperé -->
+        <ng-container *ngIf="erreurHistoriqueReservations">
+          <div class="alert alert-danger" role="alert">Erreur : Impossible de récupérer l'historique de reservation pour ce vehicule.</div>
+        </ng-container>
+      </div>
+    </ng-template>
   </div>
 </div>

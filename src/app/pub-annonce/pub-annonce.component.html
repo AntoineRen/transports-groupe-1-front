@@ -1,5 +1,5 @@
 <div class="mt-5">
-  <a class="mt-3" routerLink="/collaborateur/annonces/">&lt;&lt;Retour à la liste</a>
+  <a class="mt-3" id="linkRetourListe"routerLink="/collaborateur/annonces/">&lt;&lt;Retour à la liste</a>
   <h2 class="my-3">Publier une annonce</h2>
   <form [formGroup]="annoncesForm">
     <div class="card mb-2">
@@ -241,11 +241,11 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss('Cross click')">Annuler</button>
-        <button type="button" ngbAutofocus class="btn btn-danger"  (click)="modal.close('Save click')">Confirmer</button>
+        <button type="button" id="annuler" class="btn btn-outline-dark" (click)="modal.dismiss('Cross click')">Annuler</button>
+        <button type="button" id="confirmer" ngbAutofocus class="btn btn-danger"  (click)="modal.close('Save click')">Confirmer</button>
       </div>
     </ng-template>
     <button (click)="open(content, annoncesForm)"
-      class="btn btn-primary float-right" [disabled]="annoncesForm.invalid">Publier</button>
+      class="btn btn-primary float-right" id="publier" [disabled]="annoncesForm.invalid">Publier</button>
   </form>
 </div>

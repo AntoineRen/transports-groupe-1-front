@@ -1,0 +1,27 @@
+.card{
+    border: 2px solid #004F2F;
+    
+}
+td{
+    border-top: 2px solid #004F2F;
+}
+th{
+    border-top: 2px solid #004F2F;
+}
+th#nonStyle{
+    border: 0px;
+}
+a{
+    color:#004F2F;
+    border-bottom: 1px solid #97B7AA;
+}
+a:hover{
+    border-bottom: 0px;
+}
+img{
+    border: 3px solid #004F2F;
+}
+.card-header{
+    background-color: #408874!important;
+    color:#F8FFB9!important;
+}

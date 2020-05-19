@@ -24,17 +24,18 @@
               </td>
               <td>{{annonce.lieuDepart}}</td>
               <td>{{annonce.lieuDestination}}</td>
-              <td><button type="button" class="btn btn-info" (click)="open(annonce)">Details</button></td>
-              <div *ngIf="annonce.statut == 'STATUT_EN_COURS'; else elseBlock">
-                <td >
-                  <button ngbButton class="btn btn-danger" (click)="openAnn(content,annonce.id)">Annuler </button>
-                </td>
-              </div>
-              <ng-template #elseBlock>
-                <td style="text-align: left; color: red;">
-                  Annulé
-                </td>
-              </ng-template>
+              <td>
+                <button type="button" class="btn" (click)="open(annonce)" id="details">Details</button>
+              </td>
+              <td>
+                <div *ngIf="annonce.statut == 'STATUT_EN_COURS'; else elseBlock">
+                  <button ngbButton class="btn btn-danger" (click)="openAnn(content,annonce.id)" id="annuler">Annuler </button>
+                </div>
+                <ng-template #elseBlock>
+                  <button ngbButton class="btn btn-danger" id="annuler" disabled>Annuler </button>
+                </ng-template>
+              </td>
+              
             </tr>
           </ng-container>
         </tbody>
@@ -81,7 +82,7 @@
             <td>{{annonce.lieuDepart}}</td>
             <td>{{annonce.lieuDestination}}</td>
             <td>{{annonce.statut}}</td>
-            <td><button type="button" class="btn btn-info" (click)="open(annonce)">Details</button></td>
+            <td><button type="button" class="btn btn-info" (click)="open(annonce)" id="details">Details</button></td>
           </tr>
         </ng-container>
       </tbody>

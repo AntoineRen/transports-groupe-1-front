@@ -34,7 +34,8 @@ export class OccupationComponent implements OnInit {
     },
     stroke: {
       curve: 'smooth',
-    }
+    },
+    colors:['#408874', '#408874', '#408874']
   };
 
   // Map jour/seconde occupé

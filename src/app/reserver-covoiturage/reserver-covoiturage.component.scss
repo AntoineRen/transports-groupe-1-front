@@ -8,3 +8,32 @@ button.calendar, button.calendar:active {
 }
 
 
+.card{
+  border: 2px solid #004F2F;
+}
+.card-header{
+  background-color: #408874;
+  color:#F8FFB9;
+}
+input{
+  border: 2px solid #004F2F;
+  box-shadow: none;
+}
+.btn{
+  height: 38px;
+  border: 2px solid #004F2F;
+  box-shadow: none;
+}
+.btn:hover:enabled{
+  height: 38px;
+  border: 2px solid #004F2F;
+  background-color:#97B7AA;
+  box-shadow: none;
+}
+thead{
+  border-top: 2px solid #004F2F;
+  border-bottom: 3px solid #004F2F;
+}
+h2{
+  color:#004F2F;
+}
