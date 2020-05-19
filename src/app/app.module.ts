@@ -15,9 +15,6 @@ import { MenuComponent } from './menu/menu.component';
 import { PubAnnonceComponent } from './pub-annonce/pub-annonce.component';
 import { RecapResaVehiculeSocieteComponent } from './recap-resa-vehicule-societe/recap-resa-vehicule-societe.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { ChauffeurComponent } from './chauffeur/chauffeur.component';
-import { CollaborateurComponent } from './collaborateur/collaborateur.component';
-import { AdministrateurComponent } from './administrateur/administrateur.component';
 import { CovoitAnnonceResume } from './list-reservation-covoiturages/modalComponnent/CovoitAnnonceResume.modal-component';
 import { VosReservationsComponent } from './vos-reservations/vos-reservations.component';
 import { VehiculesComponent } from './vehicules/vehicules.component';
@@ -54,9 +51,6 @@ import { ProfilComponent } from './profil/profil.component';
     MenuComponent,
     PubAnnonceComponent,
     RecapResaVehiculeSocieteComponent,
-    ChauffeurComponent,
-    CollaborateurComponent,
-    AdministrateurComponent,
     VosReservationsComponent,
     ReserverCovoiturageComponent,
     AnnoncesComponent,
