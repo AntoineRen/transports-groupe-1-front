@@ -17,8 +17,8 @@ export class ProfilComponent implements OnInit, OnDestroy {
   error = false;
 
   // Statistiques
-  statistiquesCovoiturages: Statistiques;
-  statistiquesLocations: Statistiques;
+  statistiquesCovoiturages: Statistiques = {enCours: 0, termines: 0, total: 0};
+  statistiquesLocations: Statistiques = {enCours: 0, termines: 0, total: 0};
 
   // erreur
   erreurStatistiques = false;

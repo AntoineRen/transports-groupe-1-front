@@ -44,7 +44,9 @@
     <div class="col-12">
       <div ngbDropdown>
         <div class="btn col-12 btn-light py-0" id="dropdownBasic1" ngbDropdownToggle
-        [style.border-color]="weekEvent.event.meta.statut == 'EN_ATTENTE' ? 'black' : '#408874'">
+        [style.border-color]=
+      "weekEvent.event.meta.vehicule.statut == 'EN_REPARATION' || weekEvent.event.meta.vehicule.statut == 'HORS_SERVICE' ? '#76000C' :
+      weekEvent.event.meta.statut == 'EN_ATTENTE' ? 'black' : '#408874'">
           Demande sur plusieurs jours, du {{weekEvent.event.start.toLocaleString()}} au {{weekEvent.event.end.toLocaleString()}}</div>
         <div ngbDropdownMenu aria-labelledby="dropdownBasic1" style="background: none; border: none; width: 100%;">
 
@@ -59,10 +61,14 @@
   <ng-template #oneDayBlock>
 
     <div class="card" style="width: 99%;"
-    [style.border-color]="weekEvent.event.meta.statut == 'EN_ATTENTE' ? 'black' : '#408874'">
+    [style.border-color]=
+      "weekEvent.event.meta.vehicule.statut == 'EN_REPARATION' || weekEvent.event.meta.vehicule.statut == 'HORS_SERVICE' ? '#76000C' :
+      weekEvent.event.meta.statut == 'EN_ATTENTE' ? 'black' : '#408874'">
 
       <h2 class="card-header"
-      [style.border-color]="weekEvent.event.meta.statut == 'EN_ATTENTE' ? 'black' : '#408874'">
+      [style.border-color]=
+      "weekEvent.event.meta.vehicule.statut == 'EN_REPARATION' || weekEvent.event.meta.vehicule.statut == 'HORS_SERVICE' ? '#76000C' :
+      weekEvent.event.meta.statut == 'EN_ATTENTE' ? 'black' : '#408874'">
       {{weekEvent.event.start.toLocaleString()}} au {{weekEvent.event.end.toLocaleString()}}
       </h2>
 
@@ -89,14 +95,24 @@
           </div>
 
         </div>
-        <ng-container *ngIf="weekEvent.event.meta.statut === 'EN_ATTENTE'; else elseBlockStatut">
+
+        <ng-container *ngIf="weekEvent.event.meta.statut == 'EN_ATTENTE'
+        && weekEvent.event.meta.vehicule.statut == 'EN_SERVICE'; else elseBlockStatut">
 
           <button class="btn btn-outline-dark float-right" (click)="updateReservation(weekEvent.event)">Accepter la
             demande</button>
         </ng-container>
         <ng-template #elseBlockStatut>
 
-          <div class="btn float-right" style="color: #408874">Demande Accepté</div>
+          <ng-container *ngIf="weekEvent.event.meta.vehicule.statut == 'EN_REPARATION'
+          || weekEvent.event.meta.vehicule.statut == 'HORS_SERVICE';else  elseBlockStatutAccepte">
+            <div class="btn float-right" style="color: #76000C">Véhicule Indisponible</div>
+          </ng-container>
+
+          <ng-template #elseBlockStatutAccepte>
+            <div class="btn float-right" style="color: #408874">Demande Accepté</div>
+          </ng-template>
+
         </ng-template>
       </div>
     </div>
