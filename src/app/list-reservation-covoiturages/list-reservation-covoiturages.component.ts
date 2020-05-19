@@ -42,7 +42,6 @@ export class ListReservationCovoituragesComponent implements OnInit {
   erreurAnnonceEnCours = false;
   annonceHistoVide = false;
   erreurAnnonceHisto = false;
-
   closeResult = '';
   annuler;
   statut;
@@ -71,11 +70,12 @@ export class ListReservationCovoituragesComponent implements OnInit {
           .map(listeAnnonceServer => ({
             ...listeAnnonceServer,
             statut: `Terminé`
-          })),
-          console.log(this.listAnnoncesHistoriqueAffichage)
-      })
+          })); this.annonceHistoVide = this.listAnnoncesHistoriqueAffichage.length === 0;
+      }, err => {
+        this.erreurAnnonceHisto = true;
+      },
+      );
   }
-
   /*Methode de pagination pour historique des annonce de covoiturage*/
   pagePrecedente() {
     if (this.pageActuelle - 1 > 0) {
@@ -99,9 +99,10 @@ export class ListReservationCovoituragesComponent implements OnInit {
 
   /*Annulation des Reservations */
   annulerReservation(id) {
-    this.covoitServices.annulerReservation(id).subscribe(() =>
-    {this.subListAnnoncesEnCour();
-      this.toastr.success('Votre réservation a bien été annulée.', 'Réservation')},
+    this.covoitServices.annulerReservation(id).subscribe(() => {
+      this.subListAnnoncesEnCour();
+      this.toastr.success('Votre réservation a bien été annulée.', 'Réservation')
+    },
       error => this.toastr.error("Une erreur s'est produite lors de l'annulation de votre réservation.", 'Réservation'))
   }
 
