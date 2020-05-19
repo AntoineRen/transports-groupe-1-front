@@ -42,7 +42,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { DetailsVehiculeComponent } from './details-vehicule/details-vehicule.component';
 import { ProfilComponent } from './profil/profil.component';
 import { ToastrModule } from 'ngx-toastr';
-
+import { MapComponent } from './map/map.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,6 +63,7 @@ import { ToastrModule } from 'ngx-toastr';
     VehiculesComponent,
     LesChauffeursComponent,
     DetailsVehiculeComponent,
+    MapComponent,
     ProfilComponent,
 
 
@@ -89,7 +90,7 @@ import { ToastrModule } from 'ngx-toastr';
     }),
     MatCardModule,
     NgApexchartsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS ,
