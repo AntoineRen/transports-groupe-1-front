@@ -1,0 +1,105 @@
+
+
+<div class="col-12">
+  <h2>Gérer les chauffeurs</h2>
+  <div class="col-sm-6 my-4">
+    <form [formGroup]="formChauffeur">
+      <div class="form-group row">
+        <span class="col-sm-3 col-form-label">Matricule:</span>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" formControlName="matricule">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <span class="col-sm-3 col-form-label">Nom:</span>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" formControlName="nom">
+        </div>
+      </div>
+      <div class="form-group row">
+        <span class="col-sm-3 col-form-label">Prénom:</span>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" formControlName="prenom">
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+
+  <ng-container>
+    <div class="col-12 mb-5">
+      <div class="text-right">
+        <button class="btn btn-primary" (click)="open(content, formChauffeurAdd)">Ajouter un
+          chauffeur</button>
+      </div>
+    </div>
+  </ng-container>
+
+
+  <div class="row d-flex justify-content-around mt-5">
+
+    <mat-card class="col-sm col-md-5 m-2" *ngFor="let chauffeur of filterChauffeurs">
+      <mat-card-header>
+        <mat-card-title>{{chauffeur.nom}} {{chauffeur.prenom}}</mat-card-title>
+      </mat-card-header>
+      <img mat-card-image src="{{chauffeur.photoUrl}}" alt="Photo de {{chauffeur.nom}} {{chauffeur.prenom}}">
+      <mat-card-content>
+        <div class="row">
+          <div class="col">Nom :</div>
+          <div class="col">{{chauffeur.nom}}</div>
+        </div>
+        <div class="row">
+          <div class="col">Prénom :</div>
+          <div class="col">{{chauffeur.prenom}}</div>
+        </div>
+        <div class="row">
+          <div class="col">Permis :</div>
+          <div class="col">{{chauffeur.permis}}</div>
+        </div>
+        <div class="row">
+          <div class="col">Email :</div>
+          <div class="col">{{chauffeur.email}}</div>
+          <div class="col">Téléphone :</div>
+          <div class="col">{{chauffeur.numTelephone}}</div>
+        </div>
+      </mat-card-content>
+
+    </mat-card>
+  </div>
+</div>
+
+<ng-template #content let-modal>
+
+
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLongTitle">Chauffeur</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <!-- Formulaire -->
+  <form [formGroup]="formChauffeurAdd">
+    <div class="modal-body">
+      <div class="form-group row">
+        <span class="col-sm-3 col-form-label">Matricule:</span>
+        <div class="col-sm-9">
+          <input class="form-control" formControlName="matriculee">
+          <div
+          *ngIf="  formChauffeurAdd.get('matriculee').invalid  && (formChauffeurAdd.get('matriculee').dirty || formChauffeurAdd.get('matriculee').touched)">
+          <mat-error *ngIf="formChauffeurAdd.controls['matriculee'].hasError('required') ">
+            Veuillez renseigner une matricule.
+          </mat-error>
+        </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss('Cross click')">Annuler</button>
+      <button type="button" ngbAutofocus class="btn btn-danger" (click)="modal.close('Save click')">Confirmer</button>
+    </div>
+  </form>
+
+</ng-template>

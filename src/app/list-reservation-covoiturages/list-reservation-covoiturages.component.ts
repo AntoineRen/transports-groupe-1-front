@@ -6,6 +6,8 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { CovoitAnnonceResume } from './modalComponnent/CovoitAnnonceResume.modal-component';
 import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { Annonce } from '../pub-annonce/annonce';
+import { error } from 'protractor';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -45,7 +47,7 @@ export class ListReservationCovoituragesComponent implements OnInit {
   annuler;
   statut;
 
-  constructor(private covoitServices: ListCovoiturageService, private modalService: NgbModal) { }
+  constructor(private covoitServices: ListCovoiturageService, private modalService: NgbModal, private toastr: ToastrService) { }
 
   /*Reccuperation de la liste des annonces au statue en cours*/
   subListAnnoncesEnCour(): void {
@@ -64,18 +66,14 @@ export class ListReservationCovoituragesComponent implements OnInit {
   subAnnoncesHistorique(): void {
     this.covoitServices.recupererListAnnonceCovoitHistorique()
       .subscribe(listeAnnonceServer => {
-        this.listAnnoncesHistorique = listeAnnonceServer
-          .map(covoiturageAnnonces => new Annonce(covoiturageAnnonces));
-
-        this.nombrePagemax = Math.ceil(this.listAnnoncesHistorique.length / this.nbAnnoncesParPages);
-
-        this.listAnnoncesHistoriqueAffichage = this.listAnnoncesHistorique.slice(this.start, this.end);
-
-        this.annonceHistoVide = this.listAnnoncesHistorique.length === 0;
-
-
-      },
-        err => this.erreurAnnonceHisto = true);
+        this.listAnnoncesHistoriqueAffichage = listeAnnonceServer
+          .map(covoiturageAnnonces => new Annonce(covoiturageAnnonces))
+          .map(listeAnnonceServer => ({
+            ...listeAnnonceServer,
+            statut: `Terminé`
+          })),
+          console.log(this.listAnnoncesHistoriqueAffichage)
+      })
   }
 
   /*Methode de pagination pour historique des annonce de covoiturage*/
@@ -100,14 +98,17 @@ export class ListReservationCovoituragesComponent implements OnInit {
   }
 
   /*Annulation des Reservations */
-    annulerReservation(id){
-      this.covoitServices.annulerReservation(id).subscribe(() => this.subListAnnoncesEnCour());
-    }
+  annulerReservation(id) {
+    this.covoitServices.annulerReservation(id).subscribe(() =>
+    {this.subListAnnoncesEnCour();
+      this.toastr.success('Votre réservation a bien été annulée.', 'Réservation')},
+      error => this.toastr.error("Une erreur s'est produite lors de l'annulation de votre réservation.", 'Réservation'))
+  }
 
 
   openAnn(content, id) {
     this.modalService.open(content).result.then(() => {
-    this.annulerReservation(id);
+      this.annulerReservation(id);
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });

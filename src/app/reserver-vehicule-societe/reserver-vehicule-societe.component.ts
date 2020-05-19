@@ -7,6 +7,7 @@ import { Periode } from './domains/periode.domains';
 import { PostReservationService } from './service/post-reservation.service';
 import { PostReservationServeur } from './domains/postReservationServeur.domains';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-reserver-vehicule-societe',
@@ -58,7 +59,8 @@ export class ReserverVehiculeSocieteComponent implements OnInit {
   constructor(private vehiculeService: GetVehiculeService,
               private reservationService: PostReservationService,
               private modalService: NgbModal,
-              private router: Router) { }
+              private router: Router,
+              private toastr: ToastrService) { }
 
   /** Recuperation de tous les véhicules */
   public getAllVehicule() {
@@ -93,8 +95,10 @@ export class ReserverVehiculeSocieteComponent implements OnInit {
 
     // sauvegarde reservation
      this.reservationService.postReservation(reservation).subscribe(
-        () => this.router.navigate(['/collaborateur/reservations']),
-        () => this.erreurReservation = true,
+        () => {this.router.navigate(['/collaborateur/reservations']);
+        this.toastr.success('Votre réservation a bien été créé.', 'Réservation Véhicule')},
+        () => {this.erreurReservation = true;
+        this.toastr.error("Une erreur s'est produite lors de votre réservation.", 'Réservation Véhicule')}
       );
   }
 

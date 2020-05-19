@@ -36,10 +36,13 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { PlanningComponent } from './planning/planning.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { LesChauffeursComponent } from './les-chauffeurs/les-chauffeurs.component';
+import {MatCardModule} from '@angular/material/card';
 import { OccupationComponent } from './occupation/occupation.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { DetailsVehiculeComponent } from './details-vehicule/details-vehicule.component';
 import { ProfilComponent } from './profil/profil.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -60,8 +63,10 @@ import { ProfilComponent } from './profil/profil.component';
     ReserverUnCovoitModalComponent,
     OccupationComponent,
     VehiculesComponent,
+    LesChauffeursComponent,
     DetailsVehiculeComponent,
     ProfilComponent,
+
 
   ],
   imports: [
@@ -84,8 +89,9 @@ import { ProfilComponent } from './profil/profil.component';
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
+    MatCardModule,
     NgApexchartsModule,
-
+    ToastrModule.forRoot()
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS ,

@@ -3,6 +3,7 @@ import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons
 import { AnnonceService } from '../pub-annonce/annonce.service';
 import { Annonce } from '../pub-annonce/annonce';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-annonces',
@@ -37,7 +38,7 @@ export class AnnoncesComponent implements OnInit {
   erreurAnnonceHisto = false;
   error = false;
 
-  constructor(private annonceServices: AnnonceService, private modalService: NgbModal) { }
+  constructor(private annonceServices: AnnonceService, private modalService: NgbModal, private toastr: ToastrService) { }
 
    /*Reccuperation de la liste des annonces au statue en cours*/
    subListAnnoncesEnCour(): void {
@@ -71,7 +72,12 @@ export class AnnoncesComponent implements OnInit {
 
   /*Annulation des annonces */
     annulerAnnonce(id){
-      this.annonceServices.annulerAnnonce(id).subscribe(() => this.subListAnnoncesEnCour());
+      this.annonceServices.annulerAnnonce(id).subscribe(
+        () => {this.subListAnnoncesEnCour(),
+               this.toastr.success('Votre annonce a été annulée.', 'Annonce')},
+               error => this.toastr.error("Une erreur s'est produite lors de l'annulation de l'annonce.", 'Annonce')
+
+              );
     }
 
     /*Methode de pagination pour historique des annonces de covoiturage*/
