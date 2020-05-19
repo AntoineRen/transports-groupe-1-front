@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Vehicule } from '../vehicules/vehicule';
 import { DetailsVehiculeService } from './details-vehicule.service';
-import { ReservationVehicule, ReservationVehiculeServeur } from './details-vehicule.model';
+import { ReservationVehicule } from './details-vehicule.model';
 
 
 
@@ -18,7 +18,7 @@ export class DetailsVehiculeComponent implements OnInit {
   immatriculation: string;
   vehicule: Vehicule;
   erreurGetVehicule: boolean = false;
-  lemachin: any;
+
 
   //Attributs pour liste des procahaines reservations
 
@@ -64,7 +64,7 @@ export class DetailsVehiculeComponent implements OnInit {
     this.detailsVehiculeService.putStatutVehicule(statut, this.vehicule.immatriculation)
     .subscribe((vehiculeServer) => { this.vehicule = vehiculeServer; }, error => this.erreurGetVehicule = true);
     //.subscribe(letruc=>this.lemachin =letruc);
-    this.subDetailsVehiculeService();
+
   }
   ngOnInit(): void {
     this.immatriculation = this.route.snapshot.params['immatriculation'];
