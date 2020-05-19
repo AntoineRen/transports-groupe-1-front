@@ -106,11 +106,11 @@
 
           <ng-container *ngIf="weekEvent.event.meta.vehicule.statut == 'EN_REPARATION'
           || weekEvent.event.meta.vehicule.statut == 'HORS_SERVICE';else  elseBlockStatutAccepte">
-            <div class="btn float-right" style="color: #76000C">Véhicule Indisponible</div>
+            <div class="btn float-right" id="indisponible" style="color: #76000C">Véhicule Indisponible</div>
           </ng-container>
 
           <ng-template #elseBlockStatutAccepte>
-            <div class="btn float-right" style="color: #408874">Demande Accepté</div>
+            <div class="btn float-right" id="accepte" style="color: #408874">Demande Accepté</div>
           </ng-template>
 
         </ng-template>
