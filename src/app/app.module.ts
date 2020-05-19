@@ -42,6 +42,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { OccupationComponent } from './occupation/occupation.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { DetailsVehiculeComponent } from './details-vehicule/details-vehicule.component';
+import { ProfilComponent } from './profil/profil.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { DetailsVehiculeComponent } from './details-vehicule/details-vehicule.co
     OccupationComponent,
     VehiculesComponent,
     DetailsVehiculeComponent,
+    ProfilComponent,
 
   ],
   imports: [
