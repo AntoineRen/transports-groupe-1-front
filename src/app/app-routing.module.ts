@@ -3,9 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import {TechComponent} from './tech/tech.component';
 import {StatutConnecteService} from './auth/statut-connecte.service';
 import {AuthComponent} from './auth/auth.component';
-import { CollaborateurComponent } from './collaborateur/collaborateur.component';
-import { ChauffeurComponent } from './chauffeur/chauffeur.component';
-import { AdministrateurComponent } from './administrateur/administrateur.component';
 import {StatutAdminService} from './auth/status-admin.service';
 import { StatutChauffeurService } from './auth/status-chauffeur.service';
 import { VosReservationsComponent } from './vos-reservations/vos-reservations.component';
@@ -18,6 +15,7 @@ import { AnnoncesComponent } from './annonces/annonces.component';
 import { LesChauffeursComponent } from './les-chauffeurs/les-chauffeurs.component';
 import { OccupationComponent } from './occupation/occupation.component';
 import { DetailsVehiculeComponent } from './details-vehicule/details-vehicule.component';
+import { ProfilComponent } from './profil/profil.component';
 
 
 const routes: Routes =  [
@@ -26,17 +24,17 @@ const routes: Routes =  [
   { path: 'connexion', component: AuthComponent},
   { path: '', redirectTo: 'collaborateur', pathMatch: 'full'},
   // route collaborateur, seulement si connecté
-  { path: 'collaborateur', component: CollaborateurComponent, canActivate: [StatutConnecteService]},
+  { path: 'collaborateur', component: ProfilComponent, canActivate: [StatutConnecteService]},
   { path: 'collaborateur/reservations', component: VosReservationsComponent, canActivate: [StatutConnecteService]},
   { path: 'collaborateur/annonces', component: AnnoncesComponent, canActivate: [StatutConnecteService]},
   { path: 'collaborateur/reservations/creer', component: ReserverUnVehiculeComponent, canActivate: [StatutConnecteService]},
   { path: 'collaborateur/annonces/creer', component: PubAnnonceComponent, canActivate: [StatutConnecteService]},
   // route chauffeur et admin, seulement si connecté
-  { path: 'chauffeur', component: ChauffeurComponent, canActivate: [StatutConnecteService, StatutChauffeurService]},
+  { path: 'chauffeur', component: ProfilComponent, canActivate: [StatutConnecteService, StatutChauffeurService]},
   { path: 'chauffeur/planning', component: PlanningComponent, canActivate: [StatutConnecteService, StatutChauffeurService]},
   { path: 'chauffeur/occupation', component: OccupationComponent, canActivate: [StatutConnecteService, StatutChauffeurService]},
   // route administrateur, seulement si connecté
-  { path: 'admin', component: AdministrateurComponent, canActivate: [StatutConnecteService, StatutAdminService]},
+  { path: 'admin', component: ProfilComponent, canActivate: [StatutConnecteService, StatutAdminService]},
   { path: 'admin/vehicules', component: VehiculesComponent, canActivate: [StatutConnecteService, StatutAdminService]},
   { path: 'admin/chauffeurs', component: LesChauffeursComponent, canActivate: [StatutConnecteService, StatutAdminService]},
   { path: 'admin/vehicules/:immatriculation', component: DetailsVehiculeComponent, canActivate: [StatutConnecteService, StatutAdminService]}

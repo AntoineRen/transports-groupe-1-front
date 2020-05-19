@@ -1,7 +1,5 @@
-
-
-<div class="col-12">
-  <h2>Gérer les chauffeurs</h2>
+<div class="col-12 mt-4">
+  <h1>Gérer les chauffeurs</h1>
   <div class="col-sm-6 my-4">
     <form [formGroup]="formChauffeur">
       <div class="form-group row">
@@ -61,9 +59,12 @@
         <div class="row">
           <div class="col">Email :</div>
           <div class="col">{{chauffeur.email}}</div>
+        </div>
+        <div class="row">
           <div class="col">Téléphone :</div>
           <div class="col">{{chauffeur.numTelephone}}</div>
         </div>
+
       </mat-card-content>
 
     </mat-card>
@@ -87,11 +88,11 @@
         <div class="col-sm-9">
           <input class="form-control" formControlName="matriculee">
           <div
-          *ngIf="  formChauffeurAdd.get('matriculee').invalid  && (formChauffeurAdd.get('matriculee').dirty || formChauffeurAdd.get('matriculee').touched)">
-          <mat-error *ngIf="formChauffeurAdd.controls['matriculee'].hasError('required') ">
-            Veuillez renseigner une matricule.
-          </mat-error>
-        </div>
+            *ngIf="  formChauffeurAdd.get('matriculee').invalid  && (formChauffeurAdd.get('matriculee').dirty || formChauffeurAdd.get('matriculee').touched)">
+            <mat-error *ngIf="formChauffeurAdd.controls['matriculee'].hasError('required') ">
+              Veuillez renseigner une matricule.
+            </mat-error>
+          </div>
         </div>
       </div>
 
