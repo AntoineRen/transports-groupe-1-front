@@ -29,4 +29,7 @@ export class DetailsVehiculeService {
   getHistoriqueReservationsByVehicule(immatriculation): Observable<ReservationVehiculeServeur[]> {
     return this.http.get<ReservationVehiculeServeur[]>(`${URL_BACKEND_RESERVATION}vehicule?encours=false&immat=${immatriculation}`);
   }
+  putStatutVehicule(statut: string, immat: string): Observable<Vehicule> {
+    return this.http.put<Vehicule>(`${URL_BACKEND_VEHICULE}?statut=${statut}&immat=${immat}`,null);
+  }
 }

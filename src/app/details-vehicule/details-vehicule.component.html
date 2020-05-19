@@ -16,21 +16,21 @@
           Marque: {{vehicule.marque}}<br />
           Modèle: {{vehicule.modele}}<br />
           Catégorie: {{vehicule.categorie}}<br />
-          statut: {{vehicule.statut}}<br />
+          Statut: {{vehicule.statut}}<br />
         </p>
       </div>
     </div>
     <div class="col-md-3 ">
-      <button type="button" class="btn float-right btn-block" 
-      style="background-color:#004F2F;color:#F8FFB9;">
-      Ajouter un véhicule
+      <button type="button" class="btn float-right btn-block"
+      style="background-color:#004F2F;color:#F8FFB9;" [disabled]="vehicule.statut=='EN_REPARATION'||vehicule.statut=='En réparation'" name="btnReparation"(click)="onRefresh('enReparation')">
+      Mettre en reparation
     </button>
-    <button type="button" class="btn float-right btn-block" 
-      style="background-color:#004F2F;color:#F8FFB9;">
+    <button type="button" class="btn float-right btn-block"
+      style="background-color:#004F2F;color:#F8FFB9;"[disabled]="vehicule.statut=='En service'||vehicule.statut=='EN_SERVICE'" name="btnenservice"(click)="onRefresh('enService')">
       Mettre en service
     </button>
-    <button type="button" class="btn float-right btn-block" 
-    style="background-color:#A80D1D;color:#F8FFB9">
+    <button type="button" class="btn float-right btn-block"
+    style="background-color:#A80D1D;color:#F8FFB9"[disabled]="vehicule.statut=='HORS_SERVICE'||vehicule.statut=='Hors service'" (click)="onRefresh('HorsService')">
       Hors service
     </button>
     </div>

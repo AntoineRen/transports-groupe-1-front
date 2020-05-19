@@ -1,5 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import * as L from 'leaflet';
+import { MapService } from './map.service';
+import { VehiculeServeur } from '../vehicules/vehiculeServeur.domains';
 
 @Component({
   selector: 'app-map',
@@ -8,10 +10,11 @@ import * as L from 'leaflet';
 })
 export class MapComponent implements AfterViewInit {
   map;
+  listVehicule: VehiculeServeur [];
 
   smallIcon = new L.Icon({
-    iconUrl: 'https://cdn.icon-icons.com/icons2/235/PNG/256/Car_Top_Red_26349.png',
-    iconRetinaUrl: 'https://cdn.icon-icons.com/icons2/235/PNG/256/Car_Top_Red_26349.png',
+    iconUrl: 'https://publicdomainvectors.org/photos/simple-travel-car-top_view.png',
+    iconRetinaUrl: 'https://publicdomainvectors.org/photos/simple-travel-car-top_view.png',
     iconSize:    [35, 51],
     iconAnchor:  [22, 51],
     popupAnchor: [1, -34],
@@ -19,10 +22,18 @@ export class MapComponent implements AfterViewInit {
     shadowSize:  [41, 41]
   });
 
-  constructor() { }
+  constructor(private mapService: MapService) { }
 
   ngAfterViewInit(): void {
     this.createMap();
+
+      this.simulationVoiture();
+
+
+  }
+
+  simulationVoiture(){
+    this.mapService.simulation().subscribe(res => {this.listVehicule = res , console.log(res)});
   }
 
   createMap() {
@@ -31,7 +42,7 @@ export class MapComponent implements AfterViewInit {
       lng: 5.372716,
     };
 
-    const zoomLevel = 12;
+    const zoomLevel = 8;
 
     this.map = L.map('map', {
       center: [initCoord.lat, initCoord.lng],
@@ -39,7 +50,7 @@ export class MapComponent implements AfterViewInit {
     });
 
     const mainLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      minZoom: 12,
+      minZoom: 7,
       maxZoom: 17,
     });
 

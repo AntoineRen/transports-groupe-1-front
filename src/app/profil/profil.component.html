@@ -1,0 +1,111 @@
+<!-- Card Profil -->
+<div class="card mt-5" style="width: 100%;">
+
+<div class="card-header">
+  <h1 class="card-title">Profil</h1>
+</div>
+
+  <div class="card-body">
+    <div class="row">
+      <div class="col-12 col-md-4 d-flex align-items-center justify-content-center">
+        <img class="rounded" style="width: 80%;" src="{{col.photoUrl}}">
+      </div>
+      <table class="table col-12 col-md-6 d-flex align-items-center justify-content-center">
+        <tbody>
+          <tr>
+            <th scope="row">Nom : </th>
+            <td>{{col.nom}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Prénom : </th>
+            <td>{{col.prenom}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Email : </th>
+            <td>{{col.email}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Téléphone : </th>
+            <td>{{col.numTelephone}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Rôles : </th>
+            <td>{{rolesToString()}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Card Statistiques -->
+
+<div class="card mt-5" style="width: 100%;">
+
+  <div class="card-header">
+    <h1 class="card-title">Statistiques</h1>
+  </div>
+
+  <div class="card-body">
+
+    <div class="row">
+
+      <div class="col-6 card">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col"><a routerLink="/collaborateur/reservations">Vos covoiturages</a></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">En cours</th>
+              <td>{{statistiquesCovoiturages.enCours}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Terminés</th>
+              <td>{{statistiquesCovoiturages.termines}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Total</th>
+              <td>{{statistiquesCovoiturages.total}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="col-6 card">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col"><a routerLink="/collaborateur/reservations">Vos Locations</a></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">En cours</th>
+              <td>{{statistiquesLocations.enCours}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Terminés</th>
+              <td>{{statistiquesLocations.termines}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Total</th>
+              <td>{{statistiquesLocations.total}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <ng-container *ngIf="erreurStatistiques">
+      <div class="alert alert-danger" role="alert">Erreur : Impossible de récupérer vos statistiques.</div>
+    </ng-container>
+
+  </div>
+
+</div>
