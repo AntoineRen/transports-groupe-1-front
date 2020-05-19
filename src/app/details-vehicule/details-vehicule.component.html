@@ -55,17 +55,39 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let reservation of listProchainesReservations">
-          <td scope="row">
-            {{reservation.dateDepart.toDateString()}}<br />{{reservation.dateDepart.toLocaleTimeString()}}
-          </td>
-          <td>{{reservation.dateArrivee.toDateString()}}<br />{{reservation.dateDepart.toLocaleTimeString()}}</td>
-          <td>{{reservation.nomResponsable|uppercase}}<br />{{reservation.prenomResponsable|lowercase}}</td>
-        </tr>
+        <ng-container
+          *ngIf="!reservationVehiculeEnCoursVide && !erreurreservationVehiculeEnCours; else elseBlockEncours">
+          <tr *ngFor="let reservation of listProchainesReservations">
+            <td scope="row">
+              {{reservation.dateDepart.toDateString()}}<br />{{reservation.dateDepart.toLocaleTimeString()}}
+            </td>
+            <td>{{reservation.dateArrivee.toDateString()}}<br />{{reservation.dateDepart.toLocaleTimeString()}}</td>
+            <td>{{reservation.nomResponsable|uppercase}}<br />{{reservation.prenomResponsable|lowercase}}</td>
+            <ng-template #elseBlock>
+            </ng-template>
+          </tr>
+        </ng-container>
       </tbody>
     </table>
+    <!--Block d'erreur si list vide-->
+    <ng-template #elseBlockEncours>
+      <div class="col-12">
+        <ng-container *ngIf="reservationVehiculeEnCoursVide">
+          <div class="alert alert-warning" role="alert">Aucune prochaine reservation pour ce vehicule.</div>
+        </ng-container>
+
+        <!--Block d'erreur si list non récupperé -->
+        <ng-container *ngIf="erreurreservationVehiculeEnCours">
+          <div class="alert alert-danger" role="alert">Erreur : Impossible de récupérer la liste de reservation pour ce vehicule.</div>
+        </ng-container>
+      </div>
+    </ng-template>
+
   </div>
 </div>
+
+
+
 
 <!--Rubrique reservation en cours-->
 <div class="card mb-2">
@@ -84,14 +106,30 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let reservation of listHistoriqueReservations">
-          <td scope="row">
-            {{reservation.dateDepart.toDateString()}}<br />{{reservation.dateDepart.toLocaleTimeString()}}
-          </td>
-          <td>{{reservation.dateArrivee.toDateString()}}<br />{{reservation.dateDepart.toLocaleTimeString()}}</td>
-          <td>{{reservation.nomResponsable|uppercase}}<br />{{reservation.prenomResponsable|lowercase}}</td>
-        </tr>
+        <ng-container
+          *ngIf="!reservationVehiculeHistoVide && !erreurHistoriqueReservations; else elseBlockEncours">
+          <tr *ngFor="let reservation of listHistoriqueReservations">
+            <td scope="row">
+              {{reservation.dateDepart.toDateString()}}<br />{{reservation.dateDepart.toLocaleTimeString()}}
+            </td>
+            <td>{{reservation.dateArrivee.toDateString()}}<br />{{reservation.dateDepart.toLocaleTimeString()}}</td>
+            <td>{{reservation.nomResponsable|uppercase}}<br />{{reservation.prenomResponsable|lowercase}}</td>
+          </tr>
+        </ng-container>
       </tbody>
     </table>
+    <!--Block d'erreur si list vide-->
+    <ng-template #elseBlockEncours>
+      <div class="col-12">
+        <ng-container *ngIf="reservationVehiculeHistoVide">
+          <div class="alert alert-warning" role="alert">Aucune historique de reservation pour ce vehicule.</div>
+        </ng-container>
+
+        <!--Block d'erreur si list non récupperé -->
+        <ng-container *ngIf="erreurHistoriqueReservations">
+          <div class="alert alert-danger" role="alert">Erreur : Impossible de récupérer l'historique de reservation pour ce vehicule.</div>
+        </ng-container>
+      </div>
+    </ng-template>
   </div>
 </div>
