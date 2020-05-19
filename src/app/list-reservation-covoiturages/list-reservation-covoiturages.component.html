@@ -35,7 +35,7 @@
                   <button ngbButton class="btn btn-danger" id="annuler" disabled>Annuler </button>
                 </ng-template>
               </td>
-              
+
             </tr>
           </ng-container>
         </tbody>
@@ -75,7 +75,7 @@
         </tr>
       </thead>
       <tbody>
-        <ng-container *ngIf="!erreurAnnonceHisto && !annonceHistoVide; else elseBlockHisto">
+        <ng-container *ngIf="!annonceHistoVide; else elseBlockHisto">
           <tr *ngFor="let annonce of listAnnoncesHistoriqueAffichage">
             <td scope="row">{{annonce.dateDepart.toDateString()}}<br />{{annonce.dateDepart.toLocaleTimeString()}}
             </td>
@@ -90,10 +90,10 @@
 
     <ng-template #elseBlockHisto>
       <div class="col-12">
-        <ng-template *ngIf="annonceHistoVide">
+        <ng-container *ngIf="annonceHistoVide">
           <div class="alert alert-warning" role="alert">
-            Vous n'avez pas de réservation de covoiturage en cours.</div>
-        </ng-template>
+            Vous n'avez pas de réservation de covoiturage dans l'historique.</div>
+        </ng-container>
         <ng-container *ngIf="erreurAnnonceHisto">
           <div class="alert alert-danger" role="alert">
             Erreur : Impossible de récupérer la liste de vos covoiturrage en cours.
