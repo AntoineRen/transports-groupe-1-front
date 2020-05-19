@@ -44,6 +44,7 @@ import {MatCardModule} from '@angular/material/card';
 import { OccupationComponent } from './occupation/occupation.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { DetailsVehiculeComponent } from './details-vehicule/details-vehicule.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { DetailsVehiculeComponent } from './details-vehicule/details-vehicule.co
     LesChauffeursComponent,
     DetailsVehiculeComponent,
 
+
   ],
   imports: [
     BrowserModule,
@@ -93,7 +95,7 @@ import { DetailsVehiculeComponent } from './details-vehicule/details-vehicule.co
     }),
     MatCardModule,
     NgApexchartsModule,
-
+    ToastrModule.forRoot()
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS ,
