@@ -24,19 +24,27 @@ export class DetailsVehiculeComponent implements OnInit {
 
   listProchainesReservations: ReservationVehicule[];
   isErreurProchainesReservations: boolean = false;
-  erreurProchainesReservations: string;
+  reservationVehiculeEnCoursVide = false;
+  erreurreservationVehiculeEnCours = false;
 
   //Attributs pour liste historique reservation
 
   listHistoriqueReservations: ReservationVehicule[];
   isErreurHistoriqueReservations: boolean = false;
-  erreurHistoriqueReservations: string;
+  erreurHistoriqueReservations = false;
+  reservationVehiculeHistoVide = false;
+
+
+
+
+
 
   constructor(private route: ActivatedRoute, private router: Router, private detailsVehiculeService: DetailsVehiculeService) { }
 
   subDetailsVehiculeService(): void {
     this.detailsVehiculeService.getvehiculeByImmatriculation(this.immatriculation)
       .subscribe((vehiculeServer) => { this.vehicule = vehiculeServer; }, error => this.erreurGetVehicule = true);
+
   }
 
 
@@ -45,6 +53,8 @@ export class DetailsVehiculeComponent implements OnInit {
       .subscribe(listResaServer => {
         this.listProchainesReservations = listResaServer
           .map(reservation => new ReservationVehicule(reservation));
+        this.reservationVehiculeEnCoursVide =
+          this.listProchainesReservations.length === 0;
       }, err => {
         this.isErreurProchainesReservations = true;
       });
@@ -55,14 +65,16 @@ export class DetailsVehiculeComponent implements OnInit {
       .subscribe(listResaServer => {
         this.listHistoriqueReservations = listResaServer
           .map(reservation => new ReservationVehicule(reservation));
+        this.reservationVehiculeHistoVide =
+          this.listHistoriqueReservations.length === 0;
       }, err => {
-        this.isErreurProchainesReservations = true;
+        this.isErreurHistoriqueReservations = true;
       });
   }
 
   onRefresh(statut: string) {
     this.detailsVehiculeService.putStatutVehicule(statut, this.vehicule.immatriculation)
-    .subscribe((vehiculeServer) => { this.vehicule = vehiculeServer; }, error => this.erreurGetVehicule = true);
+      .subscribe((vehiculeServer) => { this.vehicule = vehiculeServer; }, error => this.erreurGetVehicule = true);
     //.subscribe(letruc=>this.lemachin =letruc);
 
   }
