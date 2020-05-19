@@ -1,0 +1,32 @@
+.card{
+    border: 2px solid #004F2F;
+    
+}
+td{
+    border-top: 2px solid #004F2F;
+}
+thead{
+    color:#F8FFB9;
+    border: 2px solid #004F2F;
+    background-color: #408874;
+}
+.btn#details{
+    border: 2px solid #57CBC6;
+    background-color:#57CBC6;
+    color:#F8FFB9;
+}
+.btn#annuler{
+    border: 2px solid #A80D1D;
+    background-color:#A80D1D;
+    color:#F8FFB9
+}
+.btn#details:hover{
+    border: 2px solid #57CBC6;
+    background-color:#79D5D1;
+    color:#F8FFB9;
+}
+.btn#annuler:hover:enabled{
+    border: 2px solid #A80D1D;
+    background-color:#B93D4A;
+    color:#F8FFB9
+}

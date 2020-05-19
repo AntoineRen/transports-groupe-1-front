@@ -6,11 +6,11 @@
 
   <!-- Switch day -->
   <div class="col-12 text-right">
-    <button class="btn" (click)="jourPrecedent()">
+    <button class="btn" id="previous" (click)="jourPrecedent()">
       <fa-icon [icon]="faChevronLeft" style="font-size: 25px;"></fa-icon>
     </button>
     <span style="font-size: 20px;">{{viewDate.toLocaleDateString()}}</span>
-    <button class="btn" (click)="jourSuivant()">
+    <button class="btn" id="after" (click)="jourSuivant()">
       <fa-icon [icon]="faChevronRight" style="font-size: 25px;"></fa-icon>
     </button>
   </div>
@@ -91,12 +91,12 @@
         </div>
         <ng-container *ngIf="weekEvent.event.meta.statut === 'EN_ATTENTE'; else elseBlockStatut">
 
-          <button class="btn btn-outline-dark float-right" (click)="updateReservation(weekEvent.event)">Accepter la
+          <button class="btn btn-outline-dark float-right" id="accepter" (click)="updateReservation(weekEvent.event)">Accepter la
             demande</button>
         </ng-container>
         <ng-template #elseBlockStatut>
 
-          <div class="btn float-right" style="color: #408874">Demande Accepté</div>
+          <div class="btn float-right">Demande Accepté</div>
         </ng-template>
       </div>
     </div>

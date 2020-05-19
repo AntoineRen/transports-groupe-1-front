@@ -20,8 +20,7 @@
 <div class="row">
   <div class="col-sm-12 ">
     <!-- Button modal -->
-    <button type="button" class="btn float-right" data-toggle="modal" data-target="#exampleModalCenter"
-      style="background-color:#004F2F;color:#F8FFB9;">
+    <button type="button" class="btn float-right" id="ajout" data-toggle="modal" data-target="#exampleModalCenter">
       Ajouter un véhicule
     </button>
   </div>
@@ -143,7 +142,7 @@
         <div class="modal-footer">
           <button type="button" class="btn" data-dismiss="modal"
             style="background-color:#A80D1D;color:#F8FFB9">Annuler</button>
-          <button type="button" class="btn" style="background-color:#004F2F;color:#F8FFB9"
+          <button type="button" class="btn" id="ajout"
             [disabled]="vehiculeForm.invalid" (click)="AjoutVehicule()">Ajouter</button>
         </div>
       </form>

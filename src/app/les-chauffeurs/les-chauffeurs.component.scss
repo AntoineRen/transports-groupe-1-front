@@ -20,4 +20,50 @@
 .card .header {
   margin-bottom:5px;
 }
-
+mat-card{
+  border: 2px solid #004F2F;
+}
+mat-card-content{
+  margin-top: 10px;
+  border-top: 2px solid #004F2F;
+}
+mat-card-header{
+  color:#004F2F;
+}
+#imgChauffeur{
+  margin: 0px;
+  margin-top: 5px;
+  width: 22rem;
+  border: 3px solid #004F2F;
+}
+input{
+  border: 2px solid #004F2F;
+  box-shadow: none;
+}
+input:focus{
+  border: 2px solid #004F2F;
+  box-shadow: none;
+}
+.btn#ajout{
+  background-color: #004F2F;
+  border: 2px solid #337259;
+  color:#F8FFB9;
+  box-shadow: none;
+}
+.btn#ajout:hover:enabled{
+background-color:#337259;
+border: 2px solid #004F2F;
+box-shadow: none;
+}
+.btn#annuler{
+  border: 2px solid #B93D4A;
+  background-color:#A80D1D;
+  color:#F8FFB9;
+  box-shadow: none;
+}
+.btn#annuler:hover:enabled{
+  border: 2px solid #A80D1D;
+  background-color:#B93D4A;
+  color:#F8FFB9;
+  box-shadow: none;
+}

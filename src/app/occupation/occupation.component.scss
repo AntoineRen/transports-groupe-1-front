@@ -1,0 +1,20 @@
+.form-control {
+    border: 1px solid #004F2F;
+}
+  .form-control:focus{
+    box-shadow: none;
+  }
+  .btn{
+    height: 38px;
+    border: 2px solid #004F2F;
+    color:#004F2F;
+  }
+  .btn:hover:enabled{
+    height: 38px;
+    border: 2px solid #004F2F;
+    background-color:#97B7AA;
+    color:#004F2F;
+  }
+  .btn:focus:enabled{
+    box-shadow: none;
+  }
