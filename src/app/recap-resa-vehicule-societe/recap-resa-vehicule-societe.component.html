@@ -5,8 +5,6 @@
       <h3>Réservations en cours</h3>
     </div>
 
-
-
       <table class="table">
         <thead>
           <tr>
@@ -19,7 +17,7 @@
           </tr>
         </thead>
         <tbody>
-          <ng-container *ngIf="!erreurReservationEnCours && !reservationEnCoursVide; else elseBlockEncours">
+          <ng-container *ngIf="!erreurReservationEnCours && !reservationEnCoursVide">
             <tr *ngFor="let reservation of reservationsCourantes">
               <td scope="row">
                 {{reservation.dateDepart.toDateString()}}<br />{{reservation.dateDepart.toLocaleTimeString()}}
@@ -41,7 +39,7 @@
         </tbody>
       </table>
 
-      <ng-template #elseBlockEncours>
+      <ng-container *ngIf="erreurReservationEnCours || reservationEnCoursVide">
         <div class="col-12">
           <ng-container *ngIf="reservationEnCoursVide">
 
@@ -54,7 +52,7 @@
               cours.</div>
           </ng-container>
         </div>
-      </ng-template>
+      </ng-container>
   </div>
 
   <div class="card ">
@@ -76,7 +74,7 @@
             </tr>
           </thead>
           <tbody>
-            <ng-container *ngIf="!erreurReservationHisto && !reservationHistoVide; else elseBlockHisto">
+            <ng-container *ngIf="!erreurReservationHisto && !reservationHistoVide;">
               <tr *ngFor="let reservation of reservationsHistoriqueAffiche">
                 <td scope="row">
                   {{reservation.dateDepart.toDateString()}}<br />{{reservation.dateDepart.toLocaleTimeString()}}
@@ -99,7 +97,7 @@
           </tbody>
         </table>
 
-        <ng-template #elseBlockHisto>
+        <ng-container *ngIf="erreurReservationHisto || reservationHistoVide;">
           <div class="col-12">
             <ng-container *ngIf="reservationHistoVide">
 
@@ -112,7 +110,7 @@
               </div>
             </ng-container>
           </div>
-        </ng-template>
+        </ng-container>
 
         <ng-container *ngIf="nombrePagemax > 1">
           <div class="col-12">
