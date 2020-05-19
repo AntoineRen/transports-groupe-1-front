@@ -10,39 +10,51 @@ import { VehiculeServeur } from '../vehicules/vehiculeServeur.domains';
 })
 export class MapComponent implements AfterViewInit {
   map;
-  listVehicule: VehiculeServeur [];
 
-  smallIcon = new L.Icon({
-    iconUrl: 'https://publicdomainvectors.org/photos/simple-travel-car-top_view.png',
-    iconRetinaUrl: 'https://publicdomainvectors.org/photos/simple-travel-car-top_view.png',
-    iconSize:    [35, 51],
-    iconAnchor:  [22, 51],
-    popupAnchor: [1, -34],
-    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-    shadowSize:  [41, 41]
-  });
+  markerLayer = L.layerGroup();
+
 
   constructor(private mapService: MapService) { }
 
   ngAfterViewInit(): void {
     this.createMap();
 
-      this.simulationVoiture();
 
+    this.simulationVoiture();
 
   }
 
-  simulationVoiture(){
-    this.mapService.simulation().subscribe(res => {this.listVehicule = res , console.log(res)});
+  simulationVoiture() {
+    this.mapService.simulation().subscribe(
+      vehicules => {
+
+        this.markerLayer.clearLayers();
+
+        for (const vehicule of vehicules) {
+          const coord = {
+            lat: vehicule.latitude,
+            lng: vehicule.longitude,
+          };
+
+          const popup = {
+            coords: coord,
+            text: vehicule.immatriculation,
+            open: false
+          };
+
+          this.addMarker(popup);
+        }
+
+      });
   }
 
   createMap() {
     const initCoord = {
-      lat: 43.296153,
-      lng: 5.372716,
+      lat: 47.094553,
+      lng: 2.451135,
     };
 
-    const zoomLevel = 8;
+    const zoomLevel = 6;
 
     this.map = L.map('map', {
       center: [initCoord.lat, initCoord.lng],
@@ -50,26 +62,20 @@ export class MapComponent implements AfterViewInit {
     });
 
     const mainLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      minZoom: 7,
+      minZoom: 2,
       maxZoom: 17,
     });
 
     mainLayer.addTo(this.map);
-    const monText = `Transport GDT EXPRESS`;
-    const popupOptions = {
-      coords: initCoord,
-      text: monText,
-      open: true
-    };
-    this.addMarker(popupOptions);
+    this.markerLayer.addTo(this.map);
   }
 
-  addMarker({coords, text, open}) {
-    const marker = L.marker([coords.lat, coords.lng], { icon: this.smallIcon });
+  addMarker({ coords, text, open }) {
+    const marker = L.marker([coords.lat, coords.lng]);
     if (open) {
-      marker.addTo(this.map).bindPopup(text).openPopup();
+      marker.addTo(this.markerLayer).bindPopup(text).openPopup();
     } else {
-      marker.addTo(this.map).bindPopup(text);
+      marker.addTo(this.markerLayer).bindPopup(text);
     }
   }
 

@@ -14,9 +14,7 @@ export class MapService {
   constructor(private httpClient: HttpClient) { }
 
   simulation(): Observable<VehiculeServeur[]> {
-    return this.httpClient.get<VehiculeServeur[]>(URL_BACKEND).pipe(
-      delay(20000)
-    );
+    return this.httpClient.get<VehiculeServeur[]>(URL_BACKEND);
   }
 
 }
