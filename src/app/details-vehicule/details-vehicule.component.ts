@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Vehicule } from '../vehicules/vehicule';
 import { DetailsVehiculeService } from './details-vehicule.service';
-import { ReservationVehicule, ReservationVehiculeServeur } from './details-vehicule.model';
+import { ReservationVehicule } from './details-vehicule.model';
+
+
 
 
 @Component({
@@ -17,13 +19,14 @@ export class DetailsVehiculeComponent implements OnInit {
   vehicule: Vehicule;
   erreurGetVehicule: boolean = false;
 
+
   //Attributs pour liste des procahaines reservations
 
   listProchainesReservations: ReservationVehicule[];
   isErreurProchainesReservations: boolean = false;
   erreurProchainesReservations: string;
 
- //Attributs pour liste historique reservation
+  //Attributs pour liste historique reservation
 
   listHistoriqueReservations: ReservationVehicule[];
   isErreurHistoriqueReservations: boolean = false;
@@ -35,6 +38,8 @@ export class DetailsVehiculeComponent implements OnInit {
     this.detailsVehiculeService.getvehiculeByImmatriculation(this.immatriculation)
       .subscribe((vehiculeServer) => { this.vehicule = vehiculeServer; }, error => this.erreurGetVehicule = true);
   }
+
+
   subProchainesReservationsByVehicule(): void {
     this.detailsVehiculeService.getProchainesReservationsByVehicule(this.immatriculation)
       .subscribe(listResaServer => {
@@ -55,7 +60,12 @@ export class DetailsVehiculeComponent implements OnInit {
       });
   }
 
+  onRefresh(statut: string) {
+    this.detailsVehiculeService.putStatutVehicule(statut, this.vehicule.immatriculation)
+    .subscribe((vehiculeServer) => { this.vehicule = vehiculeServer; }, error => this.erreurGetVehicule = true);
+    //.subscribe(letruc=>this.lemachin =letruc);
 
+  }
   ngOnInit(): void {
     this.immatriculation = this.route.snapshot.params['immatriculation'];
     this.subDetailsVehiculeService();
