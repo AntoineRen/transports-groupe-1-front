@@ -11,6 +11,8 @@ import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-boo
 import { Subscription } from 'rxjs';
 import { Annonce } from '../pub-annonce/annonce';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { error } from 'protractor';
 @Component({
   selector: 'app-reserver-covoiturage',
   templateUrl: './reserver-covoiturage.component.html',
@@ -56,7 +58,7 @@ export class ReserverCovoiturageComponent implements OnInit {
   //Constructeur
 
   constructor(private adresseService: AdresseService,
-    private annoncesCovoit: AnnonceCovoitService, private modalService: NgbModal, private servicePut: AnnonceCovoitService,  private router: Router) {
+    private annoncesCovoit: AnnonceCovoitService, private modalService: NgbModal, private servicePut: AnnonceCovoitService,  private router: Router, private toastr: ToastrService) {
 
     //Récuperation Adresse Lieu de depart via bakcend
     this.reservationCovoitForm.get('lieuDepart').valueChanges
@@ -73,7 +75,7 @@ export class ReserverCovoiturageComponent implements OnInit {
       });
     //Recupération Adresse Lieu de destinaiton  via bakcend
     this.reservationCovoitForm.get('lieuDestination').valueChanges.pipe(
-      tap(unLieuDepart => {this.filtreLieuDepartCovoit(unLieuDepart),this.coordCalculate(unLieuDepart)}),
+      tap(unLieuDest => {this.filtreLieuDepartCovoit(unLieuDest),this.coordCalculate(unLieuDest)}),
       tap(() => this.isLoading = true),
       switchMap(value => this.adresseService.search(value)
         .pipe(
@@ -152,15 +154,23 @@ export class ReserverCovoiturageComponent implements OnInit {
   }
   //methode pour filtrer annonce en fonction du lieu de depart, seul les lieu de depart complet sont acceptés
 
-  filtreLieuDepartCovoit(unLieuDepart) {
+  filtreLieuDepartCovoit(unLieu) {
     this.listFiltreLieuDepart.length = 0;
-    if (typeof unLieuDepart === 'object' && unLieuDepart != null ) {
+    if (typeof unLieu === 'object' && unLieu != null ) {
+      if (this.reservationCovoitForm.get('lieuDepart').value === unLieu) {
       for (let i = 0; i < this.listAnnoncesCovoit.length; i++) {
-        if (this.listAnnoncesCovoit[i].lieuDepart === this.adresseFn(unLieuDepart)) {
+        if (this.listAnnoncesCovoit[i].lieuDepart === this.adresseFn(unLieu)) {
           this.listFiltreLieuDepart.push(this.listAnnoncesCovoit[i]);
-
+        }
         }
       }
+      if (this.reservationCovoitForm.get('lieuDestination').value === unLieu) {
+        for (let i = 0; i < this.listAnnoncesCovoit.length; i++) {
+          if (this.listAnnoncesCovoit[i].lieuDestination === this.adresseFn(unLieu)) {
+            this.listFiltreLieuDepart.push(this.listAnnoncesCovoit[i]);
+          }
+          }
+        }
     }
   }
 
@@ -168,8 +178,10 @@ export class ReserverCovoiturageComponent implements OnInit {
   reserver(reservationCovoit: Annonce) {
     this.servicePut.putReservation(reservationCovoit.id)
       .subscribe((annonce) => {
+        this.toastr.success("Votre réservation a bien été créé.", 'Réservation');
         this.router.navigate(['/collaborateur/reservations']);
       },
+      error => this.toastr.error("Une erreur s'est produite lors de votre réservation.", 'Réservation')
       );
   }
 

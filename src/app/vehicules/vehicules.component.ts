@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Categorie } from './vehiculeCategorie';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -33,7 +34,7 @@ export class VehiculesComponent implements OnInit {
     ReactiveFormControleVehiculeImat : new FormControl(''),
     ReactiveFormControleVehiculeModel : new FormControl('')
   });
-  constructor(private vehiculesService : VehiculesService , private modalService: NgbModal) {
+  constructor(private vehiculesService : VehiculesService , private modalService: NgbModal, private toastr: ToastrService) {
     this.profileFormControleVehicule.valueChanges.pipe(
       map( ()=>{
         let filterVehiculeTemp:Vehicule[];
@@ -67,7 +68,9 @@ export class VehiculesComponent implements OnInit {
     this.vehiculesService.requestPostVehicule(this.immatriculation.toLocaleUpperCase(), this.marque.toLocaleUpperCase(), this.modele.toLocaleLowerCase(), this.catChoose, this.nbPlace, this.photoUrl)
     .subscribe( ()=>{
       this.valider.emit();
+      this.toastr.success('Le véhicule a été bien été créé.', 'Véhicule');
     },(error:HttpErrorResponse)=>{
+      this.toastr.error("Une erreur s'est produite lors de la création du véhicule.", 'Véhicule');
       console.log(error);
     });
   }
