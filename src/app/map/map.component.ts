@@ -14,9 +14,9 @@ export class MapComponent implements AfterViewInit {
   markerLayer = L.layerGroup();
 
   voitureIcon = L.icon({
-    iconUrl: 'https://cdn.icon-icons.com/icons2/235/PNG/256/Car_Top_Red_26349.png',
-    iconRetinaUrl: 'https://cdn.icon-icons.com/icons2/235/PNG/256/Car_Top_Red_26349.png',
-    iconSize:    [25, 41],
+    iconUrl: 'https://i.dlpng.com/static/png/6566580_preview.png',
+    iconRetinaUrl: 'https://i.dlpng.com/static/png/6566580_preview.png',
+    iconSize:    [70, 45],
     iconAnchor:  [12, 41],
     popupAnchor: [1, -34],
     shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
