@@ -132,7 +132,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text" style="width: 10rem;">Photo:</span>
             </div>
-            <input type="url" class="form-control" placeholder="URL de la photo" pattern="https://.*|http://"
+            <input type="url" class="form-control" placeholder="URL de la photo" pattern="https://.*|http://.*"
               name="photoUrl" [(ngModel)]="photoUrl" #urlP="ngModel" required>
           </div>
           <div *ngIf="urlP.invalid  && (urlP.dirty || urlP.touched)">
