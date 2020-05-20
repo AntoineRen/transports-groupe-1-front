@@ -13,6 +13,16 @@ export class MapComponent implements AfterViewInit {
 
   markerLayer = L.layerGroup();
 
+  voitureIcon = L.icon({
+    iconUrl: 'https://cdn.icon-icons.com/icons2/235/PNG/256/Car_Top_Red_26349.png',
+    iconRetinaUrl: 'https://cdn.icon-icons.com/icons2/235/PNG/256/Car_Top_Red_26349.png',
+    iconSize:    [25, 41],
+    iconAnchor:  [12, 41],
+    popupAnchor: [1, -34],
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    shadowSize:  [41, 41]
+  });
+
   constructor(private mapService: MapService) { }
 
   ngAfterViewInit(): void {
@@ -79,7 +89,7 @@ export class MapComponent implements AfterViewInit {
   }
 
   addMarker({ coords, text, open }) {
-    const marker = L.marker([coords.lat, coords.lng]);
+    const marker = L.marker([coords.lat, coords.lng], { icon: this.voitureIcon });
     if (open) {
       marker.addTo(this.markerLayer).bindPopup(text).openPopup();
     } else {
