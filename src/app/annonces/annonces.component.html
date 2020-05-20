@@ -62,7 +62,7 @@
 
           <!--Block d'erreur si la list non récupperé -->
           <ng-container *ngIf="erreurAnnonceEnCours">
-            <div class="alert alert-danger" role="alert">Erreur : Impossible de récupérer la liste de vos covoiturrage
+            <div class="alert alert-danger" role="alert">Erreur : Impossible de récupérer la liste de vos annonces
               en
               cours.</div>
           </ng-container>
@@ -107,11 +107,11 @@
           <div class="col-12">
             <ng-container *ngIf="annonceHistoVide">
               <div class="alert alert-warning" role="alert">
-                Vous n'avez pas de réservation de covoiturage en cours.</div>
+                Vous n'avez pas d'annonce dans l'historique.</div>
             </ng-container>
             <ng-container *ngIf="erreurAnnonceHisto">
               <div class="alert alert-danger" role="alert">
-                Erreur : Impossible de récupérer la liste de vos covoiturrage en cours.
+                Erreur : Impossible de récupérer la liste de vos annonces en cours.
               </div>
             </ng-container>
           </div>

@@ -50,7 +50,7 @@
 
           <!--Block d'erreur si list non récupperé -->
           <ng-container *ngIf="erreurAnnonceEnCours">
-            <div class="alert alert-danger" role="alert">Erreur : Impossible de récupérer la liste de vos covoiturrage
+            <div class="alert alert-danger" role="alert">Erreur : Impossible de récupérer la liste de vos covoiturages
               en cours.</div>
           </ng-container>
         </div>
@@ -75,7 +75,7 @@
         </tr>
       </thead>
       <tbody>
-        <ng-container *ngIf="!annonceHistoVide; else elseBlockHisto">
+        <ng-container *ngIf="!annonceHistoVide && !erreurAnnonceEnCours ; else elseBlockHisto">
           <tr *ngFor="let annonce of listAnnoncesHistoriqueAffichage">
             <td scope="row">{{annonce.dateDepart.toDateString()}}<br />{{annonce.dateDepart.toLocaleTimeString()}}
             </td>
@@ -96,7 +96,7 @@
         </ng-container>
         <ng-container *ngIf="erreurAnnonceHisto">
           <div class="alert alert-danger" role="alert">
-            Erreur : Impossible de récupérer la liste de vos covoiturrage en cours.
+            Erreur : Impossible de récupérer la liste de vos covoiturages en cours.
           </div>
         </ng-container>
       </div>
