@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+  - "12"
+before_script:
+  - npm install
+script:
+  - npm run build
+  - cd dist/transports-groupe-1-front && cp index.html 404.html
+deploy:
+  local-dir: dist/transports-groupe-1-front
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  on:
+    branch: master
+notifications:
+  email: false
