@@ -25,6 +25,9 @@ export class AuthInterceptorService implements HttpInterceptor {
 
     }else {
       const cRequest = req.clone({
+        setHeaders: {
+          'Access-Control-Allow-Origin' : '*',
+        },
         withCredentials: true
       });
 
