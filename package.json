@@ -4,12 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "cross-var ng build --prod --base-href https://$GH_ORG.github.io/$APP_REPO/",
+    "build": "cross-var ng build --prod --base-href https://AntoineRen.github.io/transports-groupe-1-front/",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "prepare-prod": "node prepare-prod.js",
-    "deploy": "cross-var ngh --no-silent --dir=dist/front --name=jenkins --email=jenkins@jenkins.io --repo=https://github.com/$GH_ORG/$APP_REPO.git"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
